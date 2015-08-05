@@ -6,7 +6,16 @@
     <string name="action_settings">Settings</string>
     <string name="company">南京壹前零后信息技术有限公司</string>
     <string name="copyright">版权所有</string>
+    <string name="wine_logistics">酒来了物流端</string>
 
+    <!-- account -->
+    <string name="login_emptyname_or_emptypwd">用户名或密码为空，请重新输入</string>
+    <string name="login">登录</string>
+    <string name="phone">手机</string>
+    <string name="psw">密码</string>
+    <string name="reg">注册</string>
+    <string name="login_successful">登录成功</string>
+    <string name="login_fail">登录失败</string>
     <!--  -->
     <string name="rob_order">抢单</string>
 

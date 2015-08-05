@@ -30,7 +30,7 @@ public class SplashActivity extends BaseActivity {
 
 			@Override
 			public void run() {
-				openActivity(HomeActivity.class);
+				openActivity(LoginActivity.class);
 				SplashActivity.this.finish();
 			}
 		}, SPLISH_DISPLAY_LENGTH);
