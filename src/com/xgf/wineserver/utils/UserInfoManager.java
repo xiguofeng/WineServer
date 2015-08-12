@@ -3,6 +3,7 @@ package com.xgf.wineserver.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.xgf.wineserver.entity.User;
 
@@ -52,6 +53,7 @@ public class UserInfoManager {
 
 		UserInfoManager.userInfo.setUserId(userInfoPreferences.getString(
 				USER_ID_KEY, ""));
+		Log.e("xxx_id", UserInfoManager.userInfo.getUserId());
 
 		UserInfoManager.userInfo.setUserName(userInfoPreferences.getString(
 				USER_NAME_KEY, ""));

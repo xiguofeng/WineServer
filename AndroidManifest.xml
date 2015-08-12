@@ -31,6 +31,7 @@
 
     <application
         android:allowBackup="true"
+        android:persistent="true"
         android:icon="@drawable/logo_app"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -67,6 +68,19 @@
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop" >
         </activity>
+
+        <service android:name="com.xgf.wineserver.service.MsgService" >
+            <intent-filter>
+                <action android:name="com.xgf.wineserver.service.MsgService" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.xgf.wineserver.service.GuardService"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.xgf.wineserver.service.GuardService" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

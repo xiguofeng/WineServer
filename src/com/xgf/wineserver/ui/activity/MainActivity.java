@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +18,8 @@ import com.baidu.location.BDLocation;
 import com.xgf.wineserver.R;
 import com.xgf.wineserver.entity.Order;
 import com.xgf.wineserver.network.logic.OrderLogic;
+import com.xgf.wineserver.service.GuardService;
+import com.xgf.wineserver.service.MsgService;
 import com.xgf.wineserver.ui.adapter.OrderAdapter;
 import com.xgf.wineserver.utils.LocationUtilsV5;
 import com.xgf.wineserver.utils.LocationUtilsV5.LocationCallback;
@@ -28,9 +31,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private ListView mOrderLv;
 
-	private ArrayList<Order> mOrderList = new ArrayList<Order>();
+	private static ArrayList<Order> mOrderList = new ArrayList<Order>();
 
-	private OrderAdapter mOrderAdapter;
+	private static OrderAdapter mOrderAdapter;
 
 	private String mLat;
 
@@ -94,10 +97,17 @@ public class MainActivity extends Activity implements OnClickListener {
 	private void initData() {
 		mOrderList.clear();
 		mOrderAdapter.notifyDataSetChanged();
-		getLoc();
+		// getLoc();
 
-		// OrderLogic.getRobOrder(mContext, mHandler,
-		// UserInfoManager.userInfo.getUserName(), mLon, mLat);
+		Intent intent = new Intent(getApplicationContext(), MsgService.class);
+		getApplicationContext().startService(intent);
+
+	}
+
+	public static void refresh() {
+		mOrderList.clear();
+		mOrderList.addAll(MsgService.orderList);
+		mOrderAdapter.notifyDataSetChanged();
 	}
 
 	private void getLoc() {

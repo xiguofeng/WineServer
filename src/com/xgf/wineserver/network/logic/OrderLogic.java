@@ -18,6 +18,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.os.UserManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -26,6 +27,7 @@ import com.xgf.wineserver.entity.Order;
 import com.xgf.wineserver.network.config.MsgResult;
 import com.xgf.wineserver.network.config.RequestUrl;
 import com.xgf.wineserver.utils.JsonUtils;
+import com.xgf.wineserver.utils.UserInfoManager;
 
 public class OrderLogic {
 
@@ -58,11 +60,12 @@ public class OrderLogic {
 			@Override
 			public void run() {
 				try {
+
 					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
 							RequestUrl.order.queryOrderForGrab);
 
-					rpc.addProperty("userId",
-							URLEncoder.encode(userId, "UTF-8"));
+					rpc.addProperty("userId", URLEncoder.encode(
+							UserInfoManager.userInfo.getUserId(), "UTF-8"));
 					rpc.addProperty("longitude",
 							URLEncoder.encode(longitude, "UTF-8"));
 					rpc.addProperty("latitude",

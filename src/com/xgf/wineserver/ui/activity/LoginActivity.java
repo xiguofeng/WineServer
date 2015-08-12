@@ -137,7 +137,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			// }
 		} else {
 			if (UserInfoManager.getRememberPwd(mContext)) {
-				UserInfoManager.setUserInfo(LoginActivity.this);
+				//UserInfoManager.setUserInfo(LoginActivity.this);
 				mUserNameEt.setText("13611586008");
 				mPassWordEt.setText("123456");
 				mRemberpswCb.setChecked(true);
@@ -163,7 +163,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			mUser.setUserName(mUserName);
 			mUser.setPassword(mPassWord);
 			UserLogic.login(mContext, mLoginHandler, mUser);
-			// 启动登陆线程
 		}
 	}
 
