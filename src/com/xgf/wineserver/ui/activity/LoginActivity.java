@@ -56,7 +56,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 					UserInfoManager.setLoginIn(LoginActivity.this, true);
 
 					Intent intent = new Intent(LoginActivity.this,
-							MainActivity.class);
+							HomeActivity.class);
 					startActivity(intent);
 					LoginActivity.this.finish();
 					overridePendingTransition(R.anim.push_left_in,
