@@ -50,8 +50,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			case UserLogic.LOGIN_SUC: {
 				if (null != msg.obj) {
 					mUser = (User) msg.obj;
-					UserInfoManager.saveUserInfo(LoginActivity.this,
-							mUser.getUserName(), mUser.getPassword(), mUser);
+					UserInfoManager.saveUserInfo(LoginActivity.this, mUser);
 					UserInfoManager.setUserInfo(LoginActivity.this);
 					UserInfoManager.setLoginIn(LoginActivity.this, true);
 
@@ -139,11 +138,14 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		} else {
 			if (UserInfoManager.getRememberPwd(mContext)) {
 				UserInfoManager.setUserInfo(LoginActivity.this);
-				mUserNameEt.setText(UserInfoManager.userInfo.getUserName());
-				mPassWordEt.setText(UserInfoManager.userInfo.getPassword());
+				mUserNameEt.setText("13611586008");
+				mPassWordEt.setText("123456");
 				mRemberpswCb.setChecked(true);
 			}
 		}
+
+		mUserNameEt.setText("13611586008");
+		mPassWordEt.setText("123456");
 
 	}
 

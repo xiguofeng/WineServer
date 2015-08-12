@@ -52,7 +52,7 @@ public class RequestUrl {
 
 	public interface order {
 
-		public String createOrder = "createOrder";
+		public String queryOrderForGrab = "queryOrderForGrab";
 
 		/**
 		 * 非标商品的创建订单请求

@@ -73,11 +73,11 @@ public class OrderAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.mDistanceTv.setText(mDatas.get(position).getBuyAddress());
-		holder.mTimeTv.setText(mDatas.get(position).getTime());
-		holder.mInfoTv.setText(mDatas.get(position).getGoodsName());
-		holder.mWaitTimeTv.setText(mDatas.get(position).getTime());
-		holder.mAddressTv.setText(mDatas.get(position).getGoodsName());
+		holder.mDistanceTv.setText(mDatas.get(position).getAddress());
+		holder.mTimeTv.setText(mDatas.get(position).getAmount());
+		holder.mInfoTv.setText(mDatas.get(position).getAddress());
+		holder.mWaitTimeTv.setText(mDatas.get(position).getAddress());
+		holder.mAddressTv.setText(mDatas.get(position).getAddress());
 
 		holder.mRobBtn.setOnClickListener(new OnClickListener() {
 

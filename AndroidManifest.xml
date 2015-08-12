@@ -34,6 +34,10 @@
         android:icon="@drawable/logo_app"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="0W2fh4u8vWGWUuxn0D859o7g" />
+
         <activity
             android:name="com.xgf.wineserver.ui.activity.SplashActivity"
             android:label="@string/app_name" >
@@ -53,7 +57,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop" >
         </activity>
-           <activity
+        <activity
             android:name="com.xgf.wineserver.ui.activity.HomeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop" >

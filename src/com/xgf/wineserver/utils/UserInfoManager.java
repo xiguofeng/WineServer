@@ -74,8 +74,7 @@ public class UserInfoManager {
 	 * @param user
 	 *            登录成功后，服务器返回的用户信息
 	 */
-	public static void saveUserInfo(Context context, String userName,
-			String userPass, User user) {
+	public static void saveUserInfo(Context context, User user) {
 		if (null != user) {
 			SharedPreferences.Editor userInfoSp = context.getSharedPreferences(
 					USER_INFO_PREFERNCE_KEY, Context.MODE_PRIVATE).edit();
@@ -83,8 +82,8 @@ public class UserInfoManager {
 			userInfoSp.putString(USER_ID_KEY, null == user.getUserId() ? ""
 					: user.getUserId());
 
-			userInfoSp.putString(USER_NAME_KEY, userName);
-			userInfoSp.putString(USER_PWD_KEY, userPass);
+			userInfoSp.putString(USER_NAME_KEY, user.getUserName());
+			userInfoSp.putString(USER_PWD_KEY, user.getPassword());
 
 			userInfoSp.putString(USER_SEX_KEY, null == user.getSex() ? ""
 					: user.getSex());
