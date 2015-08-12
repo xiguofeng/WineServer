@@ -21,21 +21,9 @@ public class UserInfoManager {
 
 	public static final String USER_PWD_KEY = "password";
 
-	public static final String USER_REAL_NAME_KEY = "realname";
-
-	public static final String USER_COMPANY_NAME_KEY = "companyname";
-
-	public static final String USER_PROVINCE_KEY = "province";
-
-	public static final String USER_CITY_KEY = "city";
-
-	public static final String USER_BIRTHDAY_KEY = "birthday";
-
 	public static final String USER_SEX_KEY = "sex";
 
 	public static final String USER_SIGNATURE_KEY = "signature";
-
-	public static final String USER_LAST_LOGINTIME_KEY = "last_login_time";
 
 	public static final String USER_LAST_LOGINIP_KEY = "last_login_ip";
 
@@ -62,31 +50,19 @@ public class UserInfoManager {
 		SharedPreferences userInfoPreferences = context.getSharedPreferences(
 				USER_INFO_PREFERNCE_KEY, Context.MODE_PRIVATE);
 
-		UserInfoManager.userInfo.setId(userInfoPreferences.getString(
+		UserInfoManager.userInfo.setUserId(userInfoPreferences.getString(
 				USER_ID_KEY, ""));
 
-		UserInfoManager.userInfo.setUsername(userInfoPreferences.getString(
+		UserInfoManager.userInfo.setUserName(userInfoPreferences.getString(
 				USER_NAME_KEY, ""));
 		UserInfoManager.userInfo.setPassword(userInfoPreferences.getString(
 				USER_PWD_KEY, ""));
-		UserInfoManager.userInfo.setRealName(userInfoPreferences.getString(
-				USER_REAL_NAME_KEY, ""));
-		UserInfoManager.userInfo.setCompanyname(userInfoPreferences.getString(
-				USER_COMPANY_NAME_KEY, ""));
-		UserInfoManager.userInfo.setProvince(userInfoPreferences.getString(
-				USER_PROVINCE_KEY, ""));
-		UserInfoManager.userInfo.setCity(userInfoPreferences.getString(
-				USER_CITY_KEY, ""));
 
 		UserInfoManager.userInfo.setSex(userInfoPreferences.getString(
 				USER_SEX_KEY, ""));
 		UserInfoManager.userInfo.setSignature(userInfoPreferences.getString(
 				USER_SIGNATURE_KEY, ""));
-		UserInfoManager.userInfo.setBirthday(userInfoPreferences.getString(
-				USER_BIRTHDAY_KEY, ""));
 
-		UserInfoManager.userInfo.setLastLoginTime(userInfoPreferences
-				.getString(USER_LAST_LOGINTIME_KEY, ""));
 	}
 
 	/**
@@ -104,26 +80,17 @@ public class UserInfoManager {
 			SharedPreferences.Editor userInfoSp = context.getSharedPreferences(
 					USER_INFO_PREFERNCE_KEY, Context.MODE_PRIVATE).edit();
 
-			userInfoSp.putString(USER_ID_KEY,
-					null == user.getId() ? "" : user.getId());
+			userInfoSp.putString(USER_ID_KEY, null == user.getUserId() ? ""
+					: user.getUserId());
 
 			userInfoSp.putString(USER_NAME_KEY, userName);
 			userInfoSp.putString(USER_PWD_KEY, userPass);
-			userInfoSp.putString(USER_REAL_NAME_KEY, user.getRealName());
-			userInfoSp.putString(USER_COMPANY_NAME_KEY, user.getCompanyname());
-			userInfoSp.putString(USER_PROVINCE_KEY,
-					null == user.getProvince() ? "" : user.getProvince());
-			userInfoSp.putString(USER_CITY_KEY, null == user.getCity() ? ""
-					: user.getCity());
 
-			userInfoSp.putString(USER_SEX_KEY,
-					null == user.getSex() ? "" : user.getSex());
+			userInfoSp.putString(USER_SEX_KEY, null == user.getSex() ? ""
+					: user.getSex());
 			userInfoSp.putString(USER_SIGNATURE_KEY,
 					null == user.getSignature() ? "" : user.getSignature());
-			userInfoSp.putString(USER_BIRTHDAY_KEY,
-					null == user.getBirthday() ? "" : user.getBirthday());
-			userInfoSp.putString(USER_LAST_LOGINTIME_KEY, null == user
-					.getLastLoginTime() ? "" : user.getLastLoginTime());
+
 			userInfoSp.commit();
 		}
 
@@ -137,33 +104,21 @@ public class UserInfoManager {
 
 		userInfoSp.putString(USER_NAME_KEY, "");
 		userInfoSp.putString(USER_PWD_KEY, "");
-		userInfoSp.putString(USER_REAL_NAME_KEY, "");
-		userInfoSp.putString(USER_COMPANY_NAME_KEY, "");
-		userInfoSp.putString(USER_PROVINCE_KEY, "");
-		userInfoSp.putString(USER_CITY_KEY, "");
 
-		userInfoSp.putString(USER_BIRTHDAY_KEY, "");
 		userInfoSp.putString(USER_SEX_KEY, "");
 		userInfoSp.putString(USER_SIGNATURE_KEY, "");
-		userInfoSp.putString(USER_LAST_LOGINTIME_KEY, "");
 
 		userInfoSp.putBoolean(USER_LOGIN_IN_IS_AUTO, false);
 		userInfoSp.putBoolean(USER_REMEMBER_PSW, false);
 		userInfoSp.commit();
 
-		UserInfoManager.userInfo.setId("");
+		UserInfoManager.userInfo.setUserId("");
 
-		UserInfoManager.userInfo.setUsername("");
+		UserInfoManager.userInfo.setUserName("");
 		UserInfoManager.userInfo.setPassword("");
-		UserInfoManager.userInfo.setRealName("");
-		UserInfoManager.userInfo.setCompanyname("");
-		UserInfoManager.userInfo.setProvince("");
-		UserInfoManager.userInfo.setCity("");
-
-		UserInfoManager.userInfo.setBirthday("");
 		UserInfoManager.userInfo.setSex("");
 		UserInfoManager.userInfo.setSignature("");
-		UserInfoManager.userInfo.setLastLoginTime("");
+		UserInfoManager.userInfo.setTimestamp("");
 	}
 
 	/**

@@ -9,11 +9,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xgf.wineserver.R;
@@ -32,10 +30,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private EditText mUserNameEt;
 	private EditText mPassWordEt;
 	private CheckBox mRemberpswCb;
-	private TextView mShortcutBuyTv;
 	// private LinearLayout layoutProcess;
 	private Button mLoginBtn;
-	private Button mRegNewUserBtn;
 
 	private String mUserName;
 	private String mPassWord;
@@ -43,8 +39,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private User mUser = new User();
 
 	private Context mContext = LoginActivity.this;
-
-	private String mComeFlag;
 
 	// 登陆装填提示handler更新主线程，提示登陆状态情况
 	Handler mLoginHandler = new Handler() {
@@ -54,18 +48,20 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			int what = msg.what;
 			switch (what) {
 			case UserLogic.LOGIN_SUC: {
+				if (null != msg.obj) {
+					mUser = (User) msg.obj;
+					UserInfoManager.saveUserInfo(LoginActivity.this,
+							mUser.getUserName(), mUser.getPassword(), mUser);
+					UserInfoManager.setUserInfo(LoginActivity.this);
+					UserInfoManager.setLoginIn(LoginActivity.this, true);
 
-				UserInfoManager.saveUserInfo(LoginActivity.this,
-						mUser.getUsername(), mUser.getPassword(), mUser);
-				UserInfoManager.setUserInfo(LoginActivity.this);
-				UserInfoManager.setLoginIn(LoginActivity.this, true);
-
-				Intent intent = new Intent(LoginActivity.this,
-						MainActivity.class);
-				startActivity(intent);
-				LoginActivity.this.finish();
-				overridePendingTransition(R.anim.push_left_in,
-						R.anim.push_left_out);
+					Intent intent = new Intent(LoginActivity.this,
+							MainActivity.class);
+					startActivity(intent);
+					LoginActivity.this.finish();
+					overridePendingTransition(R.anim.push_left_in,
+							R.anim.push_left_out);
+				}
 
 				break;
 			}
@@ -97,10 +93,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		initView();
 		initData();
 
-		// 启动activity时不自动弹出软键盘
-		getWindow().setSoftInputMode(
-				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
 	}
 
 	protected void initView() {
@@ -115,19 +107,18 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private void initData() {
 		if (!TextUtils.isEmpty(getIntent().getAction())
 				&& getIntent().getAction().equals(ORIGIN_FROM_REG_KEY)) {
-			mUserNameEt.setText(UserInfoManager.userInfo.getUsername());
+			mUserNameEt.setText(UserInfoManager.userInfo.getUserName());
 			mPassWordEt.setText(UserInfoManager.userInfo.getPassword());
 			login();
-			mComeFlag = ORIGIN_FROM_REG_KEY;
+
 		} else if (!TextUtils.isEmpty(getIntent().getAction())
 				&& getIntent().getAction().equals(ORIGIN_FROM_ORDER_KEY)) {
 
 			if (UserInfoManager.getRememberPwd(mContext)) {
-				mUserNameEt.setText(UserInfoManager.userInfo.getUsername());
+				mUserNameEt.setText(UserInfoManager.userInfo.getUserName());
 				mPassWordEt.setText(UserInfoManager.userInfo.getPassword());
 			}
 			// mShortcutBuyTv.setVisibility(View.GONE);
-			mComeFlag = ORIGIN_FROM_ORDER_KEY;
 			// // 检测是否存在SD卡，存在SD卡的情况下进行判断文件是否存在
 			// if (AndroidTools.isHasSD()) {
 			// // 检测是否存在文件，不存在，则创建xml文件
@@ -148,7 +139,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		} else {
 			if (UserInfoManager.getRememberPwd(mContext)) {
 				UserInfoManager.setUserInfo(LoginActivity.this);
-				mUserNameEt.setText(UserInfoManager.userInfo.getUsername());
+				mUserNameEt.setText(UserInfoManager.userInfo.getUserName());
 				mPassWordEt.setText(UserInfoManager.userInfo.getPassword());
 				mRemberpswCb.setChecked(true);
 			}
@@ -167,7 +158,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 					mContext.getString(R.string.login_emptyname_or_emptypwd),
 					Toast.LENGTH_SHORT).show();
 		} else {
-			mUser.setUsername(mUserName);
+			mUser.setUserName(mUserName);
 			mUser.setPassword(mPassWord);
 			UserLogic.login(mContext, mLoginHandler, mUser);
 			// 启动登陆线程

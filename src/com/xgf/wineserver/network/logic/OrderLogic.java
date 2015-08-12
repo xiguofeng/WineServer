@@ -24,7 +24,6 @@ import com.xgf.wineserver.entity.Goods;
 import com.xgf.wineserver.entity.Order;
 import com.xgf.wineserver.network.config.MsgResult;
 import com.xgf.wineserver.network.config.RequestUrl;
-import com.xgf.wineserver.utils.OrderManager;
 
 public class OrderLogic {
 

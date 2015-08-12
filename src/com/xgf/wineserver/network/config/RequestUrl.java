@@ -25,12 +25,12 @@ public class RequestUrl {
 		/**
 		 * 登陆
 		 */
-		public String login = "login";
+		public String login = "loginDelivery";
 
 	}
 
 	public interface goods {
-		
+
 		/**
 		 * 查询全部商品
 		 */
