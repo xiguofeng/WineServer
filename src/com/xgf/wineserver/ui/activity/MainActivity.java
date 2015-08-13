@@ -96,9 +96,18 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private void initData() {
 		mOrderList.clear();
+		for (int i = 0; i < 10; i++) {
+			Order order = new Order();
+			order.setMemo("1.5km");
+			order.setDeliveryTime("30分钟");
+			order.setAddress("南京市江宁区" + i);
+			order.setOrderTime("今天15:00");
+			order.setAmount("洋河酒");
+			mOrderList.add(order);
+		}
+
 		mOrderAdapter.notifyDataSetChanged();
 		// getLoc();
-
 		Intent intent = new Intent(getApplicationContext(), MsgService.class);
 		getApplicationContext().startService(intent);
 

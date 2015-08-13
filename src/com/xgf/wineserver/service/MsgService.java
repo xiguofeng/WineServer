@@ -85,7 +85,7 @@ public class MsgService extends Service {
 			case OrderLogic.ORDER_GRAB_LIST_SUC: {
 				if (null != msg.obj) {
 					orderList.addAll((Collection<? extends Order>) msg.obj);
-					MainActivity.refresh();
+					//MainActivity.refresh();
 				}
 				break;
 			}

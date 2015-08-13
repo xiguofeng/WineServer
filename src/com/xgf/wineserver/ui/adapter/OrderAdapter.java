@@ -57,7 +57,7 @@ public class OrderAdapter extends BaseAdapter {
 			holder.mDistanceTv = (TextView) convertView
 					.findViewById(R.id.list_order_distance_tv);
 			holder.mTimeTv = (TextView) convertView
-					.findViewById(R.id.list_order_wait_time_tv);
+					.findViewById(R.id.list_order_time_tv);
 			holder.mInfoTv = (TextView) convertView
 					.findViewById(R.id.list_order_info_tv);
 			holder.mWaitTimeTv = (TextView) convertView
@@ -73,10 +73,10 @@ public class OrderAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.mDistanceTv.setText(mDatas.get(position).getAddress());
-		holder.mTimeTv.setText(mDatas.get(position).getAmount());
-		holder.mInfoTv.setText(mDatas.get(position).getAddress());
-		holder.mWaitTimeTv.setText(mDatas.get(position).getAddress());
+		holder.mDistanceTv.setText(mDatas.get(position).getMemo());
+		holder.mTimeTv.setText(mDatas.get(position).getOrderTime());
+		holder.mInfoTv.setText(mDatas.get(position).getAmount());
+		holder.mWaitTimeTv.setText(mDatas.get(position).getDeliveryTime());
 		holder.mAddressTv.setText(mDatas.get(position).getAddress());
 
 		holder.mRobBtn.setOnClickListener(new OnClickListener() {

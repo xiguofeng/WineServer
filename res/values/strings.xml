@@ -16,7 +16,8 @@
     <string name="reg">注册</string>
     <string name="login_successful">登录成功</string>
     <string name="login_fail">登录失败</string>
-    <!--  -->
-    <string name="rob_order">抢单</string>
+    
+    <!-- menu -->
+     <string name="rob_order">抢单</string>
 
 </resources>
