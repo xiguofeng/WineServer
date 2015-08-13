@@ -28,25 +28,27 @@ public class ModifyPswActivity extends BaseActivity implements OnClickListener,
 	private EditText mPhoneEt;
 	private EditText mAuthCodeEt;
 	private EditText mPassWordEt;
-	private EditText mConfirmPswEt;
+	private EditText mConfirmPwdEt;
 
 	private Button mModifyBtn;
 
 	private String mUserName;
 	private String mPassWord;
+	private String mConfirmPwd;
+	private String mAuthCode;
 
 	private User mUser = new User();
 
 	private Context mContext = ModifyPswActivity.this;
 
 	// 登陆装填提示handler更新主线程，提示登陆状态情况
-	Handler mLoginHandler = new Handler() {
+	Handler mHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
 			int what = msg.what;
 			switch (what) {
-			case UserLogic.LOGIN_SUC: {
+			case UserLogic.MODIFY_PWD_SUC: {
 				if (null != msg.obj) {
 					mUser = (User) msg.obj;
 					UserInfoManager.saveUserInfo(ModifyPswActivity.this, mUser);
@@ -63,12 +65,12 @@ public class ModifyPswActivity extends BaseActivity implements OnClickListener,
 
 				break;
 			}
-			case UserLogic.LOGIN_FAIL: {
+			case UserLogic.MODIFY_PWD_FAIL: {
 				// Toast.makeText(mContext, R.string.login_fail,
 				// Toast.LENGTH_SHORT).show();
 				break;
 			}
-			case UserLogic.LOGIN_EXCEPTION: {
+			case UserLogic.MODIFY_PWD_EXCEPTION: {
 				break;
 			}
 			case UserLogic.NET_ERROR: {
@@ -97,25 +99,33 @@ public class ModifyPswActivity extends BaseActivity implements OnClickListener,
 		mPhoneEt = (EditText) findViewById(R.id.modify_psw_phone_et);
 		mAuthCodeEt = (EditText) findViewById(R.id.modify_psw_code_et);
 		mPassWordEt = (EditText) findViewById(R.id.modify_psw_psw_et);
-		mConfirmPswEt = (EditText) findViewById(R.id.modify_psw_confirm_psw_et);
+		mConfirmPwdEt = (EditText) findViewById(R.id.modify_psw_confirm_psw_et);
+
+		mPhoneEt.addTextChangedListener(this);
+		mAuthCodeEt.addTextChangedListener(this);
+		mPassWordEt.addTextChangedListener(this);
+		mConfirmPwdEt.addTextChangedListener(this);
 
 		mModifyBtn = (Button) findViewById(R.id.modify_psw_btn);
 		mModifyBtn.setOnClickListener(this);
 	}
 
 	private void initData() {
-
 		mPhoneEt.setText("13611586008");
 		mPassWordEt.setText("123456");
-
+		mConfirmPwdEt.setText("123456");
 	}
 
 	private void modify() {
 		// 获取用户的登录信息，连接服务器，获取登录状态
 		mUserName = mPhoneEt.getText().toString().trim();
 		mPassWord = mPassWordEt.getText().toString().trim();
+		mConfirmPwd = mConfirmPwdEt.getText().toString().trim();
+		mAuthCode = mAuthCodeEt.getText().toString().trim();
 
-		if ("".equals(mUserName) || "".equals(mPassWord)) {
+		if (TextUtils.isEmpty(mUserName) || TextUtils.isEmpty(mPassWord)
+				|| TextUtils.isEmpty(mAuthCode)
+				|| TextUtils.isEmpty(mConfirmPwd)) {
 			// layoutProcess.setVisibility(View.GONE);
 			Toast.makeText(ModifyPswActivity.this,
 					mContext.getString(R.string.login_emptyname_or_emptypwd),
@@ -123,7 +133,7 @@ public class ModifyPswActivity extends BaseActivity implements OnClickListener,
 		} else {
 			mUser.setUserName(mUserName);
 			mUser.setPassword(mPassWord);
-			UserLogic.login(mContext, mLoginHandler, mUser);
+			UserLogic.modifyPwd(mContext, mHandler, mUser, mAuthCode);
 		}
 	}
 
@@ -137,15 +147,15 @@ public class ModifyPswActivity extends BaseActivity implements OnClickListener,
 		if (TextUtils.isEmpty(mPassWordEt.getText().toString().trim())) {
 			mPassWordEt.setError(getString(R.string.user_psw_hint));
 		}
-		if (TextUtils.isEmpty(mConfirmPswEt.getText().toString().trim())) {
-			mConfirmPswEt.setError(getString(R.string.user_confirm_psw_hint));
+		if (TextUtils.isEmpty(mConfirmPwdEt.getText().toString().trim())) {
+			mConfirmPwdEt.setError(getString(R.string.user_confirm_psw_hint));
 		}
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.login_btn: {
+		case R.id.modify_psw_btn: {
 			modify();
 			break;
 		}
@@ -171,7 +181,7 @@ public class ModifyPswActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
-		updateShow();
+		// updateShow();
 	}
 
 }

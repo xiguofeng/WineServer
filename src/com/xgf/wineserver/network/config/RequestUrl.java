@@ -27,6 +27,8 @@ public class RequestUrl {
 		 */
 		public String login = "loginDelivery";
 
+		public String modifyPwd = "changePwd";
+
 	}
 
 	public interface goods {
@@ -53,7 +55,7 @@ public class RequestUrl {
 	public interface order {
 
 		public String queryOrderForGrab = "queryOrderForGrab";
-		
+
 		public String grabOrder = "grab";
 
 		/**

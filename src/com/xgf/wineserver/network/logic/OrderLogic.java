@@ -388,7 +388,7 @@ public class OrderLogic {
 
 					String resultStr = (String) so.getProperty(0);
 
-					Log.e("xxx_orders_result", resultStr.toString());
+					Log.e("xxx_recieveConfirm_result", resultStr.toString());
 					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
 						parseRecieveConfirmData(obj, handler);
@@ -407,6 +407,7 @@ public class OrderLogic {
 
 	}
 
+	// {"datas":"{}","message":"验证码错误","result":"10001"}
 	private static void parseRecieveConfirmData(JSONObject response,
 			Handler handler) {
 

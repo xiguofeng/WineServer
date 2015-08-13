@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import com.xgf.wineserver.R;
 import com.xgf.wineserver.network.logic.OrderLogic;
+import com.xgf.wineserver.utils.UserInfoManager;
 
 public class LogisticsConfirmActivity extends Activity implements
 		OnClickListener {
@@ -27,16 +28,16 @@ public class LogisticsConfirmActivity extends Activity implements
 		public void handleMessage(Message msg) {
 			int what = msg.what;
 			switch (what) {
-			case OrderLogic.ORDER_GRAB_LIST_SUC: {
+			case OrderLogic.ORDER_CONFIRM_SUC: {
 				if (null != msg.obj) {
 				}
 				break;
 			}
-			case OrderLogic.ORDER_GRAB_LIST_FAIL: {
+			case OrderLogic.ORDER_CONFIRM_FAIL: {
 
 				break;
 			}
-			case OrderLogic.ORDER_GRAB_LIST_EXCEPTION: {
+			case OrderLogic.ORDER_CONFIRM_EXCEPTION: {
 				break;
 			}
 			case OrderLogic.NET_ERROR: {
@@ -67,7 +68,7 @@ public class LogisticsConfirmActivity extends Activity implements
 		mContext = LogisticsConfirmActivity.this;
 		mCodeEt = (EditText) findViewById(R.id.logistics_confirm_code_et);
 		mSubmitBtn = (Button) findViewById(R.id.logistics_confirm_btn);
-
+		mSubmitBtn.setOnClickListener(this);
 	}
 
 	@Override
@@ -75,6 +76,10 @@ public class LogisticsConfirmActivity extends Activity implements
 		switch (v.getId()) {
 		case R.id.logistics_confirm_btn: {
 			if (!TextUtils.isEmpty(mCodeEt.getText().toString().trim())) {
+
+				OrderLogic.recieveConfirm(mContext, mHandler,
+						UserInfoManager.userInfo.getUserId(), mCodeEt.getText()
+								.toString().trim());
 
 			} else {
 

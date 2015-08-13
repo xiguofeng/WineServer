@@ -16,6 +16,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.xgf.wineserver.entity.User;
 import com.xgf.wineserver.network.config.MsgResult;
@@ -115,6 +116,83 @@ public class UserLogic {
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(LOGIN_EXCEPTION);
+		}
+	}
+
+	public static void modifyPwd(final Context context, final Handler handler,
+			final User user, final String authCode) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.account.modifyPwd);
+
+					rpc.addProperty("account",
+							URLEncoder.encode(user.getUserName(), "UTF-8"));
+					rpc.addProperty("password", JMD5.encode(user.getPassword()));
+					rpc.addProperty("authCode",
+							URLEncoder.encode(authCode, "UTF-8"));
+
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
+
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
+
+					envelope.bodyOut = rpc;
+					envelope.dotNet = true;
+					envelope.setOutputSoapObject(rpc);
+
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.account.modifyPwd, envelope);
+
+					SoapObject so = (SoapObject) envelope.bodyIn;
+
+					String resultStr = (String) so.getProperty(0);
+
+					Log.e("xxx_modifyPwd", resultStr);
+					if (!TextUtils.isEmpty(resultStr)) {
+						JSONObject obj = new JSONObject(resultStr);
+						parseModifyPwdData(obj, handler);
+					}
+
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (XmlPullParserException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
+	}
+
+	//{"datas":"{}","message":"验证码错误","result":"10001"}
+	private static void parseModifyPwdData(JSONObject response, Handler handler) {
+		try {
+			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
+			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
+				handler.sendEmptyMessage(MODIFY_PWD_FAIL);
+			} else {
+				JSONObject jsonObject = response
+						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+				User user = (User) JsonUtils.fromJsonToJava(jsonObject,
+						User.class);
+				Message message = new Message();
+				message.what = MODIFY_PWD_SUC;
+				message.obj = user;
+				handler.sendMessage(message);
+			}
+		} catch (JSONException e) {
+			handler.sendEmptyMessage(MODIFY_PWD_EXCEPTION);
 		}
 	}
 
