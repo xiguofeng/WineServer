@@ -55,18 +55,14 @@ public class RequestUrl {
 		public String queryOrderForGrab = "queryOrderForGrab";
 
 		/**
-		 * 非标商品的创建订单请求
+		 * 获取抢单历史(已抢订单)
 		 */
-		public String buyCreateOrder2 = "/order/create2";
+		public String queryOrderOfDelivery = "queryOrderOfDelivery";
 
 		/**
-		 * 买家订单
+		 * 订单确认
 		 */
-		public String queryBuyerOrder = "/order/queryBuyerOrder";
-		/**
-		 * 卖家订单
-		 */
-		public String querySellerOrder = "/order/querySellerOrder";
+		public String recieveConfirm = "recieveConfirm";
 
 	}
 

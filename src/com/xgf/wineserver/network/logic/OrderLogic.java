@@ -38,17 +38,17 @@ public class OrderLogic {
 
 	public static final int ORDER_GRAB_LIST_EXCEPTION = ORDER_GRAB_LIST_FAIL + 1;
 
-	public static final int ORDERLIST_GET_SUC = ORDER_GRAB_LIST_EXCEPTION + 1;
+	public static final int ORDERLIST_HISTORY_GET_SUC = ORDER_GRAB_LIST_EXCEPTION + 1;
 
-	public static final int ORDERLIST_GET_FAIL = ORDERLIST_GET_SUC + 1;
+	public static final int ORDERLIST_HISTORY_GET_FAIL = ORDERLIST_HISTORY_GET_SUC + 1;
 
-	public static final int ORDERLIST_GET_EXCEPTION = ORDERLIST_GET_FAIL + 1;
+	public static final int ORDERLIST_HISTORY_GET_EXCEPTION = ORDERLIST_HISTORY_GET_FAIL + 1;
 
-	public static final int ORDER_CANCEL_SUC = ORDERLIST_GET_EXCEPTION + 1;
+	public static final int ORDER_CONFIRM_SUC = ORDERLIST_HISTORY_GET_EXCEPTION + 1;
 
-	public static final int ORDER_CANCEL_FAIL = ORDER_CANCEL_SUC + 1;
+	public static final int ORDER_CONFIRM_FAIL = ORDER_CONFIRM_SUC + 1;
 
-	public static final int ORDER_CANCEL_EXCEPTION = ORDER_CANCEL_FAIL + 1;
+	public static final int ORDER_CONFIRM_EXCEPTION = ORDER_CONFIRM_FAIL + 1;
 
 	public static void getRobOrder(final Context context,
 			final Handler handler, final String userId, final String longitude,
@@ -141,8 +141,10 @@ public class OrderLogic {
 		}
 	}
 
-	public static void getOrders(final Context context, final Handler handler,
-			final String phone, final String pageNum, final String pageSize) {
+	public static void getGrabOrdersHistory(final Context context,
+			final Handler handler, final String userId,
+			final String orderStatus, final String pageNum,
+			final String pageSize) {
 
 		new Thread(new Runnable() {
 
@@ -150,9 +152,12 @@ public class OrderLogic {
 			public void run() {
 				try {
 					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
-							RequestUrl.order.queryOrderForGrab);
+							RequestUrl.order.queryOrderOfDelivery);
 
-					rpc.addProperty("phone", URLEncoder.encode(phone, "UTF-8"));
+					rpc.addProperty("userId",
+							URLEncoder.encode(userId, "UTF-8"));
+					rpc.addProperty("orderStatus",
+							URLEncoder.encode(orderStatus, "UTF-8"));
 					rpc.addProperty("pageNum",
 							URLEncoder.encode(pageNum, "UTF-8"));
 					rpc.addProperty("pageSize",
@@ -170,17 +175,17 @@ public class OrderLogic {
 					envelope.setOutputSoapObject(rpc);
 
 					ht.call(RequestUrl.NAMESPACE + "/"
-							+ RequestUrl.order.queryOrderForGrab, envelope);
+							+ RequestUrl.order.queryOrderOfDelivery, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
 
 					if (!TextUtils.isEmpty(resultStr)) {
-
-						Log.e("xxx_orders_result", resultStr.toString());
+						Log.e("xxx_GrabOrdersHistory_result",
+								resultStr.toString());
 						JSONObject obj = new JSONObject(resultStr);
-						parseOrdersData(obj, handler);
+						parseGrabOrdersHistoryData(obj, handler);
 					}
 
 				} catch (UnsupportedEncodingException e) {
@@ -198,12 +203,13 @@ public class OrderLogic {
 	}
 
 	// {"datas":{"total":"4","list":[{"phone":"1002","orderTime":"2015-08-06 16:35:26","orderStatus":"1","id":"","amount":"240","deliveryTime":"2030-00-00 00:00:00","address":"1234","payStatus":"","memo":"","items":[{"productId":"10002","productName":"海之蓝","salePrice":"120","count":"2"}]},{"phone":"1002","orderTime":"2015-08-06 16:35:47","orderStatus":"1","id":"","amount":"240","deliveryTime":"2030-00-00 00:00:00","address":"1234","payStatus":"","memo":"","items":[{"productId":"10002","productName":"海之蓝","salePrice":"120","count":"2"}]},{"phone":"1002","orderTime":"2015-08-06 16:44:35","orderStatus":"1","id":"","amount":"628","deliveryTime":"2030-00-00 00:00:00","address":"1234","payStatus":"","memo":"","items":[{"productId":"10002","productName":"海之蓝","salePrice":"120","count":"2"},{"productId":"2222","productName":"梦之蓝9","salePrice":"388","count":"1"}]},{"phone":"1002","orderTime":"2015-08-06 16:44:48","orderStatus":"1","id":"","amount":"628","deliveryTime":"2030-00-00 00:00:00","address":"1234","payStatus":"","memo":"","items":[{"productId":"10002","productName":"海之蓝","salePrice":"120","count":"2"},{"productId":"2222","productName":"梦之蓝9","salePrice":"388","count":"1"}]}]},"message":"操作成功",,"result":"0"}
-	private static void parseOrdersData(JSONObject response, Handler handler) {
+	private static void parseGrabOrdersHistoryData(JSONObject response,
+			Handler handler) {
 
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
-				handler.sendEmptyMessage(ORDERLIST_GET_FAIL);
+				handler.sendEmptyMessage(ORDERLIST_HISTORY_GET_FAIL);
 			} else {
 				JSONObject jsonObject = response
 						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
@@ -244,12 +250,98 @@ public class OrderLogic {
 				// msgMap.put(MsgResult.ORDER_TAG, tempOrderList);
 
 				Message message = new Message();
-				message.what = ORDERLIST_GET_SUC;
+				message.what = ORDERLIST_HISTORY_GET_SUC;
 				message.obj = msgMap;
 				handler.sendMessage(message);
 			}
 		} catch (JSONException e) {
-			handler.sendEmptyMessage(ORDERLIST_GET_EXCEPTION);
+			handler.sendEmptyMessage(ORDERLIST_HISTORY_GET_EXCEPTION);
+		}
+	}
+
+	public static void recieveConfirm(final Context context,
+			final Handler handler, final String userId, final String authCode) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.order.recieveConfirm);
+
+					rpc.addProperty("userId", URLEncoder.encode(
+							UserInfoManager.userInfo.getUserId(), "UTF-8"));
+					rpc.addProperty("authCode",
+							URLEncoder.encode(authCode, "UTF-8"));
+
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
+
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
+
+					envelope.bodyOut = rpc;
+					envelope.dotNet = true;
+					envelope.setOutputSoapObject(rpc);
+
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.order.recieveConfirm, envelope);
+
+					SoapObject so = (SoapObject) envelope.bodyIn;
+
+					String resultStr = (String) so.getProperty(0);
+
+					Log.e("xxx_orders_result", resultStr.toString());
+					if (!TextUtils.isEmpty(resultStr)) {
+						JSONObject obj = new JSONObject(resultStr);
+						parseRecieveConfirmData(obj, handler);
+					}
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (XmlPullParserException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
+	}
+
+	private static void parseRecieveConfirmData(JSONObject response, Handler handler) {
+
+		try {
+			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
+			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
+				handler.sendEmptyMessage(ORDER_CONFIRM_FAIL);
+			} else {
+				JSONObject jsonObject = response
+						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+
+				ArrayList<Order> tempOrderList = new ArrayList<Order>();
+				JSONArray orderListArray = jsonObject
+						.getJSONArray(MsgResult.RESULT_LIST_TAG);
+
+				int size = orderListArray.length();
+				for (int i = 0; i < size; i++) {
+					JSONObject orderJsonObject = orderListArray
+							.getJSONObject(i);
+					Order order = (Order) JsonUtils.fromJsonToJava(
+							orderJsonObject, Order.class);
+					tempOrderList.add(order);
+				}
+
+				Message message = new Message();
+				message.what = ORDER_CONFIRM_SUC;
+				message.obj = tempOrderList;
+				handler.sendMessage(message);
+			}
+		} catch (JSONException e) {
+			handler.sendEmptyMessage(ORDER_CONFIRM_EXCEPTION);
 		}
 	}
 
