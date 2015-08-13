@@ -31,5 +31,6 @@
     <string name="confirm">确定</string>
     <string name="logistics_code_hint">请输入验证码</string>
     <string name="get_verification_code">获取验证码</string>
+    <string name="mobile_phone_hint">请填写手机号码</string>
 
 </resources>

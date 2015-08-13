@@ -28,6 +28,12 @@ public class RequestUrl {
 		public String login = "loginDelivery";
 
 		public String modifyPwd = "changePwd";
+		
+		/**
+		 * 验证码
+		 */
+		public String sendAuthCode = "sendAuthCode";
+
 
 	}
 

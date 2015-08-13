@@ -75,9 +75,14 @@ public class OrderAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.mDistanceTv.setText(mDatas.get(position).getDistance()
-				.substring(0, 3)
-				+ "km");
+		if (mDatas.get(position).getDistance().length() > 3) {
+			holder.mDistanceTv.setText(mDatas.get(position).getDistance()
+					.substring(0, 3)
+					+ "km");
+		} else {
+			holder.mDistanceTv.setText(mDatas.get(position).getDistance()
+					+ "km");
+		}
 		holder.mTimeTv.setText(mDatas.get(position).getOrderTime());
 		holder.mInfoTv.setText(mDatas.get(position).getAmount());
 		holder.mWaitTimeTv.setText(mDatas.get(position).getDeliveryTime());
