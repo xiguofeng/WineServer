@@ -180,9 +180,5 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
 	}
 
-	@Override
-	protected void findViewById() {
-
-	}
 
 }

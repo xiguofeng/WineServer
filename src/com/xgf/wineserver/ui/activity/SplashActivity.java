@@ -20,10 +20,6 @@ public class SplashActivity extends BaseActivity {
 	}
 
 	@Override
-	protected void findViewById() {
-	}
-
-	@Override
 	protected void initView() {
 		// 启动三秒后进度到登陆界面
 		new Handler().postDelayed(new Runnable() {

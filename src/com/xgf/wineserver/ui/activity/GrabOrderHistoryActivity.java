@@ -24,7 +24,7 @@ import com.xgf.wineserver.utils.LocationUtilsV5;
 import com.xgf.wineserver.utils.LocationUtilsV5.LocationCallback;
 import com.xgf.wineserver.utils.UserInfoManager;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class GrabOrderHistoryActivity extends Activity implements OnClickListener {
 
 	private Context mContext;
 
@@ -73,8 +73,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
-		mContext = MainActivity.this;
+		setContentView(R.layout.grab_order_history);
+		mContext = GrabOrderHistoryActivity.this;
 		initView();
 		initData();
 	}
@@ -86,7 +86,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void initView() {
-		mContext = MainActivity.this;
+		mContext = GrabOrderHistoryActivity.this;
 		mOrderLv = (ListView) findViewById(R.id.main_order_list_lv);
 		mOrderAdapter = new OrderAdapter(mContext, mOrderList);
 		mOrderLv.setAdapter(mOrderAdapter);

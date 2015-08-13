@@ -18,7 +18,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.os.UserManager;
 import android.text.TextUtils;
 import android.util.Log;
 

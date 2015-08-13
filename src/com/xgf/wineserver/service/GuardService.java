@@ -5,8 +5,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.ActivityManager;
-import android.app.Service;
 import android.app.ActivityManager.RunningServiceInfo;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/gray_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue_title_bg" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="10dip"
+            android:text="@string/logistics_confirm"
+            android:textColor="@color/white"
+            android:textSize="@dimen/large_text_size" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="40dip"
+        android:background="@drawable/corners_bg_gray"
+        android:paddingBottom="5dip"
+        android:paddingTop="5dip" >
+
+        <EditText
+            android:id="@+id/logistics_confirm_code_et"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="@string/logistics_code_hint"
+            android:imeActionLabel="下一步"
+            android:imeOptions="actionNext|flagNoExtractUi"
+            android:maxLength="50"
+            android:paddingBottom="6.0dip"
+            android:paddingLeft="50dip"
+            android:paddingRight="50dip"
+            android:paddingTop="6.0dip"
+            android:singleLine="true"
+            android:textColor="@color/black_character"
+            android:textSize="@dimen/middle_text_size" />
+        <!-- android:imeOptions="actionNext|flagNoExtractUi" -->
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/logistics_confirm_code_et"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10dip"
+            android:src="@drawable/ic_code" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/logistics_confirm_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="20dip"
+        android:background="@drawable/corners_bg_red"
+        android:gravity="center"
+        android:paddingBottom="8dip"
+        android:paddingTop="8dip"
+        android:text="@string/submit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/large_text_size" />
+
+</LinearLayout>

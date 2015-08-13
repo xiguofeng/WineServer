@@ -3,7 +3,6 @@ package com.xgf.wineserver.utils;
 import java.util.ArrayList;
 
 import com.xgf.wineserver.entity.Goods;
-import com.xgf.wineserver.ui.activity.HomeActivity;
 
 public class OrderManager {
 
@@ -39,7 +38,6 @@ public class OrderManager {
 							.parseDouble(goods2.getSalesPrice()));
 		}
 
-		HomeActivity.modifyMainPayView(String.valueOf(totalPay));
 	}
 
 	public static void orderModifyByDetail(Goods goods) {
@@ -66,11 +64,7 @@ public class OrderManager {
 							.parseDouble(goods2.getSalesPrice()));
 		}
 
-		HomeActivity.modifyMainPayView(String.valueOf(totalPay));
 	}
 
-	public static void showOrhHidePayBar(boolean flag) {
-		HomeActivity.showOrhHideMainPayBar(flag);
-	}
 
 }

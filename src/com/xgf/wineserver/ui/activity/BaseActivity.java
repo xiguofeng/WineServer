@@ -55,11 +55,6 @@ public abstract class BaseActivity extends Activity {
 	}
 
 	/**
-	 * 绑定控件id
-	 */
-	protected abstract void findViewById();
-
-	/**
 	 * 初始化控件
 	 */
 	protected abstract void initView();
