@@ -1,5 +1,6 @@
 package com.xgf.wineserver.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,13 +16,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.xgf.wineserver.R;
 import com.xgf.wineserver.entity.User;
 import com.xgf.wineserver.network.logic.UserLogic;
 import com.xgf.wineserver.utils.UserInfoManager;
 
-public class ModifyPswActivity extends BaseActivity implements OnClickListener,
+@SuppressLint("NewApi")
+public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 		TextWatcher {
 	public static final String ORIGIN_FROM_REG_KEY = "com.reg";
 
@@ -49,7 +50,7 @@ public class ModifyPswActivity extends BaseActivity implements OnClickListener,
 
 	private int mTiming = 60;
 
-	private Context mContext = ModifyPswActivity.this;
+	private Context mContext = ModifyPwdActivity.this;
 
 	// 登陆装填提示handler更新主线程，提示登陆状态情况
 	Handler mHandler = new Handler() {
@@ -61,14 +62,14 @@ public class ModifyPswActivity extends BaseActivity implements OnClickListener,
 			case UserLogic.MODIFY_PWD_SUC: {
 				if (null != msg.obj) {
 					mUser = (User) msg.obj;
-					UserInfoManager.saveUserInfo(ModifyPswActivity.this, mUser);
-					UserInfoManager.setUserInfo(ModifyPswActivity.this);
-					UserInfoManager.setLoginIn(ModifyPswActivity.this, true);
+					UserInfoManager.saveUserInfo(ModifyPwdActivity.this, mUser);
+					UserInfoManager.setUserInfo(ModifyPwdActivity.this);
+					UserInfoManager.setLoginIn(ModifyPwdActivity.this, true);
 
-					Intent intent = new Intent(ModifyPswActivity.this,
+					Intent intent = new Intent(ModifyPwdActivity.this,
 							HomeActivity.class);
 					startActivity(intent);
-					ModifyPswActivity.this.finish();
+					ModifyPwdActivity.this.finish();
 					overridePendingTransition(R.anim.push_left_in,
 							R.anim.push_left_out);
 				}
@@ -119,13 +120,14 @@ public class ModifyPswActivity extends BaseActivity implements OnClickListener,
 					mTiming--;
 					mTimingTv.setText(String.valueOf(mTiming));
 					mAuthCodeLl.setClickable(false);
-					mAuthCodeLl.setBackgroundColor(getResources().getColor(
-							R.color.gray_bg));
+					mAuthCodeLl.setBackground(mContext.getResources()
+							.getDrawable(R.drawable.corners_bg_gray_all));
+					;
 					mTimeHandler.sendEmptyMessageDelayed(TIME_UPDATE, 1000);
 				} else {
 					mAuthCodeLl.setClickable(true);
-					mAuthCodeLl.setBackgroundColor(getResources().getColor(
-							R.color.orange_bg));
+					mAuthCodeLl.setBackground(mContext.getResources()
+							.getDrawable(R.drawable.corners_bg_orange_all));
 					mTimingTv
 							.setText(getString(R.string.get_verification_code));
 					mTiming = 60;
@@ -185,7 +187,7 @@ public class ModifyPswActivity extends BaseActivity implements OnClickListener,
 				|| TextUtils.isEmpty(mAuthCode)
 				|| TextUtils.isEmpty(mConfirmPwd)) {
 			// layoutProcess.setVisibility(View.GONE);
-			Toast.makeText(ModifyPswActivity.this,
+			Toast.makeText(ModifyPwdActivity.this,
 					mContext.getString(R.string.login_emptyname_or_emptypwd),
 					Toast.LENGTH_SHORT).show();
 		} else {

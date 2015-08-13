@@ -46,7 +46,7 @@ public class HomeActivity extends TabActivity implements
 		Intent i_home = new Intent(this, MainActivity.class);
 		Intent i_logi_confirm = new Intent(this, LogisticsConfirmActivity.class);
 		Intent i_history = new Intent(this, GrabOrderHistoryActivity.class);
-		Intent i_psw = new Intent(this, ModifyPswActivity.class);
+		Intent i_psw = new Intent(this, ModifyPwdActivity.class);
 
 		mTabHost.addTab(mTabHost.newTabSpec(TAB_MAIN).setIndicator(TAB_MAIN)
 				.setContent(i_home));
