@@ -53,6 +53,8 @@ public class RequestUrl {
 	public interface order {
 
 		public String queryOrderForGrab = "queryOrderForGrab";
+		
+		public String grabOrder = "grab";
 
 		/**
 		 * 获取抢单历史(已抢订单)

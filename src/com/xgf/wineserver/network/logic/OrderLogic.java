@@ -38,7 +38,13 @@ public class OrderLogic {
 
 	public static final int ORDER_GRAB_LIST_EXCEPTION = ORDER_GRAB_LIST_FAIL + 1;
 
-	public static final int ORDERLIST_HISTORY_GET_SUC = ORDER_GRAB_LIST_EXCEPTION + 1;
+	public static final int ORDER_GRAB_SUC = ORDER_GRAB_LIST_EXCEPTION + 1;
+
+	public static final int ORDER_GRAB_FAIL = ORDER_GRAB_SUC + 1;
+
+	public static final int ORDER_GRAB_EXCEPTION = ORDER_GRAB_FAIL + 1;
+
+	public static final int ORDERLIST_HISTORY_GET_SUC = ORDER_GRAB_EXCEPTION + 1;
 
 	public static final int ORDERLIST_HISTORY_GET_FAIL = ORDERLIST_HISTORY_GET_SUC + 1;
 
@@ -91,7 +97,7 @@ public class OrderLogic {
 					Log.e("xxx_orders_result", resultStr.toString());
 					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
-						parseGrabOrdersData(obj, handler);
+						parseGrabOrdersListData(obj, handler);
 					}
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
@@ -108,7 +114,8 @@ public class OrderLogic {
 	}
 
 	// {"datas":{"total":0,"list":[]},"message":"操作成功","result":"0"}
-	private static void parseGrabOrdersData(JSONObject response, Handler handler) {
+	private static void parseGrabOrdersListData(JSONObject response,
+			Handler handler) {
 
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
@@ -138,6 +145,94 @@ public class OrderLogic {
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(ORDER_GRAB_LIST_EXCEPTION);
+		}
+	}
+
+	public static void grabOrder(final Context context, final Handler handler,
+			final String userId, final String orderId) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
+							RequestUrl.order.grabOrder);
+
+					rpc.addProperty("userId", URLEncoder.encode(
+							UserInfoManager.userInfo.getUserId(), "UTF-8"));
+					rpc.addProperty("orderId",
+							URLEncoder.encode(orderId, "UTF-8"));
+					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
+
+					AndroidHttpTransport ht = new AndroidHttpTransport(
+							RequestUrl.HOST_URL);
+
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+							SoapEnvelope.VER11);
+
+					envelope.bodyOut = rpc;
+					envelope.dotNet = true;
+					envelope.setOutputSoapObject(rpc);
+
+					ht.call(RequestUrl.NAMESPACE + "/"
+							+ RequestUrl.order.grabOrder, envelope);
+
+					SoapObject so = (SoapObject) envelope.bodyIn;
+
+					String resultStr = (String) so.getProperty(0);
+
+					Log.e("xxx_grabOrder_result", resultStr.toString());
+					if (!TextUtils.isEmpty(resultStr)) {
+						JSONObject obj = new JSONObject(resultStr);
+						parseGrabOrderData(obj, handler);
+					}
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (XmlPullParserException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+
+	}
+
+	// {"datas":{"total":0,"list":[]},"message":"操作成功","result":"0"}
+	private static void parseGrabOrderData(JSONObject response, Handler handler) {
+
+		try {
+			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
+			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
+				handler.sendEmptyMessage(ORDER_GRAB_FAIL);
+			} else {
+				JSONObject jsonObject = response
+						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+
+				ArrayList<Order> tempOrderList = new ArrayList<Order>();
+				JSONArray orderListArray = jsonObject
+						.getJSONArray(MsgResult.RESULT_LIST_TAG);
+
+				int size = orderListArray.length();
+				for (int i = 0; i < size; i++) {
+					JSONObject orderJsonObject = orderListArray
+							.getJSONObject(i);
+					Order order = (Order) JsonUtils.fromJsonToJava(
+							orderJsonObject, Order.class);
+					tempOrderList.add(order);
+				}
+
+				Message message = new Message();
+				message.what = ORDER_GRAB_SUC;
+				message.obj = tempOrderList;
+				handler.sendMessage(message);
+			}
+		} catch (JSONException e) {
+			handler.sendEmptyMessage(ORDER_GRAB_EXCEPTION);
 		}
 	}
 
@@ -312,7 +407,8 @@ public class OrderLogic {
 
 	}
 
-	private static void parseRecieveConfirmData(JSONObject response, Handler handler) {
+	private static void parseRecieveConfirmData(JSONObject response,
+			Handler handler) {
 
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
