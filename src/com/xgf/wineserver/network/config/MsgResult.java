@@ -62,5 +62,7 @@ public class MsgResult {
 	public static final String B2A_RESULT_SUCCESS_TAG = "STATE";
 
 	public static final String B2A_RESULT_DATA_TAG = "DATAS";
+	
+	public static final String ORDER_TAG = "Order";
 
 }

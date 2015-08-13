@@ -90,20 +90,21 @@ public class MainActivity extends Activity implements OnClickListener {
 		mOrderLv = (ListView) findViewById(R.id.main_order_list_lv);
 		mOrderAdapter = new OrderAdapter(mContext, mOrderList);
 		mOrderLv.setAdapter(mOrderAdapter);
+		Log.e("xxx_id_main", UserInfoManager.userInfo.getUserId());
 
 	}
 
 	private void initData() {
 		mOrderList.clear();
-		for (int i = 0; i < 10; i++) {
-			Order order = new Order();
-			order.setMemo("1.5km");
-			order.setDeliveryTime("30分钟");
-			order.setAddress("南京市江宁区" + i);
-			order.setOrderTime("今天15:00");
-			order.setAmount("洋河酒");
-			mOrderList.add(order);
-		}
+		// for (int i = 0; i < 10; i++) {
+		// Order order = new Order();
+		// order.setMemo("1.5km");
+		// order.setDeliveryTime("30分钟");
+		// order.setAddress("南京市江宁区" + i);
+		// order.setOrderTime("今天15:00");
+		// order.setAmount("洋河酒");
+		// mOrderList.add(order);
+		// }
 
 		mOrderAdapter.notifyDataSetChanged();
 		// getLoc();
@@ -114,7 +115,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	public static void refresh() {
 		mOrderList.clear();
-		mOrderList.addAll(MsgService.orderList);
+		mOrderList.addAll(MsgService.sOrderList);
 		mOrderAdapter.notifyDataSetChanged();
 	}
 

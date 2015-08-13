@@ -78,6 +78,7 @@ public class UserLogic {
 
 					String resultStr = (String) so.getProperty(0);
 
+					Log.e("xxx_login", resultStr);
 					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
 						parseLoginData(obj, handler);
@@ -102,9 +103,7 @@ public class UserLogic {
 	private static void parseLoginData(JSONObject response, Handler handler) {
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
-			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
-				handler.sendEmptyMessage(LOGIN_FAIL);
-			} else {
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
 				JSONObject jsonObject = response
 						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
 				User user = (User) JsonUtils.fromJsonToJava(jsonObject,
@@ -113,6 +112,8 @@ public class UserLogic {
 				message.what = LOGIN_SUC;
 				message.obj = user;
 				handler.sendMessage(message);
+			} else {
+				handler.sendEmptyMessage(LOGIN_FAIL);
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(LOGIN_EXCEPTION);
@@ -175,13 +176,11 @@ public class UserLogic {
 
 	}
 
-	//{"datas":"{}","message":"验证码错误","result":"10001"}
+	// {"datas":"{}","message":"验证码错误","result":"10001"}
 	private static void parseModifyPwdData(JSONObject response, Handler handler) {
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
-			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
-				handler.sendEmptyMessage(MODIFY_PWD_FAIL);
-			} else {
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
 				JSONObject jsonObject = response
 						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
 				User user = (User) JsonUtils.fromJsonToJava(jsonObject,
@@ -190,6 +189,8 @@ public class UserLogic {
 				message.what = MODIFY_PWD_SUC;
 				message.obj = user;
 				handler.sendMessage(message);
+			} else {
+				handler.sendEmptyMessage(MODIFY_PWD_FAIL);
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(MODIFY_PWD_EXCEPTION);

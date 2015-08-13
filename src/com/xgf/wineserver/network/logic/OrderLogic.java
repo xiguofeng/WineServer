@@ -68,6 +68,7 @@ public class OrderLogic {
 
 					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
 							RequestUrl.order.queryOrderForGrab);
+					Log.e("xxx_id_order", UserInfoManager.userInfo.getUserId());
 
 					rpc.addProperty("userId", URLEncoder.encode(
 							UserInfoManager.userInfo.getUserId(), "UTF-8"));
@@ -119,15 +120,16 @@ public class OrderLogic {
 
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
-			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
-				handler.sendEmptyMessage(ORDER_GRAB_LIST_FAIL);
-			} else {
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
+
 				JSONObject jsonObject = response
 						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
 
 				ArrayList<Order> tempOrderList = new ArrayList<Order>();
 				JSONArray orderListArray = jsonObject
 						.getJSONArray(MsgResult.RESULT_LIST_TAG);
+
+				HashMap<String, Object> msgMap = new HashMap<String, Object>();
 
 				int size = orderListArray.length();
 				for (int i = 0; i < size; i++) {
@@ -136,12 +138,33 @@ public class OrderLogic {
 					Order order = (Order) JsonUtils.fromJsonToJava(
 							orderJsonObject, Order.class);
 					tempOrderList.add(order);
+
+					ArrayList<Goods> tempGoodsList = new ArrayList<Goods>();
+					JSONArray goodsArray = orderJsonObject
+							.getJSONArray("items");
+
+					for (int j = 0; j < goodsArray.length(); j++) {
+						JSONObject goodsJsonObject = goodsArray
+								.getJSONObject(j);
+						Goods goods = new Goods();
+						goods.setId(goodsJsonObject.getString("productId"));
+						goods.setName(goodsJsonObject.getString("productName"));
+						goods.setSalesPrice(goodsJsonObject
+								.getString("salePrice"));
+						goods.setNum(goodsJsonObject.getString("count"));
+						tempGoodsList.add(goods);
+					}
+					msgMap.put(order.getId(), tempGoodsList);
+
 				}
+				msgMap.put(MsgResult.ORDER_TAG, tempOrderList);
 
 				Message message = new Message();
 				message.what = ORDER_GRAB_LIST_SUC;
-				message.obj = tempOrderList;
+				message.obj = msgMap;
 				handler.sendMessage(message);
+			} else {
+				handler.sendEmptyMessage(ORDER_GRAB_LIST_FAIL);
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(ORDER_GRAB_LIST_EXCEPTION);
@@ -207,9 +230,8 @@ public class OrderLogic {
 
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
-			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
-				handler.sendEmptyMessage(ORDER_GRAB_FAIL);
-			} else {
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
+
 				JSONObject jsonObject = response
 						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
 
@@ -230,6 +252,8 @@ public class OrderLogic {
 				message.what = ORDER_GRAB_SUC;
 				message.obj = tempOrderList;
 				handler.sendMessage(message);
+			} else {
+				handler.sendEmptyMessage(ORDER_GRAB_FAIL);
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(ORDER_GRAB_EXCEPTION);
@@ -303,9 +327,8 @@ public class OrderLogic {
 
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
-			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
-				handler.sendEmptyMessage(ORDERLIST_HISTORY_GET_FAIL);
-			} else {
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
+
 				JSONObject jsonObject = response
 						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
 
@@ -348,6 +371,8 @@ public class OrderLogic {
 				message.what = ORDERLIST_HISTORY_GET_SUC;
 				message.obj = msgMap;
 				handler.sendMessage(message);
+			} else {
+				handler.sendEmptyMessage(ORDERLIST_HISTORY_GET_FAIL);
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(ORDERLIST_HISTORY_GET_EXCEPTION);
@@ -413,9 +438,8 @@ public class OrderLogic {
 
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
-			if (sucResult.equals(MsgResult.RESULT_FAIL)) {
-				handler.sendEmptyMessage(ORDER_CONFIRM_FAIL);
-			} else {
+			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
+
 				JSONObject jsonObject = response
 						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
 
@@ -436,6 +460,9 @@ public class OrderLogic {
 				message.what = ORDER_CONFIRM_SUC;
 				message.obj = tempOrderList;
 				handler.sendMessage(message);
+
+			} else {
+				handler.sendEmptyMessage(ORDER_CONFIRM_FAIL);
 			}
 		} catch (JSONException e) {
 			handler.sendEmptyMessage(ORDER_CONFIRM_EXCEPTION);

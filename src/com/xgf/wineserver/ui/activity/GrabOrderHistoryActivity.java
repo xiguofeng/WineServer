@@ -114,7 +114,7 @@ public class GrabOrderHistoryActivity extends Activity implements OnClickListene
 
 	public static void refresh() {
 		mOrderList.clear();
-		mOrderList.addAll(MsgService.orderList);
+		//mOrderList.addAll(MsgService.orderList);
 		mOrderAdapter.notifyDataSetChanged();
 	}
 

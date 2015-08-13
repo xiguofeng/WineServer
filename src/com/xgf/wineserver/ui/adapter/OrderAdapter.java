@@ -3,6 +3,7 @@ package com.xgf.wineserver.ui.adapter;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.xgf.wineserver.R;
 import com.xgf.wineserver.entity.Order;
+import com.xgf.wineserver.utils.TimeUtils;
 
 public class OrderAdapter extends BaseAdapter {
 
@@ -73,11 +75,33 @@ public class OrderAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.mDistanceTv.setText(mDatas.get(position).getMemo());
+		holder.mDistanceTv.setText(mDatas.get(position).getDistance()
+				.substring(0, 3)
+				+ "km");
 		holder.mTimeTv.setText(mDatas.get(position).getOrderTime());
 		holder.mInfoTv.setText(mDatas.get(position).getAmount());
 		holder.mWaitTimeTv.setText(mDatas.get(position).getDeliveryTime());
 		holder.mAddressTv.setText(mDatas.get(position).getAddress());
+
+		long orderTime = TimeUtils.dateToLong(mDatas.get(position)
+				.getOrderTime(), TimeUtils.FORMAT_PATTERN_DATE);
+		long deliveryTime = TimeUtils.dateToLong(mDatas.get(position)
+				.getDeliveryTime(), TimeUtils.FORMAT_PATTERN_DATE);
+		String waitTime = String.valueOf((deliveryTime - orderTime) / 60);
+		holder.mWaitTimeTv.setText(waitTime + "分钟");
+
+		String orderTimeStr = new String(mDatas.get(position).getOrderTime());
+		if (!TextUtils.isEmpty(orderTimeStr)) {
+			if (orderTimeStr.length() > 11) {
+				String dateYMD = TimeUtils.getTodayCommonPattern().substring(0,
+						10);
+				String dateHMM = orderTimeStr.substring(11);
+				String orderYMD = orderTimeStr.substring(0, 10);
+				if (dateYMD.equals(orderYMD)) {
+					holder.mTimeTv.setText("今天" + dateHMM);
+				}
+			}
+		}
 
 		holder.mRobBtn.setOnClickListener(new OnClickListener() {
 

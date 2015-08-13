@@ -1,7 +1,8 @@
 package com.xgf.wineserver.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,8 +27,10 @@ import com.baidu.location.BDLocation;
 import com.xgf.wineserver.R;
 import com.xgf.wineserver.entity.NotifyInfo;
 import com.xgf.wineserver.entity.Order;
+import com.xgf.wineserver.network.config.MsgResult;
 import com.xgf.wineserver.network.logic.OrderLogic;
 import com.xgf.wineserver.ui.activity.HomeActivity;
+import com.xgf.wineserver.ui.activity.MainActivity;
 import com.xgf.wineserver.utils.LocationUtilsV5;
 import com.xgf.wineserver.utils.LocationUtilsV5.LocationCallback;
 import com.xgf.wineserver.utils.UserInfoManager;
@@ -54,7 +57,9 @@ public class MsgService extends Service {
 
 	public int count = 0;
 
-	public static ArrayList<Order> orderList = new ArrayList<Order>();
+	private static HashMap<String, Object> sOrderMsgMap = new HashMap<String, Object>();
+
+	public static ArrayList<Order> sOrderList = new ArrayList<Order>();
 
 	private String mLat;
 
@@ -83,8 +88,14 @@ public class MsgService extends Service {
 			switch (what) {
 			case OrderLogic.ORDER_GRAB_LIST_SUC: {
 				if (null != msg.obj) {
-					orderList.addAll((Collection<? extends Order>) msg.obj);
-					//MainActivity.refresh();
+					sOrderMsgMap.clear();
+					sOrderMsgMap
+							.putAll((Map<? extends String, ? extends Object>) msg.obj);
+
+					sOrderList.clear();
+					sOrderList.addAll((ArrayList<Order>) sOrderMsgMap
+							.get(MsgResult.ORDER_TAG));
+					MainActivity.refresh();
 				}
 				break;
 			}

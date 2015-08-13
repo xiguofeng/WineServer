@@ -50,6 +50,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			case UserLogic.LOGIN_SUC: {
 				if (null != msg.obj) {
 					mUser = (User) msg.obj;
+					UserInfoManager.clearUserInfo(mContext);
 					UserInfoManager.saveUserInfo(LoginActivity.this, mUser);
 					UserInfoManager.setUserInfo(LoginActivity.this);
 					UserInfoManager.setLoginIn(LoginActivity.this, true);
@@ -144,7 +145,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			}
 		}
 
-		mUserNameEt.setText("13611586008");
+		mUserNameEt.setText("hudingfeng");
 		mPassWordEt.setText("123456");
 
 	}

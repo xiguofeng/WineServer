@@ -1,6 +1,8 @@
 
 package com.xgf.wineserver.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TimeUtils {
@@ -28,4 +30,25 @@ public class TimeUtils {
         }
         return "";
     }
+    
+    public static String getTodayCommonPattern() {
+		String str = TimeUtils.TimeStamp2Date(
+				String.valueOf(System.currentTimeMillis()),
+				TimeUtils.FORMAT_PATTERN_DATE);
+		return str;
+	}
+    
+    public static long dateToLong(String date, String pattern) {
+		long time;
+		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+		Date dt2 = null;
+		try {
+			dt2 = sdf.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		time = dt2.getTime() / 1000;
+		return time; // 得到秒数，Date类型的getTime()返回毫秒数
+	}
+    
 }

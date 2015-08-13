@@ -14,11 +14,19 @@ public class Order implements Serializable {
 
 	private String orderStatus;
 
+	private String orderType;
+
 	private String amount;
 
 	private String deliveryTime;
 
+	private String estimated;
+
 	private String address;
+	
+	private String distance;
+
+	private String branch;
 
 	private String payStatus;
 
@@ -68,6 +76,14 @@ public class Order implements Serializable {
 		this.orderStatus = orderStatus;
 	}
 
+	public String getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
+
 	public String getAmount() {
 		return amount;
 	}
@@ -84,12 +100,36 @@ public class Order implements Serializable {
 		this.deliveryTime = deliveryTime;
 	}
 
+	public String getEstimated() {
+		return estimated;
+	}
+
+	public void setEstimated(String estimated) {
+		this.estimated = estimated;
+	}
+
 	public String getAddress() {
 		return address;
 	}
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getDistance() {
+		return distance;
+	}
+
+	public void setDistance(String distance) {
+		this.distance = distance;
+	}
+
+	public String getBranch() {
+		return branch;
+	}
+
+	public void setBranch(String branch) {
+		this.branch = branch;
 	}
 
 	public String getPayStatus() {
