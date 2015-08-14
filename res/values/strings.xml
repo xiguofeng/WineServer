@@ -19,6 +19,7 @@
     <string name="user_name_hint">请输入手机号</string>
     <string name="user_psw_hint">请输入密码</string>
     <string name="user_confirm_psw_hint">请再次输入密码</string>
+    <string name="modify_pwd_suc">密码修改成功</string>
 
     <!-- menu_title -->
     <string name="rob_order">抢单</string>

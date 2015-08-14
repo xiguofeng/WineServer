@@ -60,19 +60,16 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 			int what = msg.what;
 			switch (what) {
 			case UserLogic.MODIFY_PWD_SUC: {
-				if (null != msg.obj) {
-					mUser = (User) msg.obj;
-					UserInfoManager.saveUserInfo(ModifyPwdActivity.this, mUser);
-					UserInfoManager.setUserInfo(ModifyPwdActivity.this);
-					UserInfoManager.setLoginIn(ModifyPwdActivity.this, true);
 
-					Intent intent = new Intent(ModifyPwdActivity.this,
-							HomeActivity.class);
-					startActivity(intent);
-					ModifyPwdActivity.this.finish();
-					overridePendingTransition(R.anim.push_left_in,
-							R.anim.push_left_out);
-				}
+				UserInfoManager.saveUserInfo(ModifyPwdActivity.this, mUser);
+				UserInfoManager.setUserInfo(ModifyPwdActivity.this);
+				UserInfoManager.setLoginIn(ModifyPwdActivity.this, true);
+
+				Toast.makeText(ModifyPwdActivity.this,
+						mContext.getString(R.string.modify_pwd_suc),
+						Toast.LENGTH_SHORT).show();
+
+				HomeActivity.setTab(HomeActivity.TAB_MAIN);
 
 				break;
 			}
@@ -171,9 +168,6 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void initData() {
-		mPhoneEt.setText("13611586008");
-		mPassWordEt.setText("123456");
-		mConfirmPwdEt.setText("123456");
 	}
 
 	private void modify() {
@@ -191,6 +185,7 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 					mContext.getString(R.string.login_emptyname_or_emptypwd),
 					Toast.LENGTH_SHORT).show();
 		} else {
+			mUser = UserInfoManager.userInfo;
 			mUser.setUserName(mPhone);
 			mUser.setPassword(mPassWord);
 			UserLogic.modifyPwd(mContext, mHandler, mUser, mAuthCode);

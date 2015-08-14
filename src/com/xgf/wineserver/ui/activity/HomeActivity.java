@@ -7,6 +7,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost;
@@ -26,6 +27,10 @@ public class HomeActivity extends TabActivity implements
 	private RadioGroup mTabButtonGroup;
 
 	private static TabHost mTabHost;
+	private static RadioButton mMainRb;
+	private static RadioButton mLogiConfirmRb;
+	private static RadioButton mHistoryRb;
+	private static RadioButton mPwdRb;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,10 @@ public class HomeActivity extends TabActivity implements
 
 	private void findViewById() {
 		mTabButtonGroup = (RadioGroup) findViewById(R.id.home_radio_button_group);
+		mMainRb = (RadioButton) findViewById(R.id.home_tab_main_rb);
+		mLogiConfirmRb = (RadioButton) findViewById(R.id.home_tab_logistics_rb);
+		mHistoryRb = (RadioButton) findViewById(R.id.home_tab_rob_rb);
+		mPwdRb = (RadioButton) findViewById(R.id.home_tab_accout_rb);
 	}
 
 	private void initView() {
@@ -65,7 +74,6 @@ public class HomeActivity extends TabActivity implements
 						switch (checkedId) {
 						case R.id.home_tab_main_rb:
 							mTabHost.setCurrentTabByTag(TAB_MAIN);
-
 							break;
 
 						case R.id.home_tab_logistics_rb:
@@ -92,6 +100,19 @@ public class HomeActivity extends TabActivity implements
 
 	private void initData() {
 		// mTabHost.setCurrentTabByTag(TAB_MAIN);
+	}
+
+	public static void setTab(String tab) {
+		mTabHost.setCurrentTabByTag(tab);
+		if (TAB_MAIN.equals(tab)) {
+			mMainRb.setChecked(true);
+		} else if (TAB_LOGI_CONFIRM.equals(tab)) {
+			mLogiConfirmRb.setChecked(true);
+		} else if (TAB_HISTORY.equals(tab)) {
+			mHistoryRb.setChecked(true);
+		} else if (TAB_PSW.equals(tab)) {
+			mPwdRb.setChecked(true);
+		}
 	}
 
 	@Override

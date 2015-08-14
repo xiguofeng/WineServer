@@ -134,7 +134,6 @@ public class UserLogic {
 			@Override
 			public void run() {
 				try {
-					Log.e("xxx_modify_code", authCode);
 					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
 							RequestUrl.account.modifyPwd);
 
@@ -183,19 +182,13 @@ public class UserLogic {
 
 	}
 
-	// {"datas":"{}","message":"验证码错误","result":"10001"}
+	// {"datas":"{}","message":"操作成功","result":"0"}
 	private static void parseModifyPwdData(JSONObject response, Handler handler) {
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
-				JSONObject jsonObject = response
-						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
-				User user = (User) JsonUtils.fromJsonToJava(jsonObject,
-						User.class);
-				Message message = new Message();
-				message.what = MODIFY_PWD_SUC;
-				message.obj = user;
-				handler.sendMessage(message);
+				Log.e("xxx_modify_suc", sucResult);
+				handler.sendEmptyMessage(MODIFY_PWD_SUC);
 			} else {
 				handler.sendEmptyMessage(MODIFY_PWD_FAIL);
 			}
