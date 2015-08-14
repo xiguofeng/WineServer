@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.xgf.wineserver.R;
 import com.xgf.wineserver.entity.Order;
-import com.xgf.wineserver.ui.util.ListItemClickHelp;
+import com.xgf.wineserver.ui.utils.ListItemClickHelp;
 import com.xgf.wineserver.utils.TimeUtils;
 
 public class OrderAdapter extends BaseAdapter {

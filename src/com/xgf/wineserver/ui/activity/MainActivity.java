@@ -21,7 +21,7 @@ import com.xgf.wineserver.entity.Order;
 import com.xgf.wineserver.network.logic.OrderLogic;
 import com.xgf.wineserver.service.MsgService;
 import com.xgf.wineserver.ui.adapter.OrderAdapter;
-import com.xgf.wineserver.ui.util.ListItemClickHelp;
+import com.xgf.wineserver.ui.utils.ListItemClickHelp;
 import com.xgf.wineserver.utils.LocationUtilsV5;
 import com.xgf.wineserver.utils.LocationUtilsV5.LocationCallback;
 import com.xgf.wineserver.utils.UserInfoManager;

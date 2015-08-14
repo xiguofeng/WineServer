@@ -1,4 +1,4 @@
-package com.xgf.wineserver.ui.util;
+package com.xgf.wineserver.ui.utils;
 
 import android.view.View;
 
