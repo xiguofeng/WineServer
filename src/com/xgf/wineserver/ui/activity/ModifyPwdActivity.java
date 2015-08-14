@@ -2,7 +2,6 @@ package com.xgf.wineserver.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +15,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.xgf.wineserver.R;
 import com.xgf.wineserver.entity.User;
 import com.xgf.wineserver.network.logic.UserLogic;

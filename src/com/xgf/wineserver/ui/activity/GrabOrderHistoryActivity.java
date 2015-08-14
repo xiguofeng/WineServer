@@ -20,11 +20,13 @@ import com.xgf.wineserver.entity.Order;
 import com.xgf.wineserver.network.logic.OrderLogic;
 import com.xgf.wineserver.service.MsgService;
 import com.xgf.wineserver.ui.adapter.OrderAdapter;
+import com.xgf.wineserver.ui.util.ListItemClickHelp;
 import com.xgf.wineserver.utils.LocationUtilsV5;
 import com.xgf.wineserver.utils.LocationUtilsV5.LocationCallback;
 import com.xgf.wineserver.utils.UserInfoManager;
 
-public class GrabOrderHistoryActivity extends Activity implements OnClickListener {
+public class GrabOrderHistoryActivity extends Activity implements
+		OnClickListener, ListItemClickHelp {
 
 	private Context mContext;
 
@@ -88,7 +90,7 @@ public class GrabOrderHistoryActivity extends Activity implements OnClickListene
 	private void initView() {
 		mContext = GrabOrderHistoryActivity.this;
 		mOrderLv = (ListView) findViewById(R.id.main_order_list_lv);
-		mOrderAdapter = new OrderAdapter(mContext, mOrderList);
+		mOrderAdapter = new OrderAdapter(mContext, mOrderList, this);
 		mOrderLv.setAdapter(mOrderAdapter);
 
 	}
@@ -114,7 +116,7 @@ public class GrabOrderHistoryActivity extends Activity implements OnClickListene
 
 	public static void refresh() {
 		mOrderList.clear();
-		//mOrderList.addAll(MsgService.orderList);
+		// mOrderList.addAll(MsgService.orderList);
 		mOrderAdapter.notifyDataSetChanged();
 	}
 
@@ -138,6 +140,12 @@ public class GrabOrderHistoryActivity extends Activity implements OnClickListene
 
 	@Override
 	public void onClick(View v) {
+	}
+
+	@Override
+	public void onClick(View item, View widget, int position, int which) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

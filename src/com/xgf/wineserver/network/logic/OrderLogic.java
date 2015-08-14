@@ -70,8 +70,8 @@ public class OrderLogic {
 							RequestUrl.order.queryOrderForGrab);
 					Log.e("xxx_id_order", UserInfoManager.userInfo.getUserId());
 
-					rpc.addProperty("userId", URLEncoder.encode(
-							UserInfoManager.userInfo.getUserId(), "UTF-8"));
+					rpc.addProperty("userId",
+							URLEncoder.encode(userId, "UTF-8"));
 					rpc.addProperty("longitude",
 							URLEncoder.encode(longitude, "UTF-8"));
 					rpc.addProperty("latitude",
@@ -183,8 +183,8 @@ public class OrderLogic {
 					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
 							RequestUrl.order.grabOrder);
 
-					rpc.addProperty("userId", URLEncoder.encode(
-							UserInfoManager.userInfo.getUserId(), "UTF-8"));
+					rpc.addProperty("userId",
+							URLEncoder.encode(userId, "UTF-8"));
 					rpc.addProperty("orderId",
 							URLEncoder.encode(orderId, "UTF-8"));
 					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
@@ -225,33 +225,12 @@ public class OrderLogic {
 
 	}
 
-	// {"datas":{"total":0,"list":[]},"message":"操作成功","result":"0"}
+	// {"datas":{},"message":"操作成功","result":"0"}
 	private static void parseGrabOrderData(JSONObject response, Handler handler) {
-
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
-
-				JSONObject jsonObject = response
-						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
-
-				ArrayList<Order> tempOrderList = new ArrayList<Order>();
-				JSONArray orderListArray = jsonObject
-						.getJSONArray(MsgResult.RESULT_LIST_TAG);
-
-				int size = orderListArray.length();
-				for (int i = 0; i < size; i++) {
-					JSONObject orderJsonObject = orderListArray
-							.getJSONObject(i);
-					Order order = (Order) JsonUtils.fromJsonToJava(
-							orderJsonObject, Order.class);
-					tempOrderList.add(order);
-				}
-
-				Message message = new Message();
-				message.what = ORDER_GRAB_SUC;
-				message.obj = tempOrderList;
-				handler.sendMessage(message);
+				handler.sendEmptyMessage(ORDER_GRAB_SUC);
 			} else {
 				handler.sendEmptyMessage(ORDER_GRAB_FAIL);
 			}

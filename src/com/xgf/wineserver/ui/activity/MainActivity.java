@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.xgf.wineserver.R;
@@ -20,11 +21,13 @@ import com.xgf.wineserver.entity.Order;
 import com.xgf.wineserver.network.logic.OrderLogic;
 import com.xgf.wineserver.service.MsgService;
 import com.xgf.wineserver.ui.adapter.OrderAdapter;
+import com.xgf.wineserver.ui.util.ListItemClickHelp;
 import com.xgf.wineserver.utils.LocationUtilsV5;
 import com.xgf.wineserver.utils.LocationUtilsV5.LocationCallback;
 import com.xgf.wineserver.utils.UserInfoManager;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends Activity implements OnClickListener,
+		ListItemClickHelp {
 
 	private Context mContext;
 
@@ -59,6 +62,23 @@ public class MainActivity extends Activity implements OnClickListener {
 			case OrderLogic.ORDER_GRAB_LIST_EXCEPTION: {
 				break;
 			}
+
+			case OrderLogic.ORDER_GRAB_SUC: {
+				Toast.makeText(mContext,
+						mContext.getString(R.string.grab_order_suc),
+						Toast.LENGTH_SHORT).show();
+
+				break;
+			}
+			case OrderLogic.ORDER_GRAB_FAIL: {
+				Toast.makeText(mContext,
+						mContext.getString(R.string.grab_order_fail),
+						Toast.LENGTH_SHORT).show();
+				break;
+			}
+			case OrderLogic.ORDER_GRAB_EXCEPTION: {
+				break;
+			}
 			case OrderLogic.NET_ERROR: {
 				break;
 			}
@@ -88,7 +108,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private void initView() {
 		mContext = MainActivity.this;
 		mOrderLv = (ListView) findViewById(R.id.main_order_list_lv);
-		mOrderAdapter = new OrderAdapter(mContext, mOrderList);
+		mOrderAdapter = new OrderAdapter(mContext, mOrderList, this);
 		mOrderLv.setAdapter(mOrderAdapter);
 		Log.e("xxx_id_main", UserInfoManager.userInfo.getUserId());
 
@@ -139,6 +159,21 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+	}
+
+	@Override
+	public void onClick(View item, View widget, int position, int which) {
+		switch (which) {
+		case R.id.list_order_rob_btn: {
+			OrderLogic.grabOrder(mContext, mHandler,
+					UserInfoManager.userInfo.getUserId(),
+					mOrderList.get(position).getId());
+			break;
+		}
+		default:
+			break;
+		}
+
 	}
 
 }

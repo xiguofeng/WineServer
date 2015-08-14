@@ -9,11 +9,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.xgf.wineserver.R;
 import com.xgf.wineserver.entity.Order;
+import com.xgf.wineserver.ui.util.ListItemClickHelp;
 import com.xgf.wineserver.utils.TimeUtils;
 
 public class OrderAdapter extends BaseAdapter {
@@ -24,9 +25,13 @@ public class OrderAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 
-	public OrderAdapter(Context context, ArrayList<Order> datas) {
+	private ListItemClickHelp mCallback;
+
+	public OrderAdapter(Context context, ArrayList<Order> datas,
+			ListItemClickHelp callback) {
 		this.mContext = context;
 		this.mDatas = datas;
+		this.mCallback = callback;
 		mInflater = LayoutInflater.from(mContext);
 
 	}
@@ -67,8 +72,8 @@ public class OrderAdapter extends BaseAdapter {
 			holder.mAddressTv = (TextView) convertView
 					.findViewById(R.id.list_order_address_tv);
 
-			holder.mRobBtn = (LinearLayout) convertView
-					.findViewById(R.id.list_order_rob_ll);
+			holder.mRobBtn = (Button) convertView
+					.findViewById(R.id.list_order_rob_btn);
 
 			convertView.setTag(holder);
 		} else {
@@ -108,11 +113,14 @@ public class OrderAdapter extends BaseAdapter {
 			}
 		}
 
+		final View view = convertView;
+		final int p = position;
+		final int which = holder.mRobBtn.getId();
 		holder.mRobBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-
+				mCallback.onClick(view, v, p, which);
 			}
 		});
 
@@ -131,7 +139,7 @@ public class OrderAdapter extends BaseAdapter {
 
 		public TextView mAddressTv;
 
-		private LinearLayout mRobBtn;
+		private Button mRobBtn;
 
 	}
 
