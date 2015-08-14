@@ -35,5 +35,12 @@
     <string name="mobile_phone_hint">请填写手机号码</string>
     <string name="grab_order_suc">抢单成功</string>
     <string name="grab_order_fail">抢单失败</string>
+    <string name="total_grab_tag">共抢单</string>
+    <string name="total_income">累计收入</string>
+    <string name="bill">单</string>
+    <string name="yuan">元</string>
+    <string name="today">今天</string>
+    <string name="history">历史</string>
+    
 
 </resources>

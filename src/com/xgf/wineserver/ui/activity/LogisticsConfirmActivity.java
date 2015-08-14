@@ -76,7 +76,6 @@ public class LogisticsConfirmActivity extends Activity implements
 		switch (v.getId()) {
 		case R.id.logistics_confirm_btn: {
 			if (!TextUtils.isEmpty(mCodeEt.getText().toString().trim())) {
-
 				OrderLogic.recieveConfirm(mContext, mHandler,
 						UserInfoManager.userInfo.getUserId(), mCodeEt.getText()
 								.toString().trim());

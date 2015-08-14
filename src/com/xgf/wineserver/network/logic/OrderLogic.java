@@ -335,16 +335,16 @@ public class OrderLogic {
 						Goods goods = new Goods();
 						goods.setId(goodsJsonObject.getString("productId"));
 						goods.setName(goodsJsonObject.getString("productName"));
+						goods.setIconUrl(goodsJsonObject.getString("iconUrl"));
 						goods.setSalesPrice(goodsJsonObject
 								.getString("salePrice"));
-						goods.setIconUrl(goodsJsonObject.getString("iconUrl"));
 						goods.setNum(goodsJsonObject.getString("count"));
 						tempGoodsList.add(goods);
 					}
 					msgMap.put(order.getId(), tempGoodsList);
 
 				}
-				// msgMap.put(MsgResult.ORDER_TAG, tempOrderList);
+				msgMap.put(MsgResult.ORDER_TAG, tempOrderList);
 
 				Message message = new Message();
 				message.what = ORDERLIST_HISTORY_GET_SUC;
@@ -359,7 +359,7 @@ public class OrderLogic {
 	}
 
 	public static void recieveConfirm(final Context context,
-			final Handler handler, final String userId, final String authCode) {
+			final Handler handler, final String orderId, final String authCode) {
 
 		new Thread(new Runnable() {
 
@@ -370,8 +370,8 @@ public class OrderLogic {
 					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
 							RequestUrl.order.recieveConfirm);
 
-					rpc.addProperty("userId", URLEncoder.encode(
-							UserInfoManager.userInfo.getUserId(), "UTF-8"));
+					rpc.addProperty("orderId",
+							URLEncoder.encode(orderId, "UTF-8"));
 					rpc.addProperty("authCode",
 							URLEncoder.encode(authCode, "UTF-8"));
 
