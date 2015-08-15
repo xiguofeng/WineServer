@@ -41,6 +41,7 @@
     <string name="yuan">元</string>
     <string name="today">今天</string>
     <string name="history">历史</string>
+    <string name="auth_receive">收货验证</string>
     
 
 </resources>

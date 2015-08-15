@@ -27,8 +27,7 @@ public class OrderAdapter extends BaseAdapter {
 
 	private ListItemClickHelp mCallback;
 
-	public OrderAdapter(Context context, ArrayList<Order> datas,
-			ListItemClickHelp callback) {
+	public OrderAdapter(Context context, ArrayList<Order> datas, ListItemClickHelp callback) {
 		this.mContext = context;
 		this.mDatas = datas;
 		this.mCallback = callback;
@@ -61,19 +60,13 @@ public class OrderAdapter extends BaseAdapter {
 			convertView = mInflater.inflate(R.layout.list_order_item, null);
 
 			holder = new ViewHolder();
-			holder.mDistanceTv = (TextView) convertView
-					.findViewById(R.id.list_order_distance_tv);
-			holder.mTimeTv = (TextView) convertView
-					.findViewById(R.id.list_order_time_tv);
-			holder.mInfoTv = (TextView) convertView
-					.findViewById(R.id.list_order_info_tv);
-			holder.mWaitTimeTv = (TextView) convertView
-					.findViewById(R.id.list_order_wait_time_tv);
-			holder.mAddressTv = (TextView) convertView
-					.findViewById(R.id.list_order_address_tv);
+			holder.mDistanceTv = (TextView) convertView.findViewById(R.id.list_order_distance_tv);
+			holder.mTimeTv = (TextView) convertView.findViewById(R.id.list_order_time_tv);
+			holder.mInfoTv = (TextView) convertView.findViewById(R.id.list_order_info_tv);
+			holder.mWaitTimeTv = (TextView) convertView.findViewById(R.id.list_order_wait_time_tv);
+			holder.mAddressTv = (TextView) convertView.findViewById(R.id.list_order_address_tv);
 
-			holder.mRobBtn = (Button) convertView
-					.findViewById(R.id.list_order_rob_btn);
+			holder.mRobBtn = (Button) convertView.findViewById(R.id.list_order_rob_btn);
 
 			convertView.setTag(holder);
 		} else {
@@ -81,30 +74,27 @@ public class OrderAdapter extends BaseAdapter {
 		}
 
 		if (mDatas.get(position).getDistance().length() > 3) {
-			holder.mDistanceTv.setText(mDatas.get(position).getDistance()
-					.substring(0, 3)
-					+ "km");
+			double distance = Double.parseDouble(mDatas.get(position).getDistance());
+			distance = distance / 1000;
+
+			holder.mDistanceTv.setText(String.valueOf(distance).substring(0, 3) + "km");
 		} else {
-			holder.mDistanceTv.setText(mDatas.get(position).getDistance()
-					+ "km");
+			holder.mDistanceTv.setText(mDatas.get(position).getDistance() + "km");
 		}
 		holder.mTimeTv.setText(mDatas.get(position).getOrderTime());
 		holder.mInfoTv.setText(mDatas.get(position).getAmount());
 		holder.mWaitTimeTv.setText(mDatas.get(position).getDeliveryTime());
 		holder.mAddressTv.setText(mDatas.get(position).getAddress());
 
-		long orderTime = TimeUtils.dateToLong(mDatas.get(position)
-				.getOrderTime(), TimeUtils.FORMAT_PATTERN_DATE);
-		long deliveryTime = TimeUtils.dateToLong(mDatas.get(position)
-				.getDeliveryTime(), TimeUtils.FORMAT_PATTERN_DATE);
+		long orderTime = TimeUtils.dateToLong(mDatas.get(position).getOrderTime(), TimeUtils.FORMAT_PATTERN_DATE);
+		long deliveryTime = TimeUtils.dateToLong(mDatas.get(position).getDeliveryTime(), TimeUtils.FORMAT_PATTERN_DATE);
 		String waitTime = String.valueOf((deliveryTime - orderTime) / 60);
 		holder.mWaitTimeTv.setText(waitTime + "分钟");
 
 		String orderTimeStr = new String(mDatas.get(position).getOrderTime());
 		if (!TextUtils.isEmpty(orderTimeStr)) {
 			if (orderTimeStr.length() > 11) {
-				String dateYMD = TimeUtils.getTodayCommonPattern().substring(0,
-						10);
+				String dateYMD = TimeUtils.getTodayCommonPattern().substring(0, 10);
 				String dateHMM = orderTimeStr.substring(11);
 				String orderYMD = orderTimeStr.substring(0, 10);
 				if (dateYMD.equals(orderYMD)) {

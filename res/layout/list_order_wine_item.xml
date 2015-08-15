@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp" >
+
+        <TextView
+            android:id="@+id/list_order_group_id_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dip"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/small_text_size" />
+
+        <TextView
+            android:id="@+id/list_order_group_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_toRightOf="@+id/list_order_group_id_tv"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/small_text_size" />
+
+        <TextView
+            android:id="@+id/list_order_group_state_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dip"
+            android:textColor="@color/orange_bg"
+            android:textSize="@dimen/small_text_size" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/list_order_group_wine_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dip"
+        android:layout_marginTop="3dip"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="5dip"
+        android:paddingTop="5dip" >
+
+        <Button
+            android:id="@+id/list_order_received_auth_btn"
+            android:layout_width="80dip"
+            android:layout_height="35dip"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/corners_bg_red"
+            android:gravity="center"
+            android:paddingBottom="8dip"
+            android:paddingTop="8dip"
+            android:text="@string/auth_receive"
+            android:textColor="@color/white"
+            android:textSize="@dimen/small_text_size" />
+
+        <RelativeLayout
+            android:layout_width="200dip"
+            android:layout_height="35dip"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/corners_bg_gray"
+            android:gravity="center_vertical" >
+
+            <EditText
+                android:id="@+id/list_order_confirm_code_et"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/logistics_code_hint"
+                android:imeActionLabel="下一步"
+                android:imeOptions="actionNext|flagNoExtractUi"
+                android:maxLength="50"
+                android:paddingBottom="6dip"
+                android:paddingLeft="50dip"
+                android:paddingTop="6dip"
+                android:singleLine="true"
+                android:textColor="@color/black_character"
+                android:textSize="@dimen/middle_text_size" />
+            <!-- android:imeOptions="actionNext|flagNoExtractUi" -->
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10.0dip"
+                android:paddingRight="10dip"
+                android:src="@drawable/ic_code" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>
