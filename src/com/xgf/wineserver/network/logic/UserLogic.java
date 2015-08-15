@@ -64,7 +64,7 @@ public class UserLogic {
 							RequestUrl.account.login);
 
 					rpc.addProperty("account",
-							URLEncoder.encode(user.getUserName(), "UTF-8"));
+							URLEncoder.encode(user.getAccount(), "UTF-8"));
 					rpc.addProperty("password", JMD5.encode(user.getPassword()));
 
 					AndroidHttpTransport ht = new AndroidHttpTransport(
@@ -108,6 +108,7 @@ public class UserLogic {
 
 	private static void parseLoginData(JSONObject response, Handler handler) {
 		try {
+			Log.e("xxx_login_suc", response.toString());
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
 				JSONObject jsonObject = response
