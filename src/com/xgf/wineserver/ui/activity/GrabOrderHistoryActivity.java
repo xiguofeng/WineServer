@@ -9,6 +9,7 @@ import com.xgf.wineserver.entity.Order;
 import com.xgf.wineserver.network.config.MsgResult;
 import com.xgf.wineserver.network.logic.OrderLogic;
 import com.xgf.wineserver.ui.adapter.OrderHistoryAdapter;
+import com.xgf.wineserver.ui.view.CustomListView;
 import com.xgf.wineserver.utils.TimeUtils;
 import com.xgf.wineserver.utils.UserInfoManager;
 
@@ -28,7 +29,7 @@ public class GrabOrderHistoryActivity extends Activity implements
 
 	private Context mContext;
 
-	private ListView mOrderTodayLv;
+	private CustomListView mOrderTodayLv;
 
 	private ListView mOrderHistoryLv;
 
@@ -111,7 +112,7 @@ public class GrabOrderHistoryActivity extends Activity implements
 		mTodayNumTv = (TextView) findViewById(R.id.garb_history_today_num_tv);
 		mHistoryNumTv = (TextView) findViewById(R.id.garb_history_history_num_tv);
 
-		mOrderTodayLv = (ListView) findViewById(R.id.grab_order_history_list_today_lv);
+		mOrderTodayLv = (CustomListView) findViewById(R.id.grab_order_history_list_today_lv);
 		mOrderTodayAdapter = new OrderHistoryAdapter(mContext, mOrderTodayList);
 		mOrderTodayLv.setAdapter(mOrderTodayAdapter);
 

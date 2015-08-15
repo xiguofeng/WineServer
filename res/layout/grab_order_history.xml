@@ -130,13 +130,13 @@
         android:textColor="@color/blue_text"
         android:textSize="@dimen/small_text_size" />
 
-    <ListView
+    <com.xgf.wineserver.ui.view.CustomListView
         android:id="@+id/grab_order_history_list_today_lv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:divider="@color/white"
-        android:dividerHeight="5dip"
+        android:divider="@color/black_character"
+        android:dividerHeight="0.5dip"
         android:fastScrollEnabled="false"
         android:scrollbars="none" />
 
@@ -154,9 +154,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dip"
-        android:divider="@color/white"
-        android:dividerHeight="5dip"
+        android:divider="@color/black_character"
+        android:dividerHeight="0.5dip"
         android:fastScrollEnabled="false"
         android:scrollbars="none" />
 

@@ -278,9 +278,10 @@ public class OrderLogic {
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
-
+					Log.e("xxx_GrabOrdersHistory_result_0",
+							resultStr.toString());
 					if (!TextUtils.isEmpty(resultStr)) {
-						Log.e("xxx_GrabOrdersHistory_result",
+						Log.e("xxx_GrabOrdersHistory_result_1",
 								resultStr.toString());
 						JSONObject obj = new JSONObject(resultStr);
 						parseGrabOrdersHistoryData(obj, handler);

@@ -21,6 +21,7 @@ import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class LogisticsConfirmActivity extends Activity implements OnClickListener, ListItemClickParameterHelp {
 	private Context mContext;
@@ -53,8 +54,9 @@ public class LogisticsConfirmActivity extends Activity implements OnClickListene
 				break;
 			}
 			case OrderLogic.ORDER_CONFIRM_SUC: {
-					OrderLogic.getGrabOrdersHistory(mContext, mHandler,
-							UserInfoManager.userInfo.getUserId(), OrderState.ORDER_STATUS_CONFIRMED, "0", "30");
+				Toast.makeText(mContext, mContext.getString(R.string.auth_receive_suc), Toast.LENGTH_SHORT).show();
+				OrderLogic.getGrabOrdersHistory(mContext, mHandler, UserInfoManager.userInfo.getUserId(),
+						OrderState.ORDER_STATUS_CONFIRMED, "0", "30");
 				break;
 			}
 			case OrderLogic.ORDER_CONFIRM_FAIL: {
@@ -94,16 +96,15 @@ public class LogisticsConfirmActivity extends Activity implements OnClickListene
 		mOrderAdapter = new OrderWineAdapter(mContext, mOrderMsgMap, this);
 		mOrderLv.setAdapter(mOrderAdapter);
 	}
-	
-	private void initData(){
-		OrderLogic.getGrabOrdersHistory(mContext, mHandler,
-				UserInfoManager.userInfo.getUserId(), OrderState.ORDER_STATUS_CONFIRMED, "0", "30");
-	}
-	
 
+	private void initData() {
+		OrderLogic.getGrabOrdersHistory(mContext, mHandler, UserInfoManager.userInfo.getUserId(),
+				OrderState.ORDER_STATUS_CONFIRMED, "0", "30");
+	}
 
 	@Override
-	public void onClick(View v) {}
+	public void onClick(View v) {
+	}
 
 	@Override
 	public void onClick(View item, View widget, int position, int which, String code) {

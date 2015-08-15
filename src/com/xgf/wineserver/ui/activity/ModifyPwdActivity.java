@@ -68,7 +68,8 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 				Toast.makeText(ModifyPwdActivity.this,
 						mContext.getString(R.string.modify_pwd_suc),
 						Toast.LENGTH_SHORT).show();
-
+				
+				clear();
 				HomeActivity.setTab(HomeActivity.TAB_MAIN);
 
 				break;
@@ -205,6 +206,13 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 		if (TextUtils.isEmpty(mConfirmPwdEt.getText().toString().trim())) {
 			mConfirmPwdEt.setError(getString(R.string.user_confirm_psw_hint));
 		}
+	}
+	
+	private void clear(){
+		mPhoneEt.setText("");
+		mAuthCodeEt.setText("");
+		mPassWordEt.setText("");
+		mConfirmPwdEt.setText("");
 	}
 
 	@Override
