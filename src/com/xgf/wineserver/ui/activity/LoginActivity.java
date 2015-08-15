@@ -1,5 +1,10 @@
 package com.xgf.wineserver.ui.activity;
 
+import com.xgf.wineserver.R;
+import com.xgf.wineserver.entity.User;
+import com.xgf.wineserver.network.logic.UserLogic;
+import com.xgf.wineserver.utils.UserInfoManager;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,11 +18,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.xgf.wineserver.R;
-import com.xgf.wineserver.entity.User;
-import com.xgf.wineserver.network.logic.UserLogic;
-import com.xgf.wineserver.utils.UserInfoManager;
 
 /**
  * 登录界面

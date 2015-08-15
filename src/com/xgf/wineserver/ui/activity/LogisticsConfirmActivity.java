@@ -1,5 +1,9 @@
 package com.xgf.wineserver.ui.activity;
 
+import com.xgf.wineserver.R;
+import com.xgf.wineserver.network.logic.OrderLogic;
+import com.xgf.wineserver.utils.UserInfoManager;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -10,10 +14,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-
-import com.xgf.wineserver.R;
-import com.xgf.wineserver.network.logic.OrderLogic;
-import com.xgf.wineserver.utils.UserInfoManager;
 
 public class LogisticsConfirmActivity extends Activity implements
 		OnClickListener {

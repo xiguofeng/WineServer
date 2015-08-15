@@ -12,17 +12,17 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.AndroidHttpTransport;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.xgf.wineserver.entity.User;
 import com.xgf.wineserver.network.config.MsgResult;
 import com.xgf.wineserver.network.config.RequestUrl;
 import com.xgf.wineserver.utils.JMD5;
 import com.xgf.wineserver.utils.JsonUtils;
+
+import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
 
 public class UserLogic {
 

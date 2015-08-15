@@ -3,6 +3,17 @@ package com.xgf.wineserver.ui.activity;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.baidu.location.BDLocation;
+import com.xgf.wineserver.R;
+import com.xgf.wineserver.entity.Order;
+import com.xgf.wineserver.network.logic.OrderLogic;
+import com.xgf.wineserver.service.MsgService;
+import com.xgf.wineserver.ui.adapter.OrderAdapter;
+import com.xgf.wineserver.ui.utils.ListItemClickHelp;
+import com.xgf.wineserver.utils.LocationUtilsV5;
+import com.xgf.wineserver.utils.LocationUtilsV5.LocationCallback;
+import com.xgf.wineserver.utils.UserInfoManager;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,17 +25,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.baidu.location.BDLocation;
-import com.xgf.wineserver.R;
-import com.xgf.wineserver.entity.Order;
-import com.xgf.wineserver.network.logic.OrderLogic;
-import com.xgf.wineserver.service.MsgService;
-import com.xgf.wineserver.ui.adapter.OrderAdapter;
-import com.xgf.wineserver.ui.utils.ListItemClickHelp;
-import com.xgf.wineserver.utils.LocationUtilsV5;
-import com.xgf.wineserver.utils.LocationUtilsV5.LocationCallback;
-import com.xgf.wineserver.utils.UserInfoManager;
 
 public class MainActivity extends Activity implements OnClickListener,
 		ListItemClickHelp {

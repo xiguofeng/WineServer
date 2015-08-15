@@ -1,11 +1,11 @@
 package com.xgf.wineserver.utils;
 
+import com.xgf.wineserver.entity.User;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
-
-import com.xgf.wineserver.entity.User;
 
 /**
  * 用户信息管理类

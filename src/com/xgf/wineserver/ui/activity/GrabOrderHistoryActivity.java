@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.xgf.wineserver.R;
+import com.xgf.wineserver.entity.Order;
+import com.xgf.wineserver.network.config.MsgResult;
+import com.xgf.wineserver.network.logic.OrderLogic;
+import com.xgf.wineserver.ui.adapter.OrderHistoryAdapter;
+import com.xgf.wineserver.utils.TimeUtils;
+import com.xgf.wineserver.utils.UserInfoManager;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -14,14 +22,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.xgf.wineserver.R;
-import com.xgf.wineserver.entity.Order;
-import com.xgf.wineserver.network.config.MsgResult;
-import com.xgf.wineserver.network.logic.OrderLogic;
-import com.xgf.wineserver.ui.adapter.OrderHistoryAdapter;
-import com.xgf.wineserver.utils.TimeUtils;
-import com.xgf.wineserver.utils.UserInfoManager;
 
 public class GrabOrderHistoryActivity extends Activity implements
 		OnClickListener {

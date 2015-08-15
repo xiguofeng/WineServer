@@ -6,6 +6,18 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.baidu.location.BDLocation;
+import com.xgf.wineserver.R;
+import com.xgf.wineserver.entity.NotifyInfo;
+import com.xgf.wineserver.entity.Order;
+import com.xgf.wineserver.network.config.MsgResult;
+import com.xgf.wineserver.network.logic.OrderLogic;
+import com.xgf.wineserver.ui.activity.HomeActivity;
+import com.xgf.wineserver.ui.activity.MainActivity;
+import com.xgf.wineserver.utils.LocationUtilsV5;
+import com.xgf.wineserver.utils.LocationUtilsV5.LocationCallback;
+import com.xgf.wineserver.utils.UserInfoManager;
+
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.app.Notification;
@@ -22,18 +34,6 @@ import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
-
-import com.baidu.location.BDLocation;
-import com.xgf.wineserver.R;
-import com.xgf.wineserver.entity.NotifyInfo;
-import com.xgf.wineserver.entity.Order;
-import com.xgf.wineserver.network.config.MsgResult;
-import com.xgf.wineserver.network.logic.OrderLogic;
-import com.xgf.wineserver.ui.activity.HomeActivity;
-import com.xgf.wineserver.ui.activity.MainActivity;
-import com.xgf.wineserver.utils.LocationUtilsV5;
-import com.xgf.wineserver.utils.LocationUtilsV5.LocationCallback;
-import com.xgf.wineserver.utils.UserInfoManager;
 
 public class MsgService extends Service {
 

@@ -2,15 +2,15 @@ package com.xgf.wineserver.ui.adapter;
 
 import java.util.ArrayList;
 
+import com.xgf.wineserver.R;
+import com.xgf.wineserver.entity.Order;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import com.xgf.wineserver.R;
-import com.xgf.wineserver.entity.Order;
 
 public class OrderHistoryAdapter extends BaseAdapter {
 

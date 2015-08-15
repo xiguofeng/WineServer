@@ -1,5 +1,7 @@
 package com.xgf.wineserver.ui.activity;
 
+import com.xgf.wineserver.R;
+
 import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.content.DialogInterface;
@@ -11,8 +13,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost;
-
-import com.xgf.wineserver.R;
 
 public class HomeActivity extends TabActivity implements
 		android.view.View.OnClickListener {

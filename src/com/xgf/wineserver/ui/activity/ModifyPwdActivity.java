@@ -1,5 +1,10 @@
 package com.xgf.wineserver.ui.activity;
 
+import com.xgf.wineserver.R;
+import com.xgf.wineserver.entity.User;
+import com.xgf.wineserver.network.logic.UserLogic;
+import com.xgf.wineserver.utils.UserInfoManager;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
@@ -15,11 +20,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.xgf.wineserver.R;
-import com.xgf.wineserver.entity.User;
-import com.xgf.wineserver.network.logic.UserLogic;
-import com.xgf.wineserver.utils.UserInfoManager;
 
 @SuppressLint("NewApi")
 public class ModifyPwdActivity extends BaseActivity implements OnClickListener,

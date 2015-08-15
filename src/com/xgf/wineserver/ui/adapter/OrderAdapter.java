@@ -2,6 +2,11 @@ package com.xgf.wineserver.ui.adapter;
 
 import java.util.ArrayList;
 
+import com.xgf.wineserver.R;
+import com.xgf.wineserver.entity.Order;
+import com.xgf.wineserver.ui.utils.ListItemClickHelp;
+import com.xgf.wineserver.utils.TimeUtils;
+
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,11 +16,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.xgf.wineserver.R;
-import com.xgf.wineserver.entity.Order;
-import com.xgf.wineserver.ui.utils.ListItemClickHelp;
-import com.xgf.wineserver.utils.TimeUtils;
 
 public class OrderAdapter extends BaseAdapter {
 
