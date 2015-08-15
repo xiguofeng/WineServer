@@ -56,11 +56,11 @@ public class LogisticsConfirmActivity extends Activity implements OnClickListene
 			case OrderLogic.ORDER_CONFIRM_SUC: {
 				Toast.makeText(mContext, mContext.getString(R.string.auth_receive_suc), Toast.LENGTH_SHORT).show();
 				OrderLogic.getGrabOrdersHistory(mContext, mHandler, UserInfoManager.userInfo.getUserId(),
-						OrderState.ORDER_STATUS_CONFIRMED, "0", "30");
+						OrderState.ORDER_STATUS_DELIVERY, "0", "30");
 				break;
 			}
 			case OrderLogic.ORDER_CONFIRM_FAIL: {
-
+				Toast.makeText(mContext, mContext.getString(R.string.auth_receive_fail), Toast.LENGTH_SHORT).show();
 				break;
 			}
 			case OrderLogic.ORDER_CONFIRM_EXCEPTION: {
@@ -99,7 +99,7 @@ public class LogisticsConfirmActivity extends Activity implements OnClickListene
 
 	private void initData() {
 		OrderLogic.getGrabOrdersHistory(mContext, mHandler, UserInfoManager.userInfo.getUserId(),
-				OrderState.ORDER_STATUS_CONFIRMED, "0", "30");
+				OrderState.ORDER_STATUS_DELIVERY, "0", "30");
 	}
 
 	@Override

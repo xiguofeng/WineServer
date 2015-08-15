@@ -278,10 +278,10 @@ public class OrderLogic {
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
-					Log.e("xxx_GrabOrdersHistory_result_0",
+					Log.e("xxx_GrabOrdersHistory_result",
 							resultStr.toString());
 					if (!TextUtils.isEmpty(resultStr)) {
-						Log.e("xxx_GrabOrdersHistory_result_1",
+						Log.e("xxx_GrabOrdersHistory_result",
 								resultStr.toString());
 						JSONObject obj = new JSONObject(resultStr);
 						parseGrabOrdersHistoryData(obj, handler);
@@ -412,35 +412,14 @@ public class OrderLogic {
 
 	}
 
-	// {"datas":"{}","message":"验证码错误","result":"10001"}
+	// {"datas":{},"message":"操作成功","result":"0"}
 	private static void parseRecieveConfirmData(JSONObject response,
 			Handler handler) {
 
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
-
-				JSONObject jsonObject = response
-						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
-
-				ArrayList<Order> tempOrderList = new ArrayList<Order>();
-				JSONArray orderListArray = jsonObject
-						.getJSONArray(MsgResult.RESULT_LIST_TAG);
-
-				int size = orderListArray.length();
-				for (int i = 0; i < size; i++) {
-					JSONObject orderJsonObject = orderListArray
-							.getJSONObject(i);
-					Order order = (Order) JsonUtils.fromJsonToJava(
-							orderJsonObject, Order.class);
-					tempOrderList.add(order);
-				}
-
-				Message message = new Message();
-				message.what = ORDER_CONFIRM_SUC;
-				message.obj = tempOrderList;
-				handler.sendMessage(message);
-
+				handler.sendEmptyMessage(ORDER_CONFIRM_SUC);
 			} else {
 				handler.sendEmptyMessage(ORDER_CONFIRM_FAIL);
 			}

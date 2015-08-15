@@ -12,7 +12,9 @@ import com.xgf.wineserver.ui.utils.ListItemClickParameterHelp;
 import com.xgf.wineserver.ui.view.OrderWineView;
 
 import android.content.Context;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +31,8 @@ public class OrderWineAdapter extends BaseAdapter {
 	private Context mContext;
 
 	private HashMap<String, Object> mMap;
+	
+	private HashMap<String, String> etMap = new HashMap<String, String>();  
 
 	private LayoutInflater mInflater;
 
@@ -79,23 +83,42 @@ public class OrderWineAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
+		
+		final int tempPosition = position;
+		final String id=((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getId();
+		holder.mCodeEt.addTextChangedListener(new TextWatcher() {  
+            @Override  
+            public void onTextChanged(CharSequence s, int start, int before, int count) {  
+                  
+            }  
+              
+            @Override  
+            public void beforeTextChanged(CharSequence s, int start,   
+                    int count,int after) {  
+                  
+            }  
+              
+            @Override  
+            public void afterTextChanged(Editable s) {  
+                //将editText中改变的值设置的HashMap中  
+            	etMap.put(id, s.toString());  
+            }  
+        });  
 
-		holder.mId.setText(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getId());
+	    
+		holder.mId.setText(id);
 		holder.mTime.setText(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderTime());
-
 		holder.mState.setText(OrderState.state[(Integer
 				.parseInt(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()) - 1)]);
 
-		final int tempPosition = position;
+		
 		final View view = convertView;
 		final int whichCancel = holder.mConfirmBtn.getId();
-		final String code = holder.mCodeEt.getText().toString().trim();
-
 		holder.mConfirmBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (!TextUtils.isEmpty(code)) {
-					mCallback.onClick(view, v, tempPosition, whichCancel, code);
+				if (!TextUtils.isEmpty(etMap.get(id))) {
+					mCallback.onClick(view, v, tempPosition, whichCancel, etMap.get(id));
 				} else {
 					Toast.makeText(mContext, mContext.getString(R.string.logistics_code_hint), Toast.LENGTH_SHORT)
 							.show();

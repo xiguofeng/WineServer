@@ -44,5 +44,6 @@
     <string name="history">历史</string>
     <string name="auth_receive">收货验证</string>
     <string name="auth_receive_suc">验证成功</string>
+    <string name="auth_receive_fail">验证失败</string>
 
 </resources>

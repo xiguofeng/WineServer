@@ -116,7 +116,7 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 			case TIME_UPDATE: {
 				if (mTiming > 0) {
 					mTiming--;
-					mTimingTv.setText(String.valueOf(mTiming));
+					mTimingTv.setText(String.valueOf(mTiming)+"秒");
 					mAuthCodeLl.setClickable(false);
 					mAuthCodeLl.setBackground(mContext.getResources()
 							.getDrawable(R.drawable.corners_bg_gray_all));
@@ -213,6 +213,13 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 		mAuthCodeEt.setText("");
 		mPassWordEt.setText("");
 		mConfirmPwdEt.setText("");
+		
+		mAuthCodeLl.setClickable(true);
+		mAuthCodeLl.setBackground(mContext.getResources()
+				.getDrawable(R.drawable.corners_bg_orange_all));
+		mTimingTv
+				.setText(getString(R.string.get_verification_code));
+		mTiming = 60;
 	}
 
 	@Override
