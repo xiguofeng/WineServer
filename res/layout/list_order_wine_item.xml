@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray_bg"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
         android:paddingTop="5dp" >
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dip"
-            android:textColor="@color/gray_text"
+            android:textColor="@color/orange_bg"
             android:textSize="@dimen/small_text_size" />
 
         <TextView
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dip"
             android:layout_toRightOf="@+id/list_order_group_id_tv"
-            android:textColor="@color/gray_text"
+            android:textColor="@color/orange_bg"
             android:textSize="@dimen/small_text_size" />
 
         <TextView
@@ -40,6 +40,15 @@
             android:textColor="@color/orange_bg"
             android:textSize="@dimen/small_text_size" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dip"
+        android:layout_marginTop="3dip"
+        android:background="@drawable/h_line"
+        android:orientation="vertical" >
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/list_order_group_wine_ll"
@@ -94,7 +103,7 @@
                 android:paddingTop="6dip"
                 android:singleLine="true"
                 android:textColor="@color/black_character"
-                android:textSize="@dimen/middle_text_size" />
+                android:textSize="@dimen/small_text_size" />
             <!-- android:imeOptions="actionNext|flagNoExtractUi" -->
 
             <ImageView

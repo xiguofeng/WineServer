@@ -82,7 +82,7 @@ public class OrderAdapter extends BaseAdapter {
 			holder.mDistanceTv.setText(mDatas.get(position).getDistance() + "km");
 		}
 		holder.mTimeTv.setText(mDatas.get(position).getOrderTime());
-		holder.mInfoTv.setText(mDatas.get(position).getAmount());
+		holder.mInfoTv.setText(mDatas.get(position).getAmount() + "元");
 		holder.mWaitTimeTv.setText(mDatas.get(position).getDeliveryTime());
 		holder.mAddressTv.setText(mDatas.get(position).getAddress());
 
@@ -99,6 +99,9 @@ public class OrderAdapter extends BaseAdapter {
 				String orderYMD = orderTimeStr.substring(0, 10);
 				if (dateYMD.equals(orderYMD)) {
 					holder.mTimeTv.setText("今天" + dateHMM);
+				} else {
+					String orderMDHMM = orderTimeStr.substring(5);
+					holder.mTimeTv.setText(orderMDHMM);
 				}
 			}
 		}
