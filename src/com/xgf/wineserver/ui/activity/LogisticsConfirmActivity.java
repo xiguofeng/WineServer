@@ -99,7 +99,7 @@ public class LogisticsConfirmActivity extends Activity implements OnClickListene
 
 	private void initData() {
 		OrderLogic.getGrabOrdersHistory(mContext, mHandler, UserInfoManager.userInfo.getUserId(),
-				OrderState.ORDER_STATUS_DELIVERY, "0", "30");
+				OrderState.ORDER_STATUS_GRABBED+","+OrderState.ORDER_STATUS_DELIVERY, "0", "30");
 	}
 
 	@Override
