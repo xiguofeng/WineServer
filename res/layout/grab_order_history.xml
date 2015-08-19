@@ -95,7 +95,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/total_income"
+                android:text="@string/total_money"
                 android:textColor="@color/blue_text"
                 android:textSize="@dimen/medium_text_size" />
 
