@@ -77,7 +77,8 @@ public class LogisticsConfirmActivity extends Activity implements OnClickListene
 			default:
 				break;
 			}
-			if (null != mCustomProgressDialog) {
+			if (null != mCustomProgressDialog
+					&& mCustomProgressDialog.isShowing()) {
 				mCustomProgressDialog.dismiss();
 			}
 

@@ -108,7 +108,8 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 				break;
 			}
 			
-			if (null != mCustomProgressDialog) {
+			if (null != mCustomProgressDialog
+					&& mCustomProgressDialog.isShowing()) {
 				mCustomProgressDialog.dismiss();
 			}
 

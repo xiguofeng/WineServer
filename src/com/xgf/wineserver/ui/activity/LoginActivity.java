@@ -82,10 +82,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			default:
 				break;
 			}
-			if (null != mCustomProgressDialog) {
+			if (null != mCustomProgressDialog
+					&& mCustomProgressDialog.isShowing()) {
 				mCustomProgressDialog.dismiss();
 			}
-
 		}
 
 	};

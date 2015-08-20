@@ -10,6 +10,7 @@ import com.xgf.wineserver.network.logic.OrderLogic;
 import com.xgf.wineserver.service.MsgService;
 import com.xgf.wineserver.ui.adapter.OrderAdapter;
 import com.xgf.wineserver.ui.utils.ListItemClickHelp;
+import com.xgf.wineserver.ui.view.CustomProgressDialog2;
 import com.xgf.wineserver.utils.LocationUtilsV5;
 import com.xgf.wineserver.utils.LocationUtilsV5.LocationCallback;
 import com.xgf.wineserver.utils.UserInfoManager;
@@ -40,6 +41,8 @@ public class MainActivity extends Activity implements OnClickListener,
 	private String mLat;
 
 	private String mLon;
+
+	private CustomProgressDialog2 mCustomProgressDialog;
 
 	Handler mHandler = new Handler() {
 
@@ -85,7 +88,10 @@ public class MainActivity extends Activity implements OnClickListener,
 			default:
 				break;
 			}
-
+			if (null != mCustomProgressDialog
+					&& mCustomProgressDialog.isShowing()) {
+				mCustomProgressDialog.dismiss();
+			}
 		}
 
 	};
@@ -95,6 +101,7 @@ public class MainActivity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		mContext = MainActivity.this;
+		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		initView();
 		initData();
 	}
@@ -165,6 +172,9 @@ public class MainActivity extends Activity implements OnClickListener,
 	public void onClick(View item, View widget, int position, int which) {
 		switch (which) {
 		case R.id.list_order_rob_btn: {
+			if (null != mCustomProgressDialog) {
+				mCustomProgressDialog.show();
+			}
 			OrderLogic.grabOrder(mContext, mHandler,
 					UserInfoManager.userInfo.getUserId(),
 					mOrderList.get(position).getId());

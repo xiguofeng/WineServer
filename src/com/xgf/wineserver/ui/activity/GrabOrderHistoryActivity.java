@@ -88,7 +88,8 @@ public class GrabOrderHistoryActivity extends Activity implements
 			default:
 				break;
 			}
-			if (null != mCustomProgressDialog) {
+			if (null != mCustomProgressDialog
+					&& mCustomProgressDialog.isShowing()) {
 				mCustomProgressDialog.dismiss();
 			}
 		}

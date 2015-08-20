@@ -147,7 +147,7 @@
             android:id="@+id/list_order_rob_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dip"
+            android:layout_marginRight="10dip"
             android:layout_alignParentRight="true"
             android:background="@drawable/corners_bg_red"
             android:gravity="center"
