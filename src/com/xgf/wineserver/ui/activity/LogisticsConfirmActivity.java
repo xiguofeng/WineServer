@@ -4,15 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.xgf.wineserver.R;
-import com.xgf.wineserver.entity.Order;
-import com.xgf.wineserver.entity.OrderState;
-import com.xgf.wineserver.network.config.MsgResult;
-import com.xgf.wineserver.network.logic.OrderLogic;
-import com.xgf.wineserver.ui.adapter.OrderWineAdapter;
-import com.xgf.wineserver.ui.utils.ListItemClickParameterHelp;
-import com.xgf.wineserver.utils.UserInfoManager;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -23,6 +14,17 @@ import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.xgf.wineserver.R;
+import com.xgf.wineserver.entity.Order;
+import com.xgf.wineserver.entity.OrderState;
+import com.xgf.wineserver.network.config.MsgResult;
+import com.xgf.wineserver.network.logic.OrderLogic;
+import com.xgf.wineserver.ui.adapter.OrderWineAdapter;
+import com.xgf.wineserver.ui.utils.ListItemClickParameterHelp;
+import com.xgf.wineserver.ui.view.CustomProgressDialog2;
+import com.xgf.wineserver.utils.UserInfoManager;
+;
+
 public class LogisticsConfirmActivity extends Activity implements OnClickListener, ListItemClickParameterHelp {
 	private Context mContext;
 
@@ -30,6 +32,9 @@ public class LogisticsConfirmActivity extends Activity implements OnClickListene
 	private HashMap<String, Object> mOrderMsgMap = new HashMap<String, Object>();
 	private OrderWineAdapter mOrderAdapter;
 	private ArrayList<Order> orderList = new ArrayList<Order>();
+	
+	private CustomProgressDialog2 mCustomProgressDialog;
+
 
 	Handler mHandler = new Handler() {
 
@@ -72,6 +77,9 @@ public class LogisticsConfirmActivity extends Activity implements OnClickListene
 			default:
 				break;
 			}
+			if (null != mCustomProgressDialog) {
+				mCustomProgressDialog.dismiss();
+			}
 
 		}
 
@@ -82,6 +90,7 @@ public class LogisticsConfirmActivity extends Activity implements OnClickListene
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.logi_confirm);
 		mContext = LogisticsConfirmActivity.this;
+		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		initView();
 	}
 
@@ -98,6 +107,9 @@ public class LogisticsConfirmActivity extends Activity implements OnClickListene
 	}
 
 	private void initData() {
+		if (null != mCustomProgressDialog) {
+			mCustomProgressDialog.show();
+		}
 		OrderLogic.getGrabOrdersHistory(mContext, mHandler, UserInfoManager.userInfo.getUserId(),
 				OrderState.ORDER_STATUS_GRABBED+","+OrderState.ORDER_STATUS_DELIVERY, "0", "30");
 	}

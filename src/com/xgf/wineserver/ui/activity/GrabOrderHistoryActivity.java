@@ -4,15 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.xgf.wineserver.R;
-import com.xgf.wineserver.entity.Order;
-import com.xgf.wineserver.network.config.MsgResult;
-import com.xgf.wineserver.network.logic.OrderLogic;
-import com.xgf.wineserver.ui.adapter.OrderHistoryAdapter;
-import com.xgf.wineserver.ui.view.CustomListView;
-import com.xgf.wineserver.utils.TimeUtils;
-import com.xgf.wineserver.utils.UserInfoManager;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -23,6 +14,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.xgf.wineserver.R;
+import com.xgf.wineserver.entity.Order;
+import com.xgf.wineserver.network.config.MsgResult;
+import com.xgf.wineserver.network.logic.OrderLogic;
+import com.xgf.wineserver.ui.adapter.OrderHistoryAdapter;
+import com.xgf.wineserver.ui.view.CustomListView;
+import com.xgf.wineserver.ui.view.CustomProgressDialog2;
+import com.xgf.wineserver.utils.TimeUtils;
+import com.xgf.wineserver.utils.UserInfoManager;
 
 public class GrabOrderHistoryActivity extends Activity implements
 		OnClickListener {
@@ -52,6 +53,8 @@ public class GrabOrderHistoryActivity extends Activity implements
 	private OrderHistoryAdapter mOrderHistoryAdapter;
 
 	private HashMap<String, Object> mOrderMsgMap = new HashMap<String, Object>();
+	
+	private CustomProgressDialog2 mCustomProgressDialog;
 
 	Handler mHandler = new Handler() {
 
@@ -85,7 +88,9 @@ public class GrabOrderHistoryActivity extends Activity implements
 			default:
 				break;
 			}
-
+			if (null != mCustomProgressDialog) {
+				mCustomProgressDialog.dismiss();
+			}
 		}
 
 	};
@@ -95,6 +100,7 @@ public class GrabOrderHistoryActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.grab_order_history);
 		mContext = GrabOrderHistoryActivity.this;
+		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		initView();
 		// initData();
 	}
@@ -134,6 +140,9 @@ public class GrabOrderHistoryActivity extends Activity implements
 		// order.setAmount("洋河酒");
 		// mOrderList.add(order);
 		// }
+		if (null != mCustomProgressDialog) {
+			mCustomProgressDialog.show();
+		}
 		OrderLogic.getGrabOrdersHistory(mContext, mHandler,
 				UserInfoManager.userInfo.getUserId(), "", "0", "30");
 	}

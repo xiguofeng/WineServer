@@ -3,6 +3,7 @@ package com.xgf.wineserver.ui.activity;
 import com.xgf.wineserver.R;
 import com.xgf.wineserver.entity.User;
 import com.xgf.wineserver.network.logic.UserLogic;
+import com.xgf.wineserver.ui.view.CustomProgressDialog2;
 import com.xgf.wineserver.utils.UserInfoManager;
 
 import android.content.Context;
@@ -39,7 +40,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
 	private User mUser = new User();
 
-	private Context mContext = LoginActivity.this;
+	private Context mContext;
+	private CustomProgressDialog2 mCustomProgressDialog;
+
 
 	// 登陆装填提示handler更新主线程，提示登陆状态情况
 	Handler mLoginHandler = new Handler() {
@@ -79,6 +82,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			default:
 				break;
 			}
+			if (null != mCustomProgressDialog) {
+				mCustomProgressDialog.dismiss();
+			}
 
 		}
 
@@ -89,6 +95,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.login);
+		mContext = LoginActivity.this;
+		mCustomProgressDialog = new CustomProgressDialog2(mContext);
 		initView();
 		initData();
 
@@ -165,6 +173,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			Toast.makeText(LoginActivity.this, mContext.getString(R.string.login_emptyname_or_emptypwd),
 					Toast.LENGTH_SHORT).show();
 		} else {
+			if (null != mCustomProgressDialog) {
+				mCustomProgressDialog.show();
+			}
 			mUser.setAccount(mAccount);
 			mUser.setPassword(mPassWord);
 			UserLogic.login(mContext, mLoginHandler, mUser);
