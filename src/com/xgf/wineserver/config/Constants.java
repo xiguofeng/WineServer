@@ -8,17 +8,17 @@ public class Constants {
 	 */
 
 	// 应用名称
-	public static String APP_NAME = "ggonline";
+	public static String APP_NAME = "wineserver";
 
 	// 保存参数文件夹名称
-	public static final String SHARED_PREFERENCE_NAME = "ggonline_prefs";
+	public static final String SHARED_PREFERENCE_NAME = "wineserver_prefs";
 
 	// SDCard路径
 	public static final String SD_PATH = Environment
 			.getExternalStorageDirectory().getAbsolutePath();
 
 	// 图片存储路径
-	public static final String BASE_PATH = SD_PATH + "/ggonline/";
+	public static final String BASE_PATH = SD_PATH + "/wineserver/";
 
 	// 缓存图片路径
 	public static final String BASE_IMAGE_CACHE = BASE_PATH + "cache/images/";
