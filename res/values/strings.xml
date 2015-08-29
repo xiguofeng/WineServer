@@ -16,7 +16,7 @@
     <string name="reg">注册</string>
     <string name="login_successful">登录成功</string>
     <string name="login_fail">登录失败</string>
-    <string name="user_name_hint">请输入手机号</string>
+    <string name="user_name_hint">请输入用户名</string>
     <string name="user_psw_hint">请输入密码</string>
     <string name="user_confirm_psw_hint">请再次输入密码</string>
     <string name="modify_pwd_suc">密码修改成功</string>
