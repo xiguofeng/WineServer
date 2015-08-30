@@ -14,6 +14,7 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -256,6 +257,15 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 			break;
 		}
 
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+			HomeActivity.setTab(HomeActivity.TAB_MAIN);
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	@Override

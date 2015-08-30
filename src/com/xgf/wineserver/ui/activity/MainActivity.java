@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
@@ -43,6 +44,8 @@ public class MainActivity extends Activity implements OnClickListener,
 	private String mLon;
 
 	private CustomProgressDialog2 mCustomProgressDialog;
+	
+	private long exitTime = 0;
 
 	Handler mHandler = new Handler() {
 
@@ -166,6 +169,21 @@ public class MainActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onClick(View v) {
+	}
+	
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+			if ((System.currentTimeMillis() - exitTime) > 2000) {
+				Toast.makeText(getApplicationContext(), R.string.exit, Toast.LENGTH_SHORT).show();
+				exitTime = System.currentTimeMillis();
+			} else {
+				finish();
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
@@ -131,6 +132,15 @@ public class LogisticsConfirmActivity extends Activity implements OnClickListene
 			break;
 		}
 
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+			HomeActivity.setTab(HomeActivity.TAB_MAIN);
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 }
