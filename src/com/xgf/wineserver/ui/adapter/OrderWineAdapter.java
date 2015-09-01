@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.xgf.wineserver.R;
+import com.xgf.wineserver.config.Constants;
 import com.xgf.wineserver.entity.Goods;
 import com.xgf.wineserver.entity.Order;
 import com.xgf.wineserver.entity.OrderState;
@@ -31,8 +32,8 @@ public class OrderWineAdapter extends BaseAdapter {
 	private Context mContext;
 
 	private HashMap<String, Object> mMap;
-	
-	private HashMap<String, String> etMap = new HashMap<String, String>();  
+
+	private HashMap<String, String> etMap = new HashMap<String, String>();
 
 	private LayoutInflater mInflater;
 
@@ -74,6 +75,7 @@ public class OrderWineAdapter extends BaseAdapter {
 			holder.mId = (TextView) convertView.findViewById(R.id.list_order_group_id_tv);
 			holder.mTime = (TextView) convertView.findViewById(R.id.list_order_group_time_tv);
 			holder.mState = (TextView) convertView.findViewById(R.id.list_order_group_state_tv);
+			holder.mPayType = (TextView) convertView.findViewById(R.id.list_order_group_pay_type_tv);
 
 			holder.mCodeEt = (EditText) convertView.findViewById(R.id.list_order_confirm_code_et);
 			holder.mConfirmBtn = (Button) convertView.findViewById(R.id.list_order_received_auth_btn);
@@ -83,35 +85,46 @@ public class OrderWineAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		
-		final int tempPosition = position;
-		final String id=((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getId();
-		holder.mCodeEt.addTextChangedListener(new TextWatcher() {  
-            @Override  
-            public void onTextChanged(CharSequence s, int start, int before, int count) {  
-                  
-            }  
-              
-            @Override  
-            public void beforeTextChanged(CharSequence s, int start,   
-                    int count,int after) {  
-                  
-            }  
-              
-            @Override  
-            public void afterTextChanged(Editable s) {  
-                //将editText中改变的值设置的HashMap中  
-            	etMap.put(id, s.toString());  
-            }  
-        });  
 
-	    
+		final int tempPosition = position;
+		final String id = ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getId();
+		holder.mCodeEt.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// 将editText中改变的值设置的HashMap中
+				etMap.put(id, s.toString());
+			}
+		});
+
 		holder.mId.setText(id);
-		holder.mTime.setText(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderTime());
+		String time = ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderTime();
+		if (time.length() > 18) {
+			time = time.substring(5, 16);
+		}
+		holder.mTime.setText(time);
+		String payType = "线下支付";
+		if (((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getPayWay()
+				.equals(Constants.PAY_WAY_ALIPAY)
+				|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getPayWay()
+						.equals(Constants.PAY_WAY_WXPAY)
+				|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getPayWay()
+						.equals(Constants.PAY_WAY_UNIONPAY)) {
+			payType = "线上支付";
+		}
+		holder.mPayType.setText(payType);
 		holder.mState.setText(OrderState.state[(Integer
 				.parseInt(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()) - 1)]);
 
-		
 		final View view = convertView;
 		final int whichCancel = holder.mConfirmBtn.getId();
 		holder.mConfirmBtn.setOnClickListener(new OnClickListener() {
@@ -147,6 +160,8 @@ public class OrderWineAdapter extends BaseAdapter {
 		public TextView mTime;
 
 		public TextView mId;
+
+		public TextView mPayType;
 
 		public Button mConfirmBtn;
 
