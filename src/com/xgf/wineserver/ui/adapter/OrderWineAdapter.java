@@ -130,14 +130,20 @@ public class OrderWineAdapter extends BaseAdapter {
 		holder.mAddress.setText(((ArrayList<Order>) mMap
 				.get(MsgResult.ORDER_TAG)).get(position).getAddress());
 
-		String payType = "线下支付";
+		String payType = "";
 		String payWay = ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(
 				position).getPayWay();
 		if (!TextUtils.isEmpty(payWay)) {
-			if (Constants.PAY_WAY_ALIPAY.equals(payWay)
-					|| Constants.PAY_WAY_WXPAY.equals(payWay)
-					|| Constants.PAY_WAY_UNIONPAY.equals(payWay)) {
-				payType = "线上支付";
+			if (Constants.PAY_WAY_ALIPAY.equals(payWay)) {
+				payType = "支付宝支付";
+			} else if (Constants.PAY_WAY_WXPAY.equals(payWay)) {
+				payType = "微信支付";
+			} else if (Constants.PAY_WAY_UNIONPAY.equals(payWay)) {
+				payType = "银联支付";
+			} else if (Constants.PAY_WAY_POSPAY.equals(payWay)) {
+				payType = "POS机支付";
+			} else if (Constants.PAY_WAY_CASHPAY.equals(payWay)) {
+				payType = "现金支付";
 			}
 		}
 		holder.mPayType.setText(payType);
