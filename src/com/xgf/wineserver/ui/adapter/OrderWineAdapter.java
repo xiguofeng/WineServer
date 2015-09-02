@@ -39,7 +39,8 @@ public class OrderWineAdapter extends BaseAdapter {
 
 	private ListItemClickParameterHelp mCallback;
 
-	public OrderWineAdapter(Context context, HashMap<String, Object> datas, ListItemClickParameterHelp callback) {
+	public OrderWineAdapter(Context context, HashMap<String, Object> datas,
+			ListItemClickParameterHelp callback) {
 		this.mContext = context;
 		this.mMap = datas;
 		this.mCallback = callback;
@@ -69,17 +70,27 @@ public class OrderWineAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.list_order_wine_item, null);
+			convertView = mInflater
+					.inflate(R.layout.list_order_wine_item, null);
 
 			holder = new ViewHolder();
-			holder.mId = (TextView) convertView.findViewById(R.id.list_order_group_id_tv);
-			holder.mTime = (TextView) convertView.findViewById(R.id.list_order_group_time_tv);
-			holder.mState = (TextView) convertView.findViewById(R.id.list_order_group_state_tv);
-			holder.mPayType = (TextView) convertView.findViewById(R.id.list_order_group_pay_type_tv);
+			holder.mId = (TextView) convertView
+					.findViewById(R.id.list_order_group_id_tv);
+			holder.mTime = (TextView) convertView
+					.findViewById(R.id.list_order_group_time_tv);
+			holder.mState = (TextView) convertView
+					.findViewById(R.id.list_order_group_state_tv);
+			holder.mPayType = (TextView) convertView
+					.findViewById(R.id.list_order_group_pay_type_tv);
+			holder.mAddress = (TextView) convertView
+					.findViewById(R.id.list_order_group_address_tv);
 
-			holder.mCodeEt = (EditText) convertView.findViewById(R.id.list_order_confirm_code_et);
-			holder.mConfirmBtn = (Button) convertView.findViewById(R.id.list_order_received_auth_btn);
-			holder.mWineLl = (LinearLayout) convertView.findViewById(R.id.list_order_group_wine_ll);
+			holder.mCodeEt = (EditText) convertView
+					.findViewById(R.id.list_order_confirm_code_et);
+			holder.mConfirmBtn = (Button) convertView
+					.findViewById(R.id.list_order_received_auth_btn);
+			holder.mWineLl = (LinearLayout) convertView
+					.findViewById(R.id.list_order_group_wine_ll);
 
 			convertView.setTag(holder);
 		} else {
@@ -87,15 +98,18 @@ public class OrderWineAdapter extends BaseAdapter {
 		}
 
 		final int tempPosition = position;
-		final String id = ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getId();
+		final String id = ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
+				.get(position).getId();
 		holder.mCodeEt.addTextChangedListener(new TextWatcher() {
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
 
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
 
 			}
 
@@ -107,23 +121,29 @@ public class OrderWineAdapter extends BaseAdapter {
 		});
 
 		holder.mId.setText(id);
-		String time = ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderTime();
+		String time = ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(
+				position).getOrderTime();
 		if (time.length() > 18) {
 			time = time.substring(5, 16);
 		}
 		holder.mTime.setText(time);
+		holder.mAddress.setText(((ArrayList<Order>) mMap
+				.get(MsgResult.ORDER_TAG)).get(position).getAddress());
+
 		String payType = "线下支付";
-		if (((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getPayWay()
-				.equals(Constants.PAY_WAY_ALIPAY)
-				|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getPayWay()
-						.equals(Constants.PAY_WAY_WXPAY)
-				|| ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getPayWay()
-						.equals(Constants.PAY_WAY_UNIONPAY)) {
-			payType = "线上支付";
+		String payWay = ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(
+				position).getPayWay();
+		if (!TextUtils.isEmpty(payWay)) {
+			if (Constants.PAY_WAY_ALIPAY.equals(payWay)
+					|| Constants.PAY_WAY_WXPAY.equals(payWay)
+					|| Constants.PAY_WAY_UNIONPAY.equals(payWay)) {
+				payType = "线上支付";
+			}
 		}
 		holder.mPayType.setText(payType);
 		holder.mState.setText(OrderState.state[(Integer
-				.parseInt(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getOrderStatus()) - 1)]);
+				.parseInt(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
+						.get(position).getOrderStatus()) - 1)]);
 
 		final View view = convertView;
 		final int whichCancel = holder.mConfirmBtn.getId();
@@ -131,10 +151,12 @@ public class OrderWineAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				if (!TextUtils.isEmpty(etMap.get(id))) {
-					mCallback.onClick(view, v, tempPosition, whichCancel, etMap.get(id));
+					mCallback.onClick(view, v, tempPosition, whichCancel,
+							etMap.get(id));
 				} else {
-					Toast.makeText(mContext, mContext.getString(R.string.logistics_code_hint), Toast.LENGTH_SHORT)
-							.show();
+					Toast.makeText(mContext,
+							mContext.getString(R.string.logistics_code_hint),
+							Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -142,8 +164,8 @@ public class OrderWineAdapter extends BaseAdapter {
 		holder.mWineLl.removeAllViews();
 
 		ArrayList<Goods> goodsList = new ArrayList<Goods>();
-		goodsList.addAll(((ArrayList<Goods>) mMap
-				.get(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(position).getId())));
+		goodsList.addAll(((ArrayList<Goods>) mMap.get(((ArrayList<Order>) mMap
+				.get(MsgResult.ORDER_TAG)).get(position).getId())));
 		for (int i = 0; i < goodsList.size(); i++) {
 			// TODO
 			Goods goods = goodsList.get(i);
@@ -162,6 +184,8 @@ public class OrderWineAdapter extends BaseAdapter {
 		public TextView mId;
 
 		public TextView mPayType;
+
+		public TextView mAddress;
 
 		public Button mConfirmBtn;
 

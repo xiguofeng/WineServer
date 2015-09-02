@@ -30,7 +30,7 @@
             android:layout_toRightOf="@+id/list_order_group_id_tv"
             android:textColor="@color/orange_bg"
             android:textSize="@dimen/micro_text_size" />
-        
+
         <TextView
             android:id="@+id/list_order_group_state_tv"
             android:layout_width="wrap_content"
@@ -39,16 +39,24 @@
             android:layout_marginRight="10dip"
             android:textColor="@color/orange_bg"
             android:textSize="@dimen/micro_text_size" />
-        
+
         <TextView
             android:id="@+id/list_order_group_pay_type_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/list_order_group_state_tv"
             android:layout_marginRight="10dip"
+            android:layout_toLeftOf="@+id/list_order_group_state_tv"
             android:textColor="@color/orange_bg"
             android:textSize="@dimen/micro_text_size" />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/list_order_group_address_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:textColor="@color/orange_bg"
+        android:textSize="@dimen/micro_text_size" />
 
     <LinearLayout
         android:layout_width="fill_parent"
