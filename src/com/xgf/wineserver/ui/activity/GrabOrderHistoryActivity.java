@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,7 +32,7 @@ public class GrabOrderHistoryActivity extends Activity implements
 
 	private Context mContext;
 
-	private CustomListView mOrderTodayLv;
+	private ListView mOrderTodayLv;
 
 	private ListView mOrderHistoryLv;
 
@@ -54,8 +55,16 @@ public class GrabOrderHistoryActivity extends Activity implements
 	private OrderHistoryAdapter mOrderHistoryAdapter;
 
 	private HashMap<String, Object> mOrderMsgMap = new HashMap<String, Object>();
-	
+
 	private CustomProgressDialog2 mCustomProgressDialog;
+
+	private TextView mTodayTv;
+
+	private TextView mHistoryTv;
+
+	private LinearLayout mTodayLl;
+
+	private LinearLayout mHistoryLl;
 
 	Handler mHandler = new Handler() {
 
@@ -120,7 +129,15 @@ public class GrabOrderHistoryActivity extends Activity implements
 		mTodayNumTv = (TextView) findViewById(R.id.garb_history_today_num_tv);
 		mHistoryNumTv = (TextView) findViewById(R.id.garb_history_history_num_tv);
 
-		mOrderTodayLv = (CustomListView) findViewById(R.id.grab_order_history_list_today_lv);
+		mTodayTv = (TextView) findViewById(R.id.garb_history_today_tv);
+		mHistoryTv = (TextView) findViewById(R.id.garb_history_history_tv);
+		mTodayTv.setOnClickListener(this);
+		mHistoryTv.setOnClickListener(this);
+
+		mTodayLl = (LinearLayout) findViewById(R.id.garb_history_today_ll);
+		mHistoryLl = (LinearLayout) findViewById(R.id.garb_history_history_ll);
+
+		mOrderTodayLv = (ListView) findViewById(R.id.grab_order_history_list_today_lv);
 		mOrderTodayAdapter = new OrderHistoryAdapter(mContext, mOrderTodayList);
 		mOrderTodayLv.setAdapter(mOrderTodayAdapter);
 
@@ -133,15 +150,6 @@ public class GrabOrderHistoryActivity extends Activity implements
 
 	private void initData() {
 		mOrderList.clear();
-		// for (int i = 0; i < 10; i++) {
-		// Order order = new Order();
-		// order.setMemo("1.5km");
-		// order.setDeliveryTime("30分钟");
-		// order.setAddress("南京市江宁区" + i);
-		// order.setOrderTime("今天15:00");
-		// order.setAmount("洋河酒");
-		// mOrderList.add(order);
-		// }
 		if (null != mCustomProgressDialog) {
 			mCustomProgressDialog.show();
 		}
@@ -186,11 +194,30 @@ public class GrabOrderHistoryActivity extends Activity implements
 
 	@Override
 	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.garb_history_today_tv: {
+			mTodayTv.setTextColor(getResources().getColor(R.color.blue_text));
+			mHistoryTv.setTextColor(getResources().getColor(R.color.gray_text));
+			mTodayLl.setVisibility(View.VISIBLE);
+			mHistoryLl.setVisibility(View.GONE);
+			break;
+		}
+		case R.id.garb_history_history_tv: {
+			mTodayTv.setTextColor(getResources().getColor(R.color.gray_text));
+			mHistoryTv.setTextColor(getResources().getColor(R.color.blue_text));
+			mTodayLl.setVisibility(View.GONE);
+			mHistoryLl.setVisibility(View.VISIBLE);
+			break;
+		}
+		default:
+			break;
+		}
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+		if (keyCode == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN) {
 			HomeActivity.setTab(HomeActivity.TAB_MAIN);
 			return true;
 		}
