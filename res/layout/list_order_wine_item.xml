@@ -49,14 +49,42 @@
             android:textColor="@color/orange_bg"
             android:textSize="@dimen/micro_text_size" />
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/list_order_group_address_tv"
-        android:layout_width="wrap_content"
+    
+      <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:textColor="@color/orange_bg"
-        android:textSize="@dimen/micro_text_size" />
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp" >
+
+        <TextView
+            android:id="@+id/list_order_group_address_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dip"
+            android:textColor="@color/orange_bg"
+            android:textSize="@dimen/micro_text_size" />
+
+        <TextView
+            android:id="@+id/list_order_group_invoice_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_toRightOf="@+id/list_order_group_address_tv"
+            android:textColor="@color/orange_bg"
+            android:textSize="@dimen/micro_text_size" />
+
+        <TextView
+            android:id="@+id/list_order_group_phone_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dip"
+            android:textColor="@color/orange_bg"
+            android:textSize="@dimen/micro_text_size" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
