@@ -216,6 +216,4 @@ public class Order implements Serializable {
 		this.invoiceContent = invoiceContent;
 	}
 
-	
-	
 }

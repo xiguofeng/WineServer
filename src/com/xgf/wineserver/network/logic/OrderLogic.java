@@ -56,9 +56,8 @@ public class OrderLogic {
 
 	public static final int ORDER_CONFIRM_EXCEPTION = ORDER_CONFIRM_FAIL + 1;
 
-	public static void getRobOrder(final Context context,
-			final Handler handler, final String userId, final String longitude,
-			final String latitude) {
+	public static void getRobOrder(final Context context, final Handler handler, final String userId,
+			final String longitude, final String latitude) {
 
 		new Thread(new Runnable() {
 
@@ -66,30 +65,23 @@ public class OrderLogic {
 			public void run() {
 				try {
 
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
-							RequestUrl.order.queryOrderForGrab);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.order.queryOrderForGrab);
 					Log.e("xxx_id_order", UserInfoManager.userInfo.getUserId());
 
-					rpc.addProperty("userId",
-							URLEncoder.encode(userId, "UTF-8"));
-					rpc.addProperty("longitude",
-							URLEncoder.encode(longitude, "UTF-8"));
-					rpc.addProperty("latitude",
-							URLEncoder.encode(latitude, "UTF-8"));
+					rpc.addProperty("userId", URLEncoder.encode(userId, "UTF-8"));
+					rpc.addProperty("longitude", URLEncoder.encode(longitude, "UTF-8"));
+					rpc.addProperty("latitude", URLEncoder.encode(latitude, "UTF-8"));
 					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
 
-					AndroidHttpTransport ht = new AndroidHttpTransport(
-							RequestUrl.HOST_URL);
+					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
 
-					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-							SoapEnvelope.VER11);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 
 					envelope.bodyOut = rpc;
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE + "/"
-							+ RequestUrl.order.queryOrderForGrab, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.order.queryOrderForGrab, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
@@ -115,42 +107,36 @@ public class OrderLogic {
 	}
 
 	// {"datas":{"total":0,"list":[]},"message":"操作成功","result":"0"}
-	private static void parseGrabOrdersListData(JSONObject response,
-			Handler handler) {
+	private static void parseGrabOrdersListData(JSONObject response, Handler handler) {
 
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
 
-				JSONObject jsonObject = response
-						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+				JSONObject jsonObject = response.getJSONObject(MsgResult.RESULT_DATAS_TAG);
 
 				ArrayList<Order> tempOrderList = new ArrayList<Order>();
-				JSONArray orderListArray = jsonObject
-						.getJSONArray(MsgResult.RESULT_LIST_TAG);
+				JSONArray orderListArray = jsonObject.getJSONArray(MsgResult.RESULT_LIST_TAG);
 
 				HashMap<String, Object> msgMap = new HashMap<String, Object>();
 
+				String lastestOrderTimestamp = jsonObject.getString("lastestOrderTimestamp");
+
 				int size = orderListArray.length();
 				for (int i = 0; i < size; i++) {
-					JSONObject orderJsonObject = orderListArray
-							.getJSONObject(i);
-					Order order = (Order) JsonUtils.fromJsonToJava(
-							orderJsonObject, Order.class);
+					JSONObject orderJsonObject = orderListArray.getJSONObject(i);
+					Order order = (Order) JsonUtils.fromJsonToJava(orderJsonObject, Order.class);
 					tempOrderList.add(order);
 
 					ArrayList<Goods> tempGoodsList = new ArrayList<Goods>();
-					JSONArray goodsArray = orderJsonObject
-							.getJSONArray("items");
+					JSONArray goodsArray = orderJsonObject.getJSONArray("items");
 
 					for (int j = 0; j < goodsArray.length(); j++) {
-						JSONObject goodsJsonObject = goodsArray
-								.getJSONObject(j);
+						JSONObject goodsJsonObject = goodsArray.getJSONObject(j);
 						Goods goods = new Goods();
 						goods.setId(goodsJsonObject.getString("productId"));
 						goods.setName(goodsJsonObject.getString("productName"));
-						goods.setSalesPrice(goodsJsonObject
-								.getString("salePrice"));
+						goods.setSalesPrice(goodsJsonObject.getString("salePrice"));
 						goods.setNum(goodsJsonObject.getString("count"));
 						tempGoodsList.add(goods);
 					}
@@ -158,6 +144,7 @@ public class OrderLogic {
 
 				}
 				msgMap.put(MsgResult.ORDER_TAG, tempOrderList);
+				msgMap.put("lastestOrderTimestamp", lastestOrderTimestamp);
 
 				Message message = new Message();
 				message.what = ORDER_GRAB_LIST_SUC;
@@ -171,8 +158,8 @@ public class OrderLogic {
 		}
 	}
 
-	public static void grabOrder(final Context context, final Handler handler,
-			final String userId, final String orderId) {
+	public static void grabOrder(final Context context, final Handler handler, final String userId,
+			final String orderId) {
 
 		new Thread(new Runnable() {
 
@@ -180,27 +167,21 @@ public class OrderLogic {
 			public void run() {
 				try {
 
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
-							RequestUrl.order.grabOrder);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.order.grabOrder);
 
-					rpc.addProperty("userId",
-							URLEncoder.encode(userId, "UTF-8"));
-					rpc.addProperty("orderId",
-							URLEncoder.encode(orderId, "UTF-8"));
+					rpc.addProperty("userId", URLEncoder.encode(userId, "UTF-8"));
+					rpc.addProperty("orderId", URLEncoder.encode(orderId, "UTF-8"));
 					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
 
-					AndroidHttpTransport ht = new AndroidHttpTransport(
-							RequestUrl.HOST_URL);
+					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
 
-					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-							SoapEnvelope.VER11);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 
 					envelope.bodyOut = rpc;
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE + "/"
-							+ RequestUrl.order.grabOrder, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.order.grabOrder, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
@@ -239,50 +220,38 @@ public class OrderLogic {
 		}
 	}
 
-	public static void getGrabOrdersHistory(final Context context,
-			final Handler handler, final String userId,
-			final String orderStatus, final String pageNum,
-			final String pageSize) {
+	public static void getGrabOrdersHistory(final Context context, final Handler handler, final String userId,
+			final String orderStatus, final String pageNum, final String pageSize) {
 
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				try {
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
-							RequestUrl.order.queryOrderOfDelivery);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.order.queryOrderOfDelivery);
 
-					rpc.addProperty("userId",
-							URLEncoder.encode(userId, "UTF-8"));
-					rpc.addProperty("orderStatus",
-							URLEncoder.encode(orderStatus, "UTF-8"));
-					rpc.addProperty("pageNum",
-							URLEncoder.encode(pageNum, "UTF-8"));
-					rpc.addProperty("pageSize",
-							URLEncoder.encode(pageSize, "UTF-8"));
+					rpc.addProperty("userId", URLEncoder.encode(userId, "UTF-8"));
+					rpc.addProperty("orderStatus", URLEncoder.encode(orderStatus, "UTF-8"));
+					rpc.addProperty("pageNum", URLEncoder.encode(pageNum, "UTF-8"));
+					rpc.addProperty("pageSize", URLEncoder.encode(pageSize, "UTF-8"));
 					rpc.addProperty("md5", URLEncoder.encode("1111", "UTF-8"));
 
-					AndroidHttpTransport ht = new AndroidHttpTransport(
-							RequestUrl.HOST_URL);
+					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
 
-					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-							SoapEnvelope.VER11);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 
 					envelope.bodyOut = rpc;
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE + "/"
-							+ RequestUrl.order.queryOrderOfDelivery, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.order.queryOrderOfDelivery, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
-					Log.e("xxx_GrabOrdersHistory_result",
-							resultStr.toString());
+					Log.e("xxx_GrabOrdersHistory_result", resultStr.toString());
 					if (!TextUtils.isEmpty(resultStr)) {
-						Log.e("xxx_GrabOrdersHistory_result",
-								resultStr.toString());
+						Log.e("xxx_GrabOrdersHistory_result", resultStr.toString());
 						JSONObject obj = new JSONObject(resultStr);
 						parseGrabOrdersHistoryData(obj, handler);
 					}
@@ -301,44 +270,44 @@ public class OrderLogic {
 
 	}
 
-	// {"datas":{"total":"4","list":[{"phone":"1002","orderTime":"2015-08-06 16:35:26","orderStatus":"1","id":"","amount":"240","deliveryTime":"2030-00-00 00:00:00","address":"1234","payStatus":"","memo":"","items":[{"productId":"10002","productName":"海之蓝","salePrice":"120","count":"2"}]},{"phone":"1002","orderTime":"2015-08-06 16:35:47","orderStatus":"1","id":"","amount":"240","deliveryTime":"2030-00-00 00:00:00","address":"1234","payStatus":"","memo":"","items":[{"productId":"10002","productName":"海之蓝","salePrice":"120","count":"2"}]},{"phone":"1002","orderTime":"2015-08-06 16:44:35","orderStatus":"1","id":"","amount":"628","deliveryTime":"2030-00-00 00:00:00","address":"1234","payStatus":"","memo":"","items":[{"productId":"10002","productName":"海之蓝","salePrice":"120","count":"2"},{"productId":"2222","productName":"梦之蓝9","salePrice":"388","count":"1"}]},{"phone":"1002","orderTime":"2015-08-06 16:44:48","orderStatus":"1","id":"","amount":"628","deliveryTime":"2030-00-00 00:00:00","address":"1234","payStatus":"","memo":"","items":[{"productId":"10002","productName":"海之蓝","salePrice":"120","count":"2"},{"productId":"2222","productName":"梦之蓝9","salePrice":"388","count":"1"}]}]},"message":"操作成功",,"result":"0"}
-	private static void parseGrabOrdersHistoryData(JSONObject response,
-			Handler handler) {
+	// {"datas":{"total":"4","list":[{"phone":"1002","orderTime":"2015-08-06
+	// 16:35:26","orderStatus":"1","id":"","amount":"240","deliveryTime":"2030-00-00
+	// 00:00:00","address":"1234","payStatus":"","memo":"","items":[{"productId":"10002","productName":"海之蓝","salePrice":"120","count":"2"}]},{"phone":"1002","orderTime":"2015-08-06
+	// 16:35:47","orderStatus":"1","id":"","amount":"240","deliveryTime":"2030-00-00
+	// 00:00:00","address":"1234","payStatus":"","memo":"","items":[{"productId":"10002","productName":"海之蓝","salePrice":"120","count":"2"}]},{"phone":"1002","orderTime":"2015-08-06
+	// 16:44:35","orderStatus":"1","id":"","amount":"628","deliveryTime":"2030-00-00
+	// 00:00:00","address":"1234","payStatus":"","memo":"","items":[{"productId":"10002","productName":"海之蓝","salePrice":"120","count":"2"},{"productId":"2222","productName":"梦之蓝9","salePrice":"388","count":"1"}]},{"phone":"1002","orderTime":"2015-08-06
+	// 16:44:48","orderStatus":"1","id":"","amount":"628","deliveryTime":"2030-00-00
+	// 00:00:00","address":"1234","payStatus":"","memo":"","items":[{"productId":"10002","productName":"海之蓝","salePrice":"120","count":"2"},{"productId":"2222","productName":"梦之蓝9","salePrice":"388","count":"1"}]}]},"message":"操作成功",,"result":"0"}
+	private static void parseGrabOrdersHistoryData(JSONObject response, Handler handler) {
 
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
 
-				JSONObject jsonObject = response
-						.getJSONObject(MsgResult.RESULT_DATAS_TAG);
+				JSONObject jsonObject = response.getJSONObject(MsgResult.RESULT_DATAS_TAG);
 
 				ArrayList<Order> tempOrderList = new ArrayList<Order>();
-				JSONArray orderListArray = jsonObject
-						.getJSONArray(MsgResult.RESULT_LIST_TAG);
+				JSONArray orderListArray = jsonObject.getJSONArray(MsgResult.RESULT_LIST_TAG);
 
 				HashMap<String, Object> msgMap = new HashMap<String, Object>();
 
 				int size = orderListArray.length();
 				for (int i = 0; i < size; i++) {
-					JSONObject orderJsonObject = orderListArray
-							.getJSONObject(i);
-					Order order = (Order) JsonUtils.fromJsonToJava(
-							orderJsonObject, Order.class);
+					JSONObject orderJsonObject = orderListArray.getJSONObject(i);
+					Order order = (Order) JsonUtils.fromJsonToJava(orderJsonObject, Order.class);
 					tempOrderList.add(order);
 
 					ArrayList<Goods> tempGoodsList = new ArrayList<Goods>();
-					JSONArray goodsArray = orderJsonObject
-							.getJSONArray("items");
+					JSONArray goodsArray = orderJsonObject.getJSONArray("items");
 
 					for (int j = 0; j < goodsArray.length(); j++) {
-						JSONObject goodsJsonObject = goodsArray
-								.getJSONObject(j);
+						JSONObject goodsJsonObject = goodsArray.getJSONObject(j);
 						Goods goods = new Goods();
 						goods.setId(goodsJsonObject.getString("productId"));
 						goods.setName(goodsJsonObject.getString("productName"));
 						goods.setIconUrl(goodsJsonObject.getString("iconUrl"));
-						goods.setSalesPrice(goodsJsonObject
-								.getString("salePrice"));
+						goods.setSalesPrice(goodsJsonObject.getString("salePrice"));
 						goods.setNum(goodsJsonObject.getString("count"));
 						tempGoodsList.add(goods);
 					}
@@ -359,8 +328,8 @@ public class OrderLogic {
 		}
 	}
 
-	public static void recieveConfirm(final Context context,
-			final Handler handler, final String orderId, final String authCode) {
+	public static void recieveConfirm(final Context context, final Handler handler, final String orderId,
+			final String authCode) {
 
 		new Thread(new Runnable() {
 
@@ -368,26 +337,20 @@ public class OrderLogic {
 			public void run() {
 				try {
 
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE,
-							RequestUrl.order.recieveConfirm);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.order.recieveConfirm);
 
-					rpc.addProperty("orderId",
-							URLEncoder.encode(orderId, "UTF-8"));
-					rpc.addProperty("authCode",
-							URLEncoder.encode(authCode, "UTF-8"));
+					rpc.addProperty("orderId", URLEncoder.encode(orderId, "UTF-8"));
+					rpc.addProperty("authCode", URLEncoder.encode(authCode, "UTF-8"));
 
-					AndroidHttpTransport ht = new AndroidHttpTransport(
-							RequestUrl.HOST_URL);
+					AndroidHttpTransport ht = new AndroidHttpTransport(RequestUrl.HOST_URL);
 
-					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-							SoapEnvelope.VER11);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 
 					envelope.bodyOut = rpc;
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE + "/"
-							+ RequestUrl.order.recieveConfirm, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.order.recieveConfirm, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
@@ -413,8 +376,7 @@ public class OrderLogic {
 	}
 
 	// {"datas":{},"message":"操作成功","result":"0"}
-	private static void parseRecieveConfirmData(JSONObject response,
-			Handler handler) {
+	private static void parseRecieveConfirmData(JSONObject response, Handler handler) {
 
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
