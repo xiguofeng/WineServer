@@ -21,6 +21,17 @@
             android:textColor="@color/white"
             android:textSize="@dimen/large_text_size" />
     </RelativeLayout>
+    
+     <TextView
+        android:id="@+id/logi_confirm_null_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dip"
+        android:text="@string/null_confrim_hint"
+        android:textColor="@color/gray_text"
+        android:textSize="@dimen/middle_text_size"
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/logi_confirm_list_lv"

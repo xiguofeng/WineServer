@@ -45,5 +45,7 @@
     <string name="auth_receive">收货验证</string>
     <string name="auth_receive_suc">验证成功</string>
     <string name="auth_receive_fail">验证失败</string>
+    <string name="null_confrim_hint">配送员辛苦了，休息一下！</string>
+    
 
 </resources>
