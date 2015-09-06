@@ -81,17 +81,17 @@ public class OrderAdapter extends BaseAdapter {
 		} else {
 			holder.mDistanceTv.setText(mDatas.get(position).getDistance() + "km");
 		}
-		holder.mTimeTv.setText(mDatas.get(position).getOrderTime());
+		holder.mTimeTv.setText(mDatas.get(position).getPayTime());
 		holder.mInfoTv.setText(mDatas.get(position).getAmount() + "元");
 		holder.mWaitTimeTv.setText(mDatas.get(position).getDeliveryTime());
 		holder.mAddressTv.setText(mDatas.get(position).getAddress());
 
-		long orderTime = TimeUtils.dateToLong(mDatas.get(position).getOrderTime(), TimeUtils.FORMAT_PATTERN_DATE);
+		long orderTime = TimeUtils.dateToLong(mDatas.get(position).getPayTime(), TimeUtils.FORMAT_PATTERN_DATE);
 		long deliveryTime = TimeUtils.dateToLong(mDatas.get(position).getDeliveryTime(), TimeUtils.FORMAT_PATTERN_DATE);
 		String waitTime = String.valueOf((deliveryTime - orderTime) / 60);
 		holder.mWaitTimeTv.setText(waitTime + "分钟");
 
-		String orderTimeStr = new String(mDatas.get(position).getOrderTime());
+		String orderTimeStr = new String(mDatas.get(position).getPayTime());
 		if (!TextUtils.isEmpty(orderTimeStr)) {
 			if (orderTimeStr.length() > 11) {
 				String dateYMD = TimeUtils.getTodayCommonPattern().substring(0, 10);

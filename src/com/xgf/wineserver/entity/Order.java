@@ -11,6 +11,8 @@ public class Order implements Serializable {
 	private String phone;
 
 	private String orderTime;
+	
+	private String payTime;
 
 	private String orderStatus;
 
@@ -68,6 +70,14 @@ public class Order implements Serializable {
 
 	public void setOrderTime(String orderTime) {
 		this.orderTime = orderTime;
+	}
+
+	public String getPayTime() {
+		return payTime;
+	}
+
+	public void setPayTime(String payTime) {
+		this.payTime = payTime;
 	}
 
 	public String getOrderStatus() {
@@ -206,5 +216,6 @@ public class Order implements Serializable {
 		this.invoiceContent = invoiceContent;
 	}
 
+	
 	
 }
