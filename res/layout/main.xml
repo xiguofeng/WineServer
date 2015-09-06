@@ -45,6 +45,17 @@
             android:visibility="gone" />
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/main_order_null_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dip"
+        android:text="@string/null_confrim_hint"
+        android:textColor="@color/gray_text"
+        android:textSize="@dimen/middle_text_size"
+        android:visibility="gone" />
+
     <ListView
         android:id="@+id/main_order_list_lv"
         android:layout_width="match_parent"

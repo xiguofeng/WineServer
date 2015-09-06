@@ -21,8 +21,8 @@
             android:textColor="@color/white"
             android:textSize="@dimen/large_text_size" />
     </RelativeLayout>
-    
-     <TextView
+
+    <TextView
         android:id="@+id/logi_confirm_null_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

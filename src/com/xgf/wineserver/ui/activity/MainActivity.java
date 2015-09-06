@@ -6,6 +6,7 @@ import java.util.Collection;
 import com.baidu.location.BDLocation;
 import com.xgf.wineserver.R;
 import com.xgf.wineserver.entity.Order;
+import com.xgf.wineserver.network.config.MsgResult;
 import com.xgf.wineserver.network.logic.OrderLogic;
 import com.xgf.wineserver.service.MsgService;
 import com.xgf.wineserver.ui.adapter.OrderAdapter;
@@ -26,6 +27,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener,
@@ -44,8 +46,10 @@ public class MainActivity extends Activity implements OnClickListener,
 	private String mLon;
 
 	private CustomProgressDialog2 mCustomProgressDialog;
-	
+
 	private long exitTime = 0;
+
+	public TextView mNullTv;
 
 	Handler mHandler = new Handler() {
 
@@ -58,6 +62,11 @@ public class MainActivity extends Activity implements OnClickListener,
 					mOrderList.clear();
 					mOrderList.addAll((Collection<? extends Order>) msg.obj);
 					mOrderAdapter.notifyDataSetChanged();
+
+					mNullTv.setVisibility(View.VISIBLE);
+					if (mOrderList.size() > 0) {
+						mNullTv.setVisibility(View.GONE);
+					}
 				}
 				break;
 			}
@@ -117,9 +126,11 @@ public class MainActivity extends Activity implements OnClickListener,
 
 	private void initView() {
 		mContext = MainActivity.this;
+		mNullTv = (TextView) findViewById(R.id.main_order_null_tv);
 		mOrderLv = (ListView) findViewById(R.id.main_order_list_lv);
 		mOrderAdapter = new OrderAdapter(mContext, mOrderList, this);
 		mOrderLv.setAdapter(mOrderAdapter);
+		mNullTv.setVisibility(View.VISIBLE);
 		Log.e("xxx_id_main", UserInfoManager.userInfo.getUserId());
 
 	}
@@ -170,13 +181,14 @@ public class MainActivity extends Activity implements OnClickListener,
 	@Override
 	public void onClick(View v) {
 	}
-	
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+		if (keyCode == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN) {
 			if ((System.currentTimeMillis() - exitTime) > 2000) {
-				Toast.makeText(getApplicationContext(), R.string.exit, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), R.string.exit,
+						Toast.LENGTH_SHORT).show();
 				exitTime = System.currentTimeMillis();
 			} else {
 				finish();
