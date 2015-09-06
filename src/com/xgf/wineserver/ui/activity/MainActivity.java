@@ -49,7 +49,7 @@ public class MainActivity extends Activity implements OnClickListener,
 
 	private long exitTime = 0;
 
-	public TextView mNullTv;
+	public static TextView mNullTv;
 
 	Handler mHandler = new Handler() {
 
@@ -158,6 +158,11 @@ public class MainActivity extends Activity implements OnClickListener,
 		mOrderList.clear();
 		mOrderList.addAll(MsgService.sOrderList);
 		mOrderAdapter.notifyDataSetChanged();
+		
+		mNullTv.setVisibility(View.VISIBLE);
+		if (mOrderList.size() > 0) {
+			mNullTv.setVisibility(View.GONE);
+		}
 	}
 
 	private void getLoc() {
