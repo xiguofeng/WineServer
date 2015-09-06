@@ -96,6 +96,11 @@ public class MsgService extends Service {
 					sOrderList.addAll((ArrayList<Order>) sOrderMsgMap
 							.get(MsgResult.ORDER_TAG));
 					MainActivity.refresh();
+					
+					NotifyInfo notifyInfo = new NotifyInfo();
+					notifyInfo.setTitle("酒来了！");
+					notifyInfo.setContent("您有新的订单！");
+					//showIntentActivityNotify(notifyInfo);
 				}
 				break;
 			}
@@ -121,7 +126,7 @@ public class MsgService extends Service {
 	public void onCreate() {
 		super.onCreate();
 		mContext = this;
-		// initNotify();
+		 initNotify();
 		String version = getVersion();
 		if (!TextUtils.isEmpty(version)) {
 		}
@@ -185,11 +190,12 @@ public class MsgService extends Service {
 		mBuilder.setAutoCancel(true)
 				// 点击后让通知将消失
 				.setContentTitle(notifyInfo.getTitle())
-				.setContentText("：订单ID：" + notifyInfo.getContent())
-				.setTicker("点我").setSmallIcon(R.drawable.ic_launcher)
-				.setDefaults(Notification.DEFAULT_VIBRATE);
+				.setContentText("消息内容：" + notifyInfo.getContent())
+				.setTicker("酒来了").setSmallIcon(R.drawable.logo_app)
+				.setDefaults(Notification.FLAG_ONLY_ALERT_ONCE);
 		// 点击的意图ACTION是跳转到Intent
-		Intent resultIntent = new Intent(this, HomeActivity.class);
+		Intent resultIntent = new Intent();
+		//Intent resultIntent = new Intent(this, HomeActivity.class);
 		resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
 				resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
