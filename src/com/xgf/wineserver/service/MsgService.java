@@ -67,7 +67,7 @@ public class MsgService extends Service {
 
 	private String mLon;
 
-	private long mLastestOrderTimestamp=0;
+	private long mLastestOrderTimestamp = 0;
 
 	private Handler mMsgHandler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -93,20 +93,25 @@ public class MsgService extends Service {
 			case OrderLogic.ORDER_GRAB_LIST_SUC: {
 				if (null != msg.obj) {
 					sOrderMsgMap.clear();
-					sOrderMsgMap.putAll((Map<? extends String, ? extends Object>) msg.obj);
+					sOrderMsgMap
+							.putAll((Map<? extends String, ? extends Object>) msg.obj);
 
 					sOrderList.clear();
-					sOrderList.addAll((ArrayList<Order>) sOrderMsgMap.get(MsgResult.ORDER_TAG));
+					sOrderList.addAll((ArrayList<Order>) sOrderMsgMap
+							.get(MsgResult.ORDER_TAG));
 					MainActivity.refresh();
 
-					String lastestOrderTimestamp = (String) sOrderMsgMap.get("lastestOrderTimestamp");
+					String lastestOrderTimestamp = (String) sOrderMsgMap
+							.get("lastestOrderTimestamp");
 					if (!TextUtils.isEmpty(lastestOrderTimestamp)) {
-						if (mLastestOrderTimestamp < Long.parseLong(lastestOrderTimestamp)) {
+						if (mLastestOrderTimestamp < Long
+								.parseLong(lastestOrderTimestamp)) {
 							NotifyInfo notifyInfo = new NotifyInfo();
 							notifyInfo.setTitle("酒来了！");
 							notifyInfo.setContent("您有新的订单！");
 							showIntentActivityNotify(notifyInfo);
-							mLastestOrderTimestamp = Long.parseLong(lastestOrderTimestamp);
+							mLastestOrderTimestamp = Long
+									.parseLong(lastestOrderTimestamp);
 						}
 					}
 
@@ -164,22 +169,24 @@ public class MsgService extends Service {
 	}
 
 	private void sendHeartbeatPackage() {
-		OrderLogic.getRobOrder(mContext, mHeartBeatHandler, UserInfoManager.userInfo.getUserId(), mLon, mLat);
+		OrderLogic.getRobOrder(mContext, mHeartBeatHandler,
+				UserInfoManager.userInfo.getUserId(), mLon, mLat);
 	}
 
 	private void getLoc() {
-		LocationUtilsV5.getLocation(getApplicationContext(), new LocationCallback() {
-			@Override
-			public void onGetLocation(BDLocation location) {
-				Log.e("xxx_latitude", "" + location.getLatitude());
-				Log.e("xxx_longitude", "" + location.getLongitude());
+		LocationUtilsV5.getLocation(getApplicationContext(),
+				new LocationCallback() {
+					@Override
+					public void onGetLocation(BDLocation location) {
+						Log.e("xxx_latitude", "" + location.getLatitude());
+						Log.e("xxx_longitude", "" + location.getLongitude());
 
-				mLat = String.valueOf(location.getLatitude());
-				mLon = String.valueOf(location.getLongitude());
-				String addr = location.getAddrStr();
-				mMsgHandler.sendEmptyMessage(NOTIFY_UPDATE);
-			}
-		});
+						mLat = String.valueOf(location.getLatitude());
+						mLon = String.valueOf(location.getLongitude());
+						String addr = location.getAddrStr();
+						mMsgHandler.sendEmptyMessage(NOTIFY_UPDATE);
+					}
+				});
 	}
 
 	/** 初始化通知栏 */
@@ -193,18 +200,26 @@ public class MsgService extends Service {
 		// Notification.FLAG_ONGOING_EVENT --设置常驻
 		// Flag;Notification.FLAG_AUTO_CANCEL 通知栏上点击此通知后自动清除此通知
 		// notification.flags = Notification.FLAG_AUTO_CANCEL;
+		;
+
+		Uri uri = Uri.parse("android.resource://" + getPackageName() + "/"
+				+ R.raw.beep);
+
+		Uri.parse("android.resource://" + getPackageName() + "/raw/beep.ogg");
 		// //在通知栏上点击此通知后自动清除此通知
 		mBuilder.setAutoCancel(true)
 				// 点击后让通知将消失
-				.setContentTitle(notifyInfo.getTitle()).setContentText("消息内容：" + notifyInfo.getContent())
-				.setTicker("酒来了").setSmallIcon(R.drawable.logo_app).setDefaults(Notification.DEFAULT_ALL);
+				.setContentTitle(notifyInfo.getTitle())
+				.setContentText("消息内容：" + notifyInfo.getContent())
+				.setTicker("酒来了").setSmallIcon(R.drawable.logo_app)
+				.setDefaults(Notification.FLAG_AUTO_CANCEL).setSound(uri);
 
 		// 点击的意图ACTION是跳转到Intent
 		Intent resultIntent = new Intent();
 		// Intent resultIntent = new Intent(this, HomeActivity.class);
 		resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, resultIntent,
-				PendingIntent.FLAG_UPDATE_CURRENT);
+		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+				resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		mBuilder.setContentIntent(pendingIntent);
 		Log.e("xxx_mNotificationManager", "mNotificationManager");
 		mNotificationManager.notify(100, mBuilder.build());
@@ -236,9 +251,11 @@ public class MsgService extends Service {
 				@Override
 				public void run() {
 					Log.e(TAG, "MsgService Run: " + System.currentTimeMillis());
-					boolean b = isServiceWorked(MsgService.this, "com.xgf.wineserver.service.GuardService");
+					boolean b = isServiceWorked(MsgService.this,
+							"com.xgf.wineserver.service.GuardService");
 					if (!b) {
-						Intent service = new Intent(MsgService.this, GuardService.class);
+						Intent service = new Intent(MsgService.this,
+								GuardService.class);
 						startService(service);
 						Log.e(TAG, "Start GuardService");
 					}
@@ -249,11 +266,13 @@ public class MsgService extends Service {
 	});
 
 	public boolean isServiceWorked(Context context, String serviceName) {
-		ActivityManager myManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+		ActivityManager myManager = (ActivityManager) context
+				.getSystemService(Context.ACTIVITY_SERVICE);
 		ArrayList<RunningServiceInfo> runningService = (ArrayList<RunningServiceInfo>) myManager
 				.getRunningServices(Integer.MAX_VALUE);
 		for (int i = 0; i < runningService.size(); i++) {
-			if (runningService.get(i).service.getClassName().toString().equals(serviceName)) {
+			if (runningService.get(i).service.getClassName().toString()
+					.equals(serviceName)) {
 				return true;
 			}
 		}
