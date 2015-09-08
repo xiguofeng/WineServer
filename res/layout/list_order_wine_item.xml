@@ -80,8 +80,9 @@
             android:id="@+id/list_order_group_phone_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="3dip"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dip"
+            android:layout_marginRight="7dip"
             android:textColor="@color/orange_bg"
             android:textSize="@dimen/micro_text_size" />
     </RelativeLayout>

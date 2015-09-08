@@ -6,6 +6,8 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,7 +27,6 @@ import com.xgf.wineserver.ui.adapter.OrderWineAdapter;
 import com.xgf.wineserver.ui.utils.ListItemClickParameterHelp;
 import com.xgf.wineserver.ui.view.CustomProgressDialog2;
 import com.xgf.wineserver.utils.UserInfoManager;
-
 
 public class LogisticsConfirmActivity extends Activity implements
 		OnClickListener, ListItemClickParameterHelp {
@@ -51,7 +52,7 @@ public class LogisticsConfirmActivity extends Activity implements
 					mOrderMsgMap
 							.putAll((Map<? extends String, ? extends Object>) msg.obj);
 					mOrderAdapter.notifyDataSetChanged();
-					
+
 					mNullTv.setVisibility(View.VISIBLE);
 					if (((ArrayList<Order>) mOrderMsgMap
 							.get(MsgResult.ORDER_TAG)).size() > 0) {
@@ -146,6 +147,12 @@ public class LogisticsConfirmActivity extends Activity implements
 			OrderLogic.recieveConfirm(mContext, mHandler,
 					((ArrayList<Order>) mOrderMsgMap.get(MsgResult.ORDER_TAG))
 							.get(position).getId(), code);
+			break;
+		}
+		case R.id.list_order_group_phone_tv: {
+			Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+					+ code));
+			startActivity(intent);
 			break;
 		}
 		default:

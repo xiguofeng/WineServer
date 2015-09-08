@@ -135,9 +135,9 @@ public class OrderWineAdapter extends BaseAdapter {
 		holder.mAddress.setText(((ArrayList<Order>) mMap
 				.get(MsgResult.ORDER_TAG)).get(position).getAddress());
 
-		holder.mPhone
-				.setText(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
-						.get(position).getPhone());
+		final String phone = ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
+				.get(position).getPhone();
+		holder.mPhone.setText(phone);
 		String invoice = ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
 				.get(position).getInvoice();
 		if (!TextUtils.isEmpty(invoice) && "true".equals(invoice)) {
@@ -179,6 +179,16 @@ public class OrderWineAdapter extends BaseAdapter {
 					Toast.makeText(mContext,
 							mContext.getString(R.string.logistics_code_hint),
 							Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+
+		final int whichTel = holder.mPhone.getId();
+		holder.mPhone.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (!TextUtils.isEmpty(phone)) {
+					mCallback.onClick(view, v, tempPosition, whichTel, phone);
 				}
 			}
 		});
