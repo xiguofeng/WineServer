@@ -200,7 +200,6 @@ public class MsgService extends Service {
 		// Notification.FLAG_ONGOING_EVENT --设置常驻
 		// Flag;Notification.FLAG_AUTO_CANCEL 通知栏上点击此通知后自动清除此通知
 		// notification.flags = Notification.FLAG_AUTO_CANCEL;
-		;
 
 		Uri uri = Uri.parse("android.resource://" + getPackageName() + "/"
 				+ R.raw.beep);
