@@ -63,9 +63,9 @@ public class MsgService extends Service {
 
 	public static ArrayList<Order> sOrderList = new ArrayList<Order>();
 
-	private String mLat;
+	private String mLat="0";
 
-	private String mLon;
+	private String mLon="0";
 
 	private long mLastestOrderTimestamp = 0;
 
@@ -152,6 +152,7 @@ public class MsgService extends Service {
 
 		// monitorThread.start();
 		getLoc();
+		mMsgHandler.sendEmptyMessage(NOTIFY_UPDATE);
 		flags = START_STICKY;
 		return super.onStartCommand(intent, flags, startId);
 	}
@@ -184,7 +185,6 @@ public class MsgService extends Service {
 						mLat = String.valueOf(location.getLatitude());
 						mLon = String.valueOf(location.getLongitude());
 						String addr = location.getAddrStr();
-						mMsgHandler.sendEmptyMessage(NOTIFY_UPDATE);
 					}
 				});
 	}
