@@ -63,9 +63,9 @@ public class MsgService extends Service {
 
 	public static ArrayList<Order> sOrderList = new ArrayList<Order>();
 
-	private String mLat = "";
+	private String mLat = "0";
 
-	private String mLon = "";
+	private String mLon = "0";
 
 	private long mLastestOrderTimestamp = 0;
 
