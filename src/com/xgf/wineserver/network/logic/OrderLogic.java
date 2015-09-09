@@ -66,7 +66,7 @@ public class OrderLogic {
 				try {
 
 					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.order.queryOrderForGrab);
-					Log.e("xxx_id_order", UserInfoManager.userInfo.getUserId());
+					Log.e("xxx_id_order", userId);
 
 					rpc.addProperty("userId", URLEncoder.encode(userId, "UTF-8"));
 					rpc.addProperty("longitude", URLEncoder.encode(longitude, "UTF-8"));

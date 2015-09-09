@@ -63,9 +63,9 @@ public class MsgService extends Service {
 
 	public static ArrayList<Order> sOrderList = new ArrayList<Order>();
 
-	private String mLat = "0";
+	private String mLat = "";
 
-	private String mLon = "0";
+	private String mLon = "";
 
 	private long mLastestOrderTimestamp = 0;
 
@@ -170,14 +170,15 @@ public class MsgService extends Service {
 	}
 
 	private void sendHeartbeatPackage() {
-		if (TextUtils.isEmpty(UserInfoManager.userInfo.getUserId())) {
-			UserInfoManager.setUserInfo(mContext);
-			OrderLogic.getRobOrder(mContext, mHeartBeatHandler,
-					UserInfoManager.userInfo.getUserId(), mLon, mLat);
-		} else {
-			OrderLogic.getRobOrder(mContext, mHeartBeatHandler,
-					UserInfoManager.userInfo.getUserId(), mLon, mLat);
-		}
+		OrderLogic.getRobOrder(mContext, mHeartBeatHandler,
+				UserInfoManager.getUserId(mContext), mLon, mLat);
+		// if (TextUtils.isEmpty(UserInfoManager.userInfo.getUserId())) {
+		// UserInfoManager.setUserInfo(mContext);
+		// OrderLogic.getRobOrder(mContext, mHeartBeatHandler,
+		// UserInfoManager.userInfo.getUserId(), mLon, mLat);
+		// } else {
+		//
+		// }
 	}
 
 	private void getLoc() {
