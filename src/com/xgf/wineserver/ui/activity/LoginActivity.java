@@ -153,7 +153,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		// }
 		// }
 
-		Log.e("xxx_login", "" + UserInfoManager.getRememberPwd(mContext));
+		//Log.e("xxx_login", "" + UserInfoManager.getRememberPwd(mContext));
 		if (UserInfoManager.getRememberPwd(mContext)) {
 			UserInfoManager.setUserInfo(mContext);
 			// UserInfoManager.setUserInfo(LoginActivity.this);

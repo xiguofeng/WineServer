@@ -15,7 +15,7 @@ public class LocationUtilsV5 {
 	public static void getLocation(final Context context,
 			final LocationCallback callback) {
 
-		Log.e("xxx_loc", "2");
+		//Log.e("xxx_loc", "2");
 		LocationClient locationClient = new LocationClient(context);
 		MyLocationListener mMyLocationListener = new MyLocationListener(
 				callback);
@@ -33,7 +33,7 @@ public class LocationUtilsV5 {
 		option.setIsNeedAddress(true);
 
 		locationClient.setLocOption(option);
-		Log.e("xxx_loc", "3");
+		//Log.e("xxx_loc", "3");
 
 		locationClient.start();
 		// locationClient.requestLocation();
@@ -57,7 +57,7 @@ public class LocationUtilsV5 {
 		@Override
 		public void onReceiveLocation(BDLocation location) {
 
-			Log.e("xxx_loc", "4");
+			//Log.e("xxx_loc", "4");
 			// Receive Location
 			StringBuffer sb = new StringBuffer(256);
 			sb.append("time : ");
@@ -71,7 +71,7 @@ public class LocationUtilsV5 {
 			sb.append("\nradius : ");
 			sb.append(location.getRadius());
 			sb.append(location.getAddrStr());
-			Log.e("xxx_loc", "5" + location.getAddrStr());
+			//Log.e("xxx_loc", "5" + location.getAddrStr());
 			if (location.getLocType() == BDLocation.TypeGpsLocation) {
 				sb.append("\nspeed : ");
 				sb.append(location.getSpeed());

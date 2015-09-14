@@ -66,7 +66,7 @@ public class OrderLogic {
 				try {
 
 					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.order.queryOrderForGrab);
-					Log.e("xxx_id_order", userId);
+					//Log.e("xxx_id_order", userId);
 
 					rpc.addProperty("userId", URLEncoder.encode(userId, "UTF-8"));
 					rpc.addProperty("longitude", URLEncoder.encode(longitude, "UTF-8"));
@@ -87,7 +87,7 @@ public class OrderLogic {
 
 					String resultStr = (String) so.getProperty(0);
 
-					Log.e("xxx_orders_result", resultStr.toString());
+					//Log.e("xxx_orders_result", resultStr.toString());
 					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
 						parseGrabOrdersListData(obj, handler);
@@ -187,7 +187,7 @@ public class OrderLogic {
 
 					String resultStr = (String) so.getProperty(0);
 
-					Log.e("xxx_grabOrder_result", resultStr.toString());
+					//Log.e("xxx_grabOrder_result", resultStr.toString());
 					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
 						parseGrabOrderData(obj, handler);
@@ -249,9 +249,9 @@ public class OrderLogic {
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
-					Log.e("xxx_GrabOrdersHistory_result", resultStr.toString());
+					//Log.e("xxx_GrabOrdersHistory_result", resultStr.toString());
 					if (!TextUtils.isEmpty(resultStr)) {
-						Log.e("xxx_GrabOrdersHistory_result", resultStr.toString());
+						//Log.e("xxx_GrabOrdersHistory_result", resultStr.toString());
 						JSONObject obj = new JSONObject(resultStr);
 						parseGrabOrdersHistoryData(obj, handler);
 					}
@@ -356,7 +356,7 @@ public class OrderLogic {
 
 					String resultStr = (String) so.getProperty(0);
 
-					Log.e("xxx_recieveConfirm_result", resultStr.toString());
+					//Log.e("xxx_recieveConfirm_result", resultStr.toString());
 					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
 						parseRecieveConfirmData(obj, handler);

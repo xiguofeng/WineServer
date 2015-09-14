@@ -84,7 +84,7 @@ public class UserLogic {
 
 					String resultStr = (String) so.getProperty(0);
 
-					Log.e("xxx_login", resultStr);
+					//Log.e("xxx_login", resultStr);
 					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
 						parseLoginData(obj, handler);
@@ -108,7 +108,7 @@ public class UserLogic {
 
 	private static void parseLoginData(JSONObject response, Handler handler) {
 		try {
-			Log.e("xxx_login_suc", response.toString());
+			//Log.e("xxx_login_suc", response.toString());
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
 				JSONObject jsonObject = response
@@ -161,7 +161,7 @@ public class UserLogic {
 
 					String resultStr = (String) so.getProperty(0);
 
-					Log.e("xxx_modifyPwd", resultStr);
+					//Log.e("xxx_modifyPwd", resultStr);
 					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
 						parseModifyPwdData(obj, handler);
@@ -188,7 +188,7 @@ public class UserLogic {
 		try {
 			String sucResult = response.getString(MsgResult.RESULT_TAG).trim();
 			if (sucResult.equals(MsgResult.RESULT_SUCCESS)) {
-				Log.e("xxx_modify_suc", sucResult);
+				//Log.e("xxx_modify_suc", sucResult);
 				handler.sendEmptyMessage(MODIFY_PWD_SUC);
 			} else {
 				handler.sendEmptyMessage(MODIFY_PWD_FAIL);
@@ -238,7 +238,7 @@ public class UserLogic {
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
 					String resultStr = (String) so.getProperty(0);
-					Log.e("xxx_AuthCode_resultStr", resultStr);
+					//Log.e("xxx_AuthCode_resultStr", resultStr);
 
 					if (!TextUtils.isEmpty(resultStr)) {
 						JSONObject obj = new JSONObject(resultStr);
