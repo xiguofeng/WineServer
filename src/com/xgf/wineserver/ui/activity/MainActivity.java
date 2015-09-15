@@ -39,7 +39,7 @@ public class MainActivity extends Activity implements OnClickListener,
 
 	private static ArrayList<Order> mOrderList = new ArrayList<Order>();
 
-	private static OrderAdapter mOrderAdapter;
+	public static OrderAdapter mOrderAdapter;
 
 	private String mLat;
 
@@ -131,7 +131,7 @@ public class MainActivity extends Activity implements OnClickListener,
 		mOrderAdapter = new OrderAdapter(mContext, mOrderList, this);
 		mOrderLv.setAdapter(mOrderAdapter);
 		mNullTv.setVisibility(View.VISIBLE);
-		//Log.e("xxx_id_main", UserInfoManager.userInfo.getUserId());
+		// Log.e("xxx_id_main", UserInfoManager.userInfo.getUserId());
 
 	}
 
@@ -158,7 +158,7 @@ public class MainActivity extends Activity implements OnClickListener,
 		mOrderList.clear();
 		mOrderList.addAll(MsgService.sOrderList);
 		mOrderAdapter.notifyDataSetChanged();
-		
+
 		mNullTv.setVisibility(View.VISIBLE);
 		if (mOrderList.size() > 0) {
 			mNullTv.setVisibility(View.GONE);
@@ -170,8 +170,8 @@ public class MainActivity extends Activity implements OnClickListener,
 				new LocationCallback() {
 					@Override
 					public void onGetLocation(BDLocation location) {
-//						Log.e("xxx_latitude", "" + location.getLatitude());
-//						Log.e("xxx_longitude", "" + location.getLongitude());
+						// Log.e("xxx_latitude", "" + location.getLatitude());
+						// Log.e("xxx_longitude", "" + location.getLongitude());
 
 						mLat = String.valueOf(location.getLatitude());
 						mLon = String.valueOf(location.getLongitude());

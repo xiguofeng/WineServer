@@ -99,7 +99,10 @@ public class MsgService extends Service {
 					sOrderList.clear();
 					sOrderList.addAll((ArrayList<Order>) sOrderMsgMap
 							.get(MsgResult.ORDER_TAG));
-					MainActivity.refresh();
+					
+					if (null != MainActivity.mOrderAdapter) {
+						MainActivity.refresh();
+					}
 
 					String lastestOrderTimestamp = (String) sOrderMsgMap
 							.get("lastestOrderTimestamp");
@@ -186,8 +189,8 @@ public class MsgService extends Service {
 				new LocationCallback() {
 					@Override
 					public void onGetLocation(BDLocation location) {
-//						Log.e("xxx_latitude", "" + location.getLatitude());
-//						Log.e("xxx_longitude", "" + location.getLongitude());
+						// Log.e("xxx_latitude", "" + location.getLatitude());
+						// Log.e("xxx_longitude", "" + location.getLongitude());
 
 						mLat = String.valueOf(location.getLatitude());
 						mLon = String.valueOf(location.getLongitude());
@@ -227,7 +230,7 @@ public class MsgService extends Service {
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
 				resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		mBuilder.setContentIntent(pendingIntent);
-		//Log.e("xxx_mNotificationManager", "mNotificationManager");
+		// Log.e("xxx_mNotificationManager", "mNotificationManager");
 		mNotificationManager.notify(100, mBuilder.build());
 	}
 
