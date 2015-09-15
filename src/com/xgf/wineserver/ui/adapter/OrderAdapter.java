@@ -80,16 +80,19 @@ public class OrderAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		if (mDatas.get(position).getDistance().length() > 3) {
-			double distance = Double.parseDouble(mDatas.get(position)
-					.getDistance());
-			distance = distance / 1000;
+		if (!TextUtils.isEmpty(mDatas.get(position).getDistance())) {
+			if (mDatas.get(position).getDistance().length() > 3) {
+				double distance = Double.parseDouble(mDatas.get(position)
+						.getDistance());
+				distance = distance / 1000;
 
-			holder.mDistanceTv.setText(String.valueOf(distance).substring(0, 3)
-					+ "km");
-		} else {
-			holder.mDistanceTv.setText(mDatas.get(position).getDistance()
-					+ "km");
+				holder.mDistanceTv.setText(String.valueOf(distance).substring(
+						0, 3)
+						+ "km");
+			} else {
+				holder.mDistanceTv.setText(mDatas.get(position).getDistance()
+						+ "km");
+			}
 		}
 		holder.mTimeTv.setText(mDatas.get(position).getPayTime());
 		holder.mInfoTv.setText(mDatas.get(position).getAmount() + "元");
