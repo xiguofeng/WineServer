@@ -82,6 +82,9 @@ public class OrderWineAdapter extends BaseAdapter {
 					.findViewById(R.id.list_order_group_state_tv);
 			holder.mPayType = (TextView) convertView
 					.findViewById(R.id.list_order_group_pay_type_tv);
+			holder.mTotalMoney = (TextView) convertView
+					.findViewById(R.id.list_order_group_total_money_tv);
+			
 			holder.mAddress = (TextView) convertView
 					.findViewById(R.id.list_order_group_address_tv);
 
@@ -134,6 +137,8 @@ public class OrderWineAdapter extends BaseAdapter {
 		holder.mTime.setText(time);
 		holder.mAddress.setText(((ArrayList<Order>) mMap
 				.get(MsgResult.ORDER_TAG)).get(position).getAddress());
+		holder.mTotalMoney.setText("￥"+((ArrayList<Order>) mMap
+				.get(MsgResult.ORDER_TAG)).get(position).getAmount());
 
 		final String phone = ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
 				.get(position).getPhone();
@@ -216,6 +221,8 @@ public class OrderWineAdapter extends BaseAdapter {
 		public TextView mId;
 
 		public TextView mPayType;
+		
+		public TextView mTotalMoney;
 
 		public TextView mAddress;
 
