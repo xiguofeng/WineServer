@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_order_group_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -30,9 +31,9 @@
                 android:id="@+id/list_order_distance_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:layout_marginLeft="5dip"
                 android:singleLine="true"
                 android:textColor="@color/blue_text"
                 android:textSize="@dimen/small_text_size" />
@@ -127,7 +128,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dip"
-        android:background="@color/white"
         android:orientation="horizontal"
         android:paddingBottom="5dip" >
 
@@ -135,8 +135,8 @@
             android:id="@+id/list_order_address_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
             android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dip"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:singleLine="true"
@@ -147,8 +147,8 @@
             android:id="@+id/list_order_rob_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dip"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dip"
             android:background="@drawable/corners_bg_red"
             android:gravity="center"
             android:paddingBottom="5dip"

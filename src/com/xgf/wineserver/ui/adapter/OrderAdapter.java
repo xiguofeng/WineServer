@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class OrderAdapter extends BaseAdapter {
@@ -61,6 +62,8 @@ public class OrderAdapter extends BaseAdapter {
 			convertView = mInflater.inflate(R.layout.list_order_item, null);
 
 			holder = new ViewHolder();
+			holder.mOrderItemBgLl = (LinearLayout) convertView
+					.findViewById(R.id.list_order_group_ll);
 			holder.mDistanceTv = (TextView) convertView
 					.findViewById(R.id.list_order_distance_tv);
 			holder.mTimeTv = (TextView) convertView
@@ -80,6 +83,12 @@ public class OrderAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
+		holder.mOrderItemBgLl.setBackgroundColor(mContext.getResources()
+				.getColor(R.color.white));
+		if ("2".equals(mDatas.get(position).getOrderType())) {
+			holder.mOrderItemBgLl.setBackgroundColor(mContext.getResources()
+					.getColor(R.color.orange_bg));
+		}
 		if (!TextUtils.isEmpty(mDatas.get(position).getDistance())) {
 			if (mDatas.get(position).getDistance().length() > 3) {
 				double distance = Double.parseDouble(mDatas.get(position)
@@ -139,6 +148,8 @@ public class OrderAdapter extends BaseAdapter {
 	}
 
 	static class ViewHolder {
+
+		public LinearLayout mOrderItemBgLl;
 
 		public TextView mDistanceTv;
 
