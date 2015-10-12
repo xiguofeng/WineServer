@@ -85,9 +85,11 @@ public class OrderAdapter extends BaseAdapter {
 
 		holder.mOrderItemBgLl.setBackgroundColor(mContext.getResources()
 				.getColor(R.color.white));
-		if ("2".equals(mDatas.get(position).getOrderType())) {
-			holder.mOrderItemBgLl.setBackgroundColor(mContext.getResources()
-					.getColor(R.color.orange_bg));
+		if (!TextUtils.isEmpty(mDatas.get(position).getOrderType())) {
+			if ("2".equals(mDatas.get(position).getOrderType())) {
+				holder.mOrderItemBgLl.setBackgroundColor(mContext
+						.getResources().getColor(R.color.orange_bg));
+			}
 		}
 		if (!TextUtils.isEmpty(mDatas.get(position).getDistance())) {
 			if (mDatas.get(position).getDistance().length() > 3) {
