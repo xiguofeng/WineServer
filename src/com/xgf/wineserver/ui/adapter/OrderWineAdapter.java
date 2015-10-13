@@ -209,8 +209,8 @@ public class OrderWineAdapter extends BaseAdapter {
 		holder.mAssistorPhone.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (!TextUtils.isEmpty(phone)) {
-					mCallback.onClick(view, v, tempPosition, whichTel, phone);
+				if (!TextUtils.isEmpty(assistorPhone)) {
+					mCallback.onClick(view, v, tempPosition, whichAssistorTel, assistorPhone);
 				}
 			}
 		});
