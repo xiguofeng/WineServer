@@ -251,7 +251,7 @@ public class OrderLogic {
 					String resultStr = (String) so.getProperty(0);
 					//Log.e("xxx_GrabOrdersHistory_result", resultStr.toString());
 					if (!TextUtils.isEmpty(resultStr)) {
-						//Log.e("xxx_GrabOrdersHistory_result", resultStr.toString());
+						Log.e("xxx_GrabOrdersHistory_result", resultStr.toString());
 						JSONObject obj = new JSONObject(resultStr);
 						parseGrabOrdersHistoryData(obj, handler);
 					}

@@ -90,6 +90,9 @@ public class OrderWineAdapter extends BaseAdapter {
 
 			holder.mPhone = (TextView) convertView
 					.findViewById(R.id.list_order_group_phone_tv);
+			holder.mAssistorPhone = (TextView) convertView
+					.findViewById(R.id.list_order_group_assistor_phone_tv);
+			
 			holder.mInvoice = (TextView) convertView
 					.findViewById(R.id.list_order_group_invoice_tv);
 
@@ -143,6 +146,11 @@ public class OrderWineAdapter extends BaseAdapter {
 		final String phone = ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
 				.get(position).getPhone();
 		holder.mPhone.setText(phone);
+		
+		final String assistorPhone = ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
+				.get(position).getAssistorPhone();
+		holder.mAssistorPhone.setText(assistorPhone);
+		
 		String invoice = ((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG))
 				.get(position).getInvoice();
 		if (!TextUtils.isEmpty(invoice) && "true".equals(invoice)) {
@@ -197,6 +205,15 @@ public class OrderWineAdapter extends BaseAdapter {
 				}
 			}
 		});
+		final int whichAssistorTel = holder.mAssistorPhone.getId();
+		holder.mAssistorPhone.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (!TextUtils.isEmpty(phone)) {
+					mCallback.onClick(view, v, tempPosition, whichTel, phone);
+				}
+			}
+		});
 
 		holder.mWineLl.removeAllViews();
 
@@ -229,6 +246,8 @@ public class OrderWineAdapter extends BaseAdapter {
 		public TextView mInvoice;
 
 		public TextView mPhone;
+		
+		public TextView mAssistorPhone;
 
 		public Button mConfirmBtn;
 

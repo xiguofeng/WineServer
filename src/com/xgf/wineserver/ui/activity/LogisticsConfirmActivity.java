@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,8 +29,7 @@ import com.xgf.wineserver.ui.utils.ListItemClickParameterHelp;
 import com.xgf.wineserver.ui.view.CustomProgressDialog2;
 import com.xgf.wineserver.utils.UserInfoManager;
 
-public class LogisticsConfirmActivity extends Activity implements
-		OnClickListener, ListItemClickParameterHelp {
+public class LogisticsConfirmActivity extends Activity implements OnClickListener, ListItemClickParameterHelp {
 	private Context mContext;
 
 	public TextView mNullTv;
@@ -49,13 +49,11 @@ public class LogisticsConfirmActivity extends Activity implements
 			case OrderLogic.ORDERLIST_HISTORY_GET_SUC: {
 				if (null != msg.obj) {
 					mOrderMsgMap.clear();
-					mOrderMsgMap
-							.putAll((Map<? extends String, ? extends Object>) msg.obj);
+					mOrderMsgMap.putAll((Map<? extends String, ? extends Object>) msg.obj);
 					mOrderAdapter.notifyDataSetChanged();
 
 					mNullTv.setVisibility(View.VISIBLE);
-					if (((ArrayList<Order>) mOrderMsgMap
-							.get(MsgResult.ORDER_TAG)).size() > 0) {
+					if (((ArrayList<Order>) mOrderMsgMap.get(MsgResult.ORDER_TAG)).size() > 0) {
 						mNullTv.setVisibility(View.GONE);
 					}
 
@@ -70,18 +68,13 @@ public class LogisticsConfirmActivity extends Activity implements
 				break;
 			}
 			case OrderLogic.ORDER_CONFIRM_SUC: {
-				Toast.makeText(mContext,
-						mContext.getString(R.string.auth_receive_suc),
-						Toast.LENGTH_SHORT).show();
-				OrderLogic.getGrabOrdersHistory(mContext, mHandler,
-						UserInfoManager.userInfo.getUserId(),
+				Toast.makeText(mContext, mContext.getString(R.string.auth_receive_suc), Toast.LENGTH_SHORT).show();
+				OrderLogic.getGrabOrdersHistory(mContext, mHandler, UserInfoManager.userInfo.getUserId(),
 						OrderState.ORDER_STATUS_DELIVERY, "0", "30");
 				break;
 			}
 			case OrderLogic.ORDER_CONFIRM_FAIL: {
-				Toast.makeText(mContext,
-						mContext.getString(R.string.auth_receive_fail),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, mContext.getString(R.string.auth_receive_fail), Toast.LENGTH_SHORT).show();
 				break;
 			}
 			case OrderLogic.ORDER_CONFIRM_EXCEPTION: {
@@ -93,8 +86,7 @@ public class LogisticsConfirmActivity extends Activity implements
 			default:
 				break;
 			}
-			if (null != mCustomProgressDialog
-					&& mCustomProgressDialog.isShowing()) {
+			if (null != mCustomProgressDialog && mCustomProgressDialog.isShowing()) {
 				mCustomProgressDialog.dismiss();
 			}
 
@@ -129,10 +121,8 @@ public class LogisticsConfirmActivity extends Activity implements
 			mCustomProgressDialog.show();
 		}
 		mNullTv.setVisibility(View.VISIBLE);
-		OrderLogic.getGrabOrdersHistory(mContext, mHandler,
-				UserInfoManager.userInfo.getUserId(),
-				OrderState.ORDER_STATUS_GRABBED + ","
-						+ OrderState.ORDER_STATUS_DELIVERY, "0", "30");
+		OrderLogic.getGrabOrdersHistory(mContext, mHandler, UserInfoManager.userInfo.getUserId(),
+				OrderState.ORDER_STATUS_GRABBED + "," + OrderState.ORDER_STATUS_DELIVERY, "0", "30");
 	}
 
 	@Override
@@ -140,19 +130,25 @@ public class LogisticsConfirmActivity extends Activity implements
 	}
 
 	@Override
-	public void onClick(View item, View widget, int position, int which,
-			String code) {
+	public void onClick(View item, View widget, int position, int which, String code) {
 		switch (which) {
 		case R.id.list_order_received_auth_btn: {
 			OrderLogic.recieveConfirm(mContext, mHandler,
-					((ArrayList<Order>) mOrderMsgMap.get(MsgResult.ORDER_TAG))
-							.get(position).getId(), code);
+					((ArrayList<Order>) mOrderMsgMap.get(MsgResult.ORDER_TAG)).get(position).getId(), code);
 			break;
 		}
 		case R.id.list_order_group_phone_tv: {
-			Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
-					+ code));
-			startActivity(intent);
+			if (!TextUtils.isEmpty(code)) {
+				Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + code));
+				startActivity(intent);
+			}
+			break;
+		}
+		case R.id.list_order_group_assistor_phone_tv: {
+			if (!TextUtils.isEmpty(code)) {
+				Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + code));
+				startActivity(intent);
+			}
 			break;
 		}
 		default:
@@ -163,8 +159,7 @@ public class LogisticsConfirmActivity extends Activity implements
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK
-				&& event.getAction() == KeyEvent.ACTION_DOWN) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
 			HomeActivity.setTab(HomeActivity.TAB_MAIN);
 			return true;
 		}

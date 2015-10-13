@@ -47,6 +47,10 @@ public class Order implements Serializable {
 	private String invoiceTitle;
 
 	private String invoiceContent;
+	
+	private String assistor;
+
+	private String assistorPhone;
 
 	public String getId() {
 		return id;
@@ -216,4 +220,21 @@ public class Order implements Serializable {
 		this.invoiceContent = invoiceContent;
 	}
 
+	public String getAssistor() {
+		return assistor;
+	}
+
+	public void setAssistor(String assistor) {
+		this.assistor = assistor;
+	}
+
+	public String getAssistorPhone() {
+		return assistorPhone;
+	}
+
+	public void setAssistorPhone(String assistorPhone) {
+		this.assistorPhone = assistorPhone;
+	}
+
+	
 }
