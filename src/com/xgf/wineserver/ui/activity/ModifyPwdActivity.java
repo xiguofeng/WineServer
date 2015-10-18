@@ -24,8 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 @SuppressLint("NewApi")
-public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
-		TextWatcher {
+public class ModifyPwdActivity extends BaseActivity implements OnClickListener, TextWatcher {
 	public static final String ORIGIN_FROM_REG_KEY = "com.reg";
 
 	public static final String ORIGIN_FROM_ORDER_KEY = "com.order";
@@ -68,10 +67,9 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 				UserInfoManager.setUserInfo(ModifyPwdActivity.this);
 				UserInfoManager.setLoginIn(ModifyPwdActivity.this, true);
 
-				Toast.makeText(ModifyPwdActivity.this,
-						mContext.getString(R.string.modify_pwd_suc),
-						Toast.LENGTH_SHORT).show();
-				
+				Toast.makeText(ModifyPwdActivity.this, mContext.getString(R.string.modify_pwd_suc), Toast.LENGTH_SHORT)
+						.show();
+
 				clear();
 				HomeActivity.setTab(HomeActivity.TAB_MAIN);
 
@@ -94,8 +92,7 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 				break;
 			}
 			case UserLogic.SEND_AUTHCODE_FAIL: {
-				Toast.makeText(mContext, R.string.login_fail,
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, R.string.login_fail, Toast.LENGTH_SHORT).show();
 				break;
 			}
 			case UserLogic.SEND_AUTHCODE_EXCEPTION: {
@@ -108,9 +105,8 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 			default:
 				break;
 			}
-			
-			if (null != mCustomProgressDialog
-					&& mCustomProgressDialog.isShowing()) {
+
+			if (null != mCustomProgressDialog && mCustomProgressDialog.isShowing()) {
 				mCustomProgressDialog.dismiss();
 			}
 
@@ -124,18 +120,15 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 			case TIME_UPDATE: {
 				if (mTiming > 0) {
 					mTiming--;
-					mTimingTv.setText(String.valueOf(mTiming)+"秒");
+					mTimingTv.setText(String.valueOf(mTiming) + "秒");
 					mAuthCodeLl.setClickable(false);
-					mAuthCodeLl.setBackground(mContext.getResources()
-							.getDrawable(R.drawable.corners_bg_gray_all));
+					mAuthCodeLl.setBackground(mContext.getResources().getDrawable(R.drawable.corners_bg_gray_all));
 					;
 					mTimeHandler.sendEmptyMessageDelayed(TIME_UPDATE, 1000);
 				} else {
 					mAuthCodeLl.setClickable(true);
-					mAuthCodeLl.setBackground(mContext.getResources()
-							.getDrawable(R.drawable.corners_bg_orange_all));
-					mTimingTv
-							.setText(getString(R.string.get_verification_code));
+					mAuthCodeLl.setBackground(mContext.getResources().getDrawable(R.drawable.corners_bg_orange_all));
+					mTimingTv.setText(getString(R.string.get_verification_code));
 					mTiming = 60;
 				}
 				break;
@@ -155,6 +148,12 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 		initView();
 		initData();
 
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		initData();
 	}
 
 	protected void initView() {
@@ -187,12 +186,10 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 		mConfirmPwd = mConfirmPwdEt.getText().toString().trim();
 		mAuthCode = mAuthCodeEt.getText().toString().trim();
 
-		if (TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mPassWord)
-				|| TextUtils.isEmpty(mAuthCode)
+		if (TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mPassWord) || TextUtils.isEmpty(mAuthCode)
 				|| TextUtils.isEmpty(mConfirmPwd)) {
 			// layoutProcess.setVisibility(View.GONE);
-			Toast.makeText(ModifyPwdActivity.this,
-					mContext.getString(R.string.login_emptyname_or_emptypwd),
+			Toast.makeText(ModifyPwdActivity.this, mContext.getString(R.string.login_emptyname_or_emptypwd),
 					Toast.LENGTH_SHORT).show();
 		} else {
 			if (null != mCustomProgressDialog) {
@@ -219,18 +216,16 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 			mConfirmPwdEt.setError(getString(R.string.user_confirm_psw_hint));
 		}
 	}
-	
-	private void clear(){
+
+	private void clear() {
 		mPhoneEt.setText("");
 		mAuthCodeEt.setText("");
 		mPassWordEt.setText("");
 		mConfirmPwdEt.setText("");
-		
+
 		mAuthCodeLl.setClickable(true);
-		mAuthCodeLl.setBackground(mContext.getResources()
-				.getDrawable(R.drawable.corners_bg_orange_all));
-		mTimingTv
-				.setText(getString(R.string.get_verification_code));
+		mAuthCodeLl.setBackground(mContext.getResources().getDrawable(R.drawable.corners_bg_orange_all));
+		mTimingTv.setText(getString(R.string.get_verification_code));
 		mTiming = 60;
 	}
 
@@ -247,8 +242,7 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 				UserLogic.sendAuthCode(mContext, mHandler, mPhone, "3");
 
 			} else {
-				Toast.makeText(mContext, getString(R.string.mobile_phone_hint),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, getString(R.string.mobile_phone_hint), Toast.LENGTH_SHORT).show();
 			}
 			break;
 		}
@@ -258,7 +252,7 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 		}
 
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -275,8 +269,7 @@ public class ModifyPwdActivity extends BaseActivity implements OnClickListener,
 	}
 
 	@Override
-	public void beforeTextChanged(CharSequence s, int start, int count,
-			int after) {
+	public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 		// TODO Auto-generated method stub
 
 	}
