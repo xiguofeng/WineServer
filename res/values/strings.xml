@@ -15,6 +15,7 @@
     <string name="phone">手机</string>
     <string name="psw">密码</string>
     <string name="reg">注册</string>
+    <string name="msg">消息</string>
     <string name="login_successful">登录成功</string>
     <string name="login_fail">登录失败</string>
     <string name="user_name_hint">请输入用户名</string>

@@ -1,5 +1,7 @@
 package com.xgf.wineserver;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.xgf.wineserver.config.Constants;
 import com.xgf.wineserver.utils.image.ImageLoaderConfig;
 
@@ -18,6 +20,9 @@ public class BaseApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		ImageLoaderConfig.initImageLoader(this, Constants.BASE_IMAGE_CACHE);
+		
+		JPushInterface.setDebugMode(true); // 设置开启日志,发布时请关闭日志
+		JPushInterface.init(this);
 	}
 
 	@Override
