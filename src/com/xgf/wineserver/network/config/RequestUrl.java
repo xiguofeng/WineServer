@@ -71,7 +71,12 @@ public class RequestUrl {
 		/**
 		 * 获取抢单历史(已抢订单)
 		 */
-		public String queryOrderOfDelivery = "queryOrderOfDeliveryV2";
+		public String queryOrderOfDelivery = "queryOrderOfDelivery";
+		
+		/**
+		 * 获取抢单历史(已抢订单)
+		 */
+		public String queryOrderOfDeliveryV2 = "queryOrderOfDeliveryV2";
 
 		/**
 		 * 订单确认
