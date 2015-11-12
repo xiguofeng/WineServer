@@ -105,6 +105,12 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.xgf.wineserver.ui.activity.MsgActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
 
         <service android:name="com.xgf.wineserver.service.MsgService" >
             <intent-filter>
@@ -211,7 +217,7 @@
         
         <!-- Required  . Enable it you can get statistics data with channel -->
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
-        <meta-data android:name="JPUSH_APPKEY" android:value="4a853065b3f58bc1447b2acb" /> <!--  </>值来自开发者平台取得的AppKey-->
+        <meta-data android:name="JPUSH_APPKEY" android:value="a224e62bfb279b900a508e7e" /> <!--  </>值来自开发者平台取得的AppKey-->
          <!-- jpush end -->
     </application>
 

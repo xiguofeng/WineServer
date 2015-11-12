@@ -1,5 +1,7 @@
 package com.xgf.wineserver.ui.activity;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.xgf.wineserver.R;
 
 import android.os.Bundle;
@@ -17,6 +19,18 @@ public class SplashActivity extends BaseActivity {
 		setContentView(R.layout.splash);
 		initView();
 
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		JPushInterface.onResume(SplashActivity.this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		JPushInterface.onPause(SplashActivity.this);
 	}
 
 	@Override
