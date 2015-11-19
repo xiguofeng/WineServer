@@ -103,22 +103,22 @@ public class OrderWineAdapter extends BaseAdapter {
 					.findViewById(R.id.list_order_received_auth_btn);
 			holder.mWineLl = (LinearLayout) convertView
 					.findViewById(R.id.list_order_group_wine_ll);
-			holder.mOrderItemBgRl = (RelativeLayout) convertView
-					.findViewById(R.id.list_order_group_bg_rl);
+			holder.mOrderItemBgLl = (LinearLayout) convertView
+					.findViewById(R.id.list_order_group_bg_ll);
 
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		holder.mOrderItemBgRl.setBackgroundColor(mContext.getResources()
+		holder.mOrderItemBgLl.setBackgroundColor(mContext.getResources()
 				.getColor(R.color.white));
 		if (!TextUtils.isEmpty(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(
 				position).getOrderType())) {
 			if ("2".equals(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(
 					position).getOrderType())) {
-				holder.mOrderItemBgRl.setBackgroundColor(mContext
-						.getResources().getColor(R.color.orange_bg));
+				holder.mOrderItemBgLl.setBackgroundColor(mContext
+						.getResources().getColor(R.color.gray_search_bg));
 			}
 		}
 
@@ -269,7 +269,7 @@ public class OrderWineAdapter extends BaseAdapter {
 
 		public LinearLayout mWineLl;
 		
-		public RelativeLayout mOrderItemBgRl;
+		public LinearLayout mOrderItemBgLl;
 
 	}
 

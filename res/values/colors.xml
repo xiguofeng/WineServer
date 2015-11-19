@@ -23,7 +23,7 @@
     <color name="gray_brief_bg">#f1f1f1</color>
     <color name="gray_text_title">#898989</color>
     <color name="gray_common_bg">#f0f0f0</color>
-    <color name="gray_search_bg">#fcfcfc</color>
+    <color name="gray_search_bg">#C0D9D9</color>
     <color name="orange_text">#f56344</color>
     <color name="orange_title_bar_bg">#ec5c43</color>
     <color name="orange_stroke">#f5a623</color>

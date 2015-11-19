@@ -228,7 +228,7 @@ public class OrderLogic {
 			@Override
 			public void run() {
 				try {
-					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.order.queryOrderOfDelivery);
+					SoapObject rpc = new SoapObject(RequestUrl.NAMESPACE, RequestUrl.order.queryOrderOfDeliveryV2);
 
 					rpc.addProperty("userId", URLEncoder.encode(userId, "UTF-8"));
 					rpc.addProperty("orderStatus", URLEncoder.encode(orderStatus, "UTF-8"));
@@ -244,7 +244,7 @@ public class OrderLogic {
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(rpc);
 
-					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.order.queryOrderOfDelivery, envelope);
+					ht.call(RequestUrl.NAMESPACE + "/" + RequestUrl.order.queryOrderOfDeliveryV2, envelope);
 
 					SoapObject so = (SoapObject) envelope.bodyIn;
 
