@@ -111,6 +111,16 @@ public class OrderWineAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
+		holder.mId.setTextColor(mContext.getResources().getColor(R.color.orange_bg));
+		holder.mTime.setTextColor(mContext.getResources().getColor(R.color.orange_bg));
+		holder.mState.setTextColor(mContext.getResources().getColor(R.color.orange_bg));
+		holder.mPayType.setTextColor(mContext.getResources().getColor(R.color.orange_bg));
+		holder.mTotalMoney.setTextColor(mContext.getResources().getColor(R.color.orange_bg));
+		holder.mAddress.setTextColor(mContext.getResources().getColor(R.color.orange_bg));
+		holder.mPhone.setTextColor(mContext.getResources().getColor(R.color.orange_bg));
+		holder.mAssistorPhone.setTextColor(mContext.getResources().getColor(R.color.orange_bg));
+		holder.mInvoice.setTextColor(mContext.getResources().getColor(R.color.orange_bg));
+		
 		holder.mOrderItemBgLl.setBackgroundColor(mContext.getResources()
 				.getColor(R.color.white));
 		if (!TextUtils.isEmpty(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(
@@ -118,7 +128,16 @@ public class OrderWineAdapter extends BaseAdapter {
 			if ("2".equals(((ArrayList<Order>) mMap.get(MsgResult.ORDER_TAG)).get(
 					position).getOrderType())) {
 				holder.mOrderItemBgLl.setBackgroundColor(mContext
-						.getResources().getColor(R.color.gray_search_bg));
+						.getResources().getColor(R.color.orange_bg));
+				holder.mId.setTextColor(mContext.getResources().getColor(R.color.blue_text));
+				holder.mTime.setTextColor(mContext.getResources().getColor(R.color.blue_text));
+				holder.mState.setTextColor(mContext.getResources().getColor(R.color.blue_text));
+				holder.mPayType.setTextColor(mContext.getResources().getColor(R.color.blue_text));
+				holder.mTotalMoney.setTextColor(mContext.getResources().getColor(R.color.blue_text));
+				holder.mAddress.setTextColor(mContext.getResources().getColor(R.color.blue_text));
+				holder.mPhone.setTextColor(mContext.getResources().getColor(R.color.blue_text));
+				holder.mAssistorPhone.setTextColor(mContext.getResources().getColor(R.color.blue_text));
+				holder.mInvoice.setTextColor(mContext.getResources().getColor(R.color.blue_text));
 			}
 		}
 
