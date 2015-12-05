@@ -126,6 +126,7 @@ public class SplashActivity extends BaseActivity {
 					break;
 				}
 				case Dialog.BUTTON_NEGATIVE:
+					SplashActivity.this.finish();
 					break;
 				}
 			}
@@ -155,6 +156,7 @@ public class SplashActivity extends BaseActivity {
 					break;
 				}
 				case Dialog.BUTTON_NEGATIVE:
+					jump();
 					break;
 				}
 			}
