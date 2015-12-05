@@ -35,10 +35,11 @@ public class SplashActivity extends BaseActivity {
 					Version version = (Version) msg.obj;
 					mDownUrl = version.getUrl();
 
-					if (TextUtils.isEmpty(mDownUrl)) {
-						if ("Y".equals(version.getForce())) {
-							showDialog();
-						}
+					if (!TextUtils.isEmpty(mDownUrl)
+							&& "Y".equals(version.getForce())) {
+						showForceDialog();
+					} else {
+						showDialog();
 					}
 				} else {
 					jump();
@@ -110,7 +111,7 @@ public class SplashActivity extends BaseActivity {
 
 	}
 
-	private void showDialog() {
+	private void showForceDialog() {
 		// 先new出一个监听器，设置好监听
 		DialogInterface.OnClickListener dialogOnclicListener = new DialogInterface.OnClickListener() {
 
@@ -136,6 +137,35 @@ public class SplashActivity extends BaseActivity {
 		// builder.setIcon(R.mipmap.ic_launcher);//设置图标，图片id即可
 		builder.setPositiveButton("下载新版本", dialogOnclicListener);
 		builder.setNegativeButton("退出应用", dialogOnclicListener);
+		builder.create().show();
+	}
+
+	private void showDialog() {
+		// 先new出一个监听器，设置好监听
+		DialogInterface.OnClickListener dialogOnclicListener = new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				switch (which) {
+				case Dialog.BUTTON_POSITIVE: {
+					Intent intent = new Intent();
+					intent.setAction(Intent.ACTION_VIEW);
+					intent.setData(Uri.parse(mDownUrl));
+					startActivity(intent);
+					break;
+				}
+				case Dialog.BUTTON_NEGATIVE:
+					break;
+				}
+			}
+		};
+		// dialog参数设置
+		AlertDialog.Builder builder = new AlertDialog.Builder(this); // 先得到构造器
+		builder.setTitle("提示"); // 设置标题
+		builder.setMessage("版本升级"); // 设置内容
+		// builder.setIcon(R.mipmap.ic_launcher);//设置图标，图片id即可
+		builder.setPositiveButton("下载新版本", dialogOnclicListener);
+		builder.setNegativeButton("暂不升级", dialogOnclicListener);
 		builder.create().show();
 	}
 }
