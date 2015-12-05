@@ -38,7 +38,7 @@ public class SplashActivity extends BaseActivity {
 					if (!TextUtils.isEmpty(mDownUrl)
 							&& "Y".equals(version.getForce())) {
 						showForceDialog();
-					} else {
+					} else if (!TextUtils.isEmpty(mDownUrl)) {
 						showDialog();
 					}
 				} else {
